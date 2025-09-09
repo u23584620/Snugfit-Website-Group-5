@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reviews | Snugfit Mouth Guards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #ffffff;
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Override navbar/tab color for this page only */
+        .navbar {
+            position: absolute;
+            top: 32px;
+            right: 60px;
+            z-index: 10;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-tab {
+            color: #111 !important;
+        }
+        .nav-tab::after {
+            background: #111 !important;
+        }
+        .review-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(41,41,41,0.06);
+            padding: 40px 32px 32px 32px;
+        }
+        .review-title {
+            font-size: 2em;
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 0px;
+            cursor: pointer;
+            background: rgba(192, 158, 6, 0.753);
+            border-radius: 0px;
+            padding: 8px 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .review-header {
+            font-size: 1.3em;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 24px;
+            cursor: pointer;
+            background: #1a237e;
+            border-radius: 12px;
+            padding: 14px 0;
+            transition: color 0.2s, background 0.2s;
+            font-weight: bold;
+        }
+        .review-header:hover {
+            color: rgba(192, 158, 6, 0.753);
+            background: #1a237e;
+        }
+        .review-form {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .review-form textarea {
+            width: 100%;
+            min-height: 80px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 1.5px solid #1a237e;
+            padding: 12px;
+            margin-bottom: 12px;
+            resize: vertical;
+        }
+        .review-form input[type="text"] {
+            width: 100%;
+            font-size: 1em;
+            border-radius: 8px;
+            border: 1.5px solid #1a237e;
+            padding: 8px;
+            margin-bottom: 12px;
+        }
+        .review-form button {
+            background: #1a237e;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 1em;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .review-form button:hover {
+            background: #233fa1;
+        }
+        .reviews-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+        }
+        .review-card {
+            background: #fafafa;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px 18px;
+            width: 270px;
+            min-height: 120px;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: #222;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .review-author {
+            margin-top: 12px;
+            font-size: 0.95em;
+            color: #1a237e;
+            font-weight: bold;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- Only for personalise.html -->
+    <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
+        <img src="Website Design\Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
+        <div class="navbar">
+            <a href="practice1.html" class="nav-tab">Home</a>
+            <a href="#school" class="nav-tab">School & Clubs</a>
+            <a href="personalise.html" class="nav-tab">Personalise</a>
+            <a href="Reviews.html" class="nav-tab">Reviews</a>
+            <a href="#bookings" class="nav-tab">Bookings</a>
+            <a href="#contact" class="nav-tab">Contact Us</a>
+        </div>
+    </div>
+    <!-- Review Title stays at the top -->
+    <div class="review-title" style="display: flex; align-items: center; justify-content: center; height: 100px; text-align: center;">
+        Review Us!
+    </div>
+    <div class="main-content" style="width: 1000px; margin: 0 auto 24px auto;">
+        <p style="text-align:center; font-size:1.0em; color:rgb(124, 115, 115); font-family: 'Poppins', Arial, sans-serif;">
+        Our team at Snugfit would love to hear from you! Your feedback is valuable to us and helps others learn about our service. Please share your experience below!
+        </p>
+        <div class="review-container" style="margin-top: 0;">
+            <div class="review-header" id="review-header">Submit Your Response Here</div>
+            <form class="review-form" id="review-form">
+                <input type="text" id="review-author" placeholder="Your name (optional)">
+                <textarea id="review-text" placeholder="Type your review here..." required></textarea>
+                <button type="submit">Post Review</button>
+            </form>
+            <div class="reviews-list" id="reviews-list">
+                <!-- Existing reviews -->
+                <div class="review-card">
+                    "I don't think you understand how awesome that is!"
+                    <div class="review-author">- St. Stithian's coach</div>
+                </div>
+                <div class="review-card">
+                    "It is highly recommended that all rugby and hockey players wear a mouthguard during matches. Snugfit Mouth Guards is a reputable supplier of mouthguards at reduced prices to schools."
+                    <div class="review-author">- Dainfern College</div>
+                </div>
+                <div class="review-card">
+                    "My seun is verskriklik happy. Hy het dit gepas en hy se dit is so cool. Baie dankie."
+                    <div class="review-author">- Mnr. Van der Merwe</div>
+                </div>
+                <div class="review-card">
+                    "Thanks so much for the great service!"
+                    <div class="review-author">- Jem Van Vuren</div>
+                </div>
+                <div class="review-card">
+                    "You rock! You are the best in the country."
+                    <div class="review-author">- Sibu</div>
+                </div>
+                <div class="review-card">
+                    "You are amazing! Thank you, thank you, thank you."
+                    <div class="review-author">- Tina</div>
+                </div>
+                <div class="review-card">
+                    "Thank you so, so, so much! Appreciated!"
+                    <div class="review-author">- St. John's College Parent</div>
+                </div>
+                <div class="review-card">
+                    "I received my mouth guard and it is perfect. Thank you."
+                    <div class="review-author">- Zoutendyk</div>
+                </div>
+                <div class="review-card">
+                    "On behalf of King Edward VII School, I would just like to say thank you very much for the superb and professional service that you delivered and this at a fraction of a price! We will definitely be making use of your services in the future and we are looking forward to it. Once again, thank you very much!"
+                    <div class="review-author">- Hennie Liebenberg</div>
+                </div>
+                <div class="review-card">
+                    "My son is over the moon with his new mouthguard! Your team had so much patience with him."
+                    <div class="review-author">- St. John's College Parent</div>
+                </div>
+                <div class="review-card">
+                    "Thanks once again, and the convenience of you coming to St. John's to take the mouth prints and then delivering the mouth guards to school for distribution was brilliant!"
+                    <div class="review-author">- Sean Logan</div>
+                </div>
+                <div class="review-card">
+                    "You are a legend. Thank you a million times for getting it done so quickly – so grateful."
+                    <div class="review-author">- St. David's Parent</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Toggle review form
+        document.getElementById('review-header').onclick = function() {
+            const form = document.getElementById('review-form');
+            form.style.display = (form.style.display === "flex") ? "none" : "flex";
+        };
+
+        // Handle review submission
+        document.getElementById('review-form').onsubmit = function(e) {
+            e.preventDefault();
+            const text = document.getElementById('review-text').value.trim();
+            const author = document.getElementById('review-author').value.trim();
+            if (text.length === 0) return;
+            const card = document.createElement('div');
+            card.className = "review-card";
+            card.innerHTML = `"${text}"` + (author ? `<div class="review-author">- ${author}</div>` : "");
+            document.getElementById('reviews-list').prepend(card);
+            document.getElementById('review-text').value = "";
+            document.getElementById('review-author').value = "";
+            this.style.display = "none";
+        };
+    </script>
+    <footer>
+        <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2025</p>
+        <div class="social-icons">
+            <a href="mailto:info@snugfitmouthguards.co.za" aria-label="Email">
+                <img src="Website Design/Email Icon.png" alt="Email">
+            </a>
+            <a href="https://facebook.com/snugfitmouthguards/" target="_blank" aria-label="Facebook">
+                <img src="Website Design/Facebook Icon.png" alt="Facebook">
+            </a>
+            <a href="https://instagram.com/snugfitmouthguards/?hl=en" target="_blank" aria-label="Instagram">
+                <img src="Website Design/Insta Icon.png" alt="Instagram">
+            </a>
+            <a href="https://www.youtube.com/@snugfitmouthguards" target="_blank" aria-label="YouTube">
+                <img src="Website Design/YouTube Icon.png" alt="YouTube">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

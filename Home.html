@@ -1,0 +1,504 @@
+<!doctype html>
+<html>
+<head> 
+    <title>Snugfit Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ✅ Consolidated Navbar + Dropdown Styles -->
+    <style>
+    html, body { max-width: 100vw; overflow-x: hidden; box-sizing: border-box; }
+
+    /* Menu button (hamburger) */
+    .menu-toggle {
+        display: none;
+        background: #111;
+        color: #fff;
+        border: none;
+        font-size: 1.8em;
+        padding: 6px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        position: absolute;
+        top: 28px;
+        right: 20px;
+        z-index: 20;
+    }
+
+    /* Base nav (desktop) */
+    .navbar {
+        position: absolute;
+        top: 32px;
+        right: 60px;
+        z-index: 10;
+        display: flex;
+        gap: 32px;
+        background: none;
+        width: auto;
+        align-items: center;
+        transition: all 0.2s;
+
+        position: absolute;
+                top: 32px;
+                right: 60px;
+                z-index: 10;
+                margin-right: 60px;
+                display: flex;
+                gap: 32px;
+                background: none;
+                width: auto;
+                align-items: center;
+                transition: all 0.2s;
+    }
+
+    .nav-tab {
+        color: #111 !important;
+        white-space: nowrap;
+        font-size: 1em;
+        padding: 8px 12px;
+        transition: font-size 0.2s, padding 0.2s;
+    }
+    .nav-tab::after {
+        content: "";
+        display: block;
+        height: 3px;
+        width: 0;
+        background: #111;
+        border-radius: 2px;
+        transition: width 0.3s;
+        margin-top: 5px;
+    }
+    .nav-tab:hover::after { width: 100%; }
+
+    /* Tablet tweaks */
+    @media (max-width: 900px) {
+        .navbar { gap: 16px; right: 20px; }
+        .nav-tab { font-size: 0.9em; padding: 6px 8px; }
+    }
+
+    /* Mobile dropdown */
+    @media (max-width: 700px) {
+        .navbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            flex-direction: column;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            width: 70vw;
+            max-width: 320px;
+            height: 100vh;
+            gap: 0;
+            align-items: flex-start;
+            padding: 60px 0 0 0;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+            z-index: 9999;
+            
+        }
+        .navbar.open { transform: translateX(0); }
+
+        .nav-tab {
+            color: #111 !important;
+            padding: 18px 32px;
+            font-size: 1.1em;
+            border-bottom: 1px solid #eee;
+            width: 100%;
+            text-align: left;
+        }
+        .menu-toggle { display: block; }
+
+        .main-content > div,
+        .main-content > .main-section {
+            flex-direction: column !important;
+            padding: 16px 4vw !important;
+            margin: 12px auto !important;
+            max-width: 100vw !important;
+        }
+        .main-content img,
+        .main-content video {
+            max-width: 100vw !important;
+            height: auto !important;
+        }
+        .footer-tab {
+            min-width: 120px !important;
+            font-size: 0.95em !important;
+            padding: 10px 8px !important;
+        }
+    }
+    </style>
+
+    <!-- ✅ Booking row -->
+    <style>
+    .booking-row {
+        display: flex;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto 40px auto;
+        padding: 60px 40px 40px 40px;
+        background: #fff !important;
+        border-radius: 0px;
+        box-shadow: 0 0px 0px rgba(41,41,41,0.06);
+    }
+    .booking-img-col {
+        flex: 0 0 340px;
+        margin-left: 30px;
+        margin-right: 20px;
+        display: flex;
+        align-items: stretch;
+    }
+    .booking-text-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 20px;
+    }
+    @media (max-width: 900px) {
+        .booking-row { padding: 32px 8vw 24px 8vw; }
+        .booking-img-col { margin-left: 10px; margin-right: 10px; }
+        .booking-text-col { margin-left: 10px; }
+    }
+    @media (max-width: 700px) {
+        .booking-row { flex-direction: column; padding: 12px 2vw 12px 2vw; }
+        .booking-img-col, .booking-text-col { margin: 0 auto 8px auto; }
+        .booking-text-col { margin-left: 0; }
+    }
+    </style>
+
+    <!-- ✅ Protect image -->
+    <style>
+    .protect-img {
+        width: 100%;
+        max-width: 340px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+        display: block;
+        margin-bottom: 32px;
+    }
+    @media (max-width: 900px) { .protect-img { max-width: 240px; } }
+    @media (max-width: 700px) { .protect-img { max-width: 140px; } }
+    </style>
+
+    <!-- ✅ Video rows -->
+    <style>
+    .video-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+    }
+    .video-row video {
+        width: 48vw;
+        max-width: 400px;
+        min-width: 140px;
+        height: auto;
+    }
+    @media (max-width: 900px) {
+        .video-row video { width: 44vw; max-width: 320px; }
+    }
+    @media (max-width: 700px) {
+        .video-row { gap: 8px; }
+        .video-row video { width: 48vw; max-width: 48vw; min-width: 90px; }
+    }
+    </style>
+
+    <!-- ✅ Footer tabs -->
+    <style>
+    .footer-tab-row {
+        display: flex;
+        width: 100%;
+        max-width: 1100px;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 32px;
+    }
+    @media (max-width: 900px) { .footer-tab-row { gap: 16px; } }
+    @media (max-width: 700px) { .footer-tab-row { gap: 6px; } }
+
+    .footer-tab {
+        min-width: 120px;
+        font-size: 1em;
+        padding: 8px 10px;
+        box-sizing: border-box;
+        transition: all 0.2s;
+    }
+    .footer-tab span {
+        font-size: 0.85em;
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+        display: block;
+        transition: font-size 0.2s;
+    }
+    @media (max-width: 900px) {
+        .footer-tab { min-width: 90px; font-size: 0.8em; padding: 6px 6px; }
+        .footer-tab span { font-size: 0.7em; }
+    }
+    @media (max-width: 700px) {
+        .footer-tab { min-width: 60px !important; font-size: 0.65em !important; padding: 3px 1px !important; }
+        .footer-tab span { font-size: 0.55em; }
+    }
+    </style>
+
+    <!-- ✅ Social icons -->
+    <style>
+    .social-icons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .social-icons img {
+        width: 50px;
+        height: 50px;
+        vertical-align: middle;
+        transition: width 0.2s, height 0.2s;
+    }
+    @media (max-width: 700px) {
+        .social-icons img { width: 28px; height: 28px; }
+    }
+    </style>
+</head>
+
+<body>
+    <!-- ✅ Hero Section -->
+    <div class="hero-section home-hero" id="home">
+        <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
+        <nav class="navbar" aria-label="Main menu">
+            <a href="Home.html" class="nav-tab">Home</a>
+            <a href="#school" class="nav-tab">Schools & Clubs</a>
+            <a href="personalise.html" class="nav-tab">Personalise</a>
+            <a href="#bookings" class="nav-tab">Bookings</a>
+            <a href="Reviews.html" class="nav-tab">Reviews</a>
+            <a href="#contact" class="nav-tab">Contact Us</a>
+        </nav>
+        <div id="scroll-arrow" class="scroll-down-arrow">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 16.5c-.28 0-.53-.11-.71-.29l-6-6a1.003 1.003 0 0 1 1.42-1.42L12 13.59l5.29-5.3a1.003 1.003 0 0 1 1.42 1.42l-6 6c-.18.18-.43.29-.71.29z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ✅ Main Content -->
+    <div class="main-content">
+        <!-- Example first section -->
+        <div style="display: flex; align-items: flex-start; max-width: 1200px; margin: 0 auto 40px auto; padding: 60px 40px 40px 40px; background: #fff; border-radius: 0px; box-shadow: 0 0px 0px rgba(41,41,41,0.06);">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 40px;">
+                <div style="margin-bottom: 32px;">
+                    <h2 style="color: #1a237e; margin-top: 0;">Our Mouthguards</h2>
+                    <p style="text-align: justify;">
+                        At Snugfit, we believe protection shouldn’t come at the cost of comfort. Our custom-made mouth guards are crafted from premium Ethyl Vinyl Acetate (EVA) — a high-quality, latex-free material known for its durability and safety. Each guard offers superior protection, a comfortable fit, and allows for easier breathing during sports. Whether you’re on the field, court, or ring, our mouth guards give you peace of mind at an unbeatable price.
+                    </p>
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <h2 style="color: #1a237e;">Who Are We?</h2>
+                    <p style="text-align: justify;">
+                        Snugfit Mouth Guards is your trusted partner in high-quality, customised sports mouth guards at affordable prices. We work closely with schools and clubs, arranging convenient on-site visits to take impressions. For those who prefer a private setting, we also offer impression appointments at our dental rooms. Our goal is to make the process simple, accessible, and tailored to your needs.
+                    </p>
+                </div>
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
+                <img src="Website Design/Mouth guard Board.png"
+                    alt="Snugfit Mouth Guard Example"
+                    style="width: 100vw; max-width: 100vw; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.18); display: block; margin-bottom: 32px;">
+            </div>
+        </div>
+
+
+        <!-- Footer coloured spacer with tabs (from practice1.html) -->
+        <div style="width: 100%; height: 150px; background: rgba(233, 193, 14, 0.753); display: flex; align-items: center; justify-content: center; overflow-x: auto;">
+            <div class="footer-tab-row">
+                <label class="footer-tab" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="Website Design/Quality.png" alt="" style="width: 50px; height: 50px; border-radius: 6px;">
+                    <span>Snugfit Quality</span>
+                </label>
+                <label class="footer-tab" style="display: flex; align-items: center; gap: 10px; cursor:pointer;" onclick="window.open('PDFs/Evidence of Benefits of Custom-fitted Mouth Guards.pdf', '_blank')">
+                    <img src="Website Design/Researched Solution.png" alt="" style="width: 50px; height: 50px; border-radius: 6px;">
+                    <span>Researched Solution</span>
+                </label>
+                <label class="footer-tab" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="Website Design/MG Instructions.png" alt="" style="width: 50px; height: 50px; border-radius: 6px;">
+                    <span>Mouthguard Care</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Video row -->
+        <div class="video-row" style="background: #fff; border-radius: 16px; padding: 40px 0; margin: -20px auto 0 auto; max-width: 100vw; align-items: center; justify-content: center;">
+            <video autoplay loop muted playsinline style="border-radius: 12px; object-fit: contain; background: #fff;">
+                <source src="Website Design/Snugfit Slogan Web Video.mp4" type="video/mp4">
+            </video>
+            <video id="panvideo" autoplay loop muted playsinline style="border-radius: 12px; object-fit: contain; background: #fff;">
+                <source src="Website Design/White MG Web Video.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Spacer -->
+        <div style="width: 100vw; height: 150px; background: rgba(233, 193, 14, 0.753); margin-top: 0;"></div>
+
+        <!-- Booking Row -->
+        <div class="booking-row">
+            <div class="booking-img-col">
+                <img src="Website Design/Protect Your Smile.png" alt="Protect Your Smile" class="protect-img">
+            </div>
+            <div class="booking-text-col">
+                <div style="margin-bottom: 32px;">
+                    <h2 style="color: #1a237e; margin-top: 0;">Booking Process</h2>
+                    <ul style="font-size: 1.0em; line-height: 1.7; margin: 0; padding-left: 50px; text-align: left;">
+                        <li>Fill out the booking form.</li>
+                        <li>Choose your colour & logo.</li>
+                        <li>Book an appointment, make payment & get your impression taken.</li>
+                        <li>Upon completion you’ll be notified for pick-up.</li>
+                        <li>Receive your mouthguard in a protective case.</li>
+                    </ul>
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <h2 style="color: #1a237e;">Our Mission</h2>
+                    <p style="text-align: justify;">
+                        Our mission is simple: protect teeth, prevent serious oral injuries, and reduce the risk of concussion often caused when the lower jaw impacts the upper jaw without proper cushioning. We are committed to combining exceptional quality with affordability, making sure athletes of all ages can play with confidence. Follow our latest updates, events, and success stories on Facebook and Instagram to see Snugfit in action.
+                
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Footer (from practice1.html) -->
+    <footer>
+        <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2025</p>
+        <div class="social-icons">
+            <a href="mailto:info@snugfitmouthguards.co.za" aria-label="Email">
+                <img src="Website Design/Email Icon.png" alt="Email">
+            </a>
+            <a href="https://facebook.com/snugfitmouthguards/" target="_blank" aria-label="Facebook">
+                <img src="Website Design/Facebook Icon.png" alt="Facebook">
+            </a>
+            <a href="https://instagram.com/snugfitmouthguards/?hl=en" target="_blank" aria-label="Instagram">
+                <img src="Website Design/Insta Icon.png" alt="Instagram">
+            </a>
+            <a href="https://www.youtube.com/@snugfitmouthguards" target="_blank" aria-label="YouTube">
+                <img src="Website Design/YouTube Icon.png" alt="YouTube">
+            </a>
+        </div>
+    </footer>
+
+    <!-- ✅ Scripts -->
+    <script>
+    function closeMenuOnResize() {
+        if(window.innerWidth > 700) {
+            document.querySelector('.navbar').classList.remove('open');
+        }
+    }
+    window.addEventListener('resize', closeMenuOnResize);
+
+    document.addEventListener('click', function(e) {
+        const nav = document.querySelector('.navbar');
+        const btn = document.querySelector('.menu-toggle');
+        if(nav && nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+            nav.classList.remove('open');
+        }
+    });
+
+    // Example tweak for video playback
+    window.addEventListener('DOMContentLoaded', function() {
+        const panvideo = document.getElementById('panvideo');
+        if (panvideo) {
+            panvideo.playbackRate = 0.6;
+            panvideo.style.objectFit = "contain";
+            panvideo.style.background = "#fff";
+        }
+    });
+    </script>
+</body>
+</html>
+<style>
+/* style.css */
+.hero-section {
+    position: relative;
+    width: 110vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.home-hero {
+    background-image: url("Website Design/Snugfit YouTube Banner.png");
+    background-size: contain;
+    width: 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+}
+
+.info-tab {
+    background: none;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: bold;
+    color: #1a237e;
+    font-size: 1.1em;
+    cursor: pointer;
+    padding: 8px 0;
+    position: relative;
+    transition: color 0.2s;
+}
+.info-tab::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: #1a237e;
+    border-radius: 2px;
+    transition: width 0.3s;
+    margin-top: 5px;
+}
+.info-tab:hover,
+.info-tab.active {
+    color: #1a237e;
+}
+.info-tab:hover::after,
+.info-tab.active::after {
+    width: 100%;
+}
+.tab-content {
+    font-size: 1em;
+    color: #333;
+    margin-top: 0;
+}
+
+.footer-tab {
+    background: #fff !important;
+    border: 3px solid #1a237e; /* Rigid, thicker border */
+    border-radius: 8px;
+    color: #1a237e;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.0em;
+    padding: 22px 38px;
+    cursor: pointer;
+    min-width: 210px;
+    justify-content: center;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    box-shadow: 0 2px 8px rgba(41,41,41,0.08);
+    text-align: center;
+    outline: none;
+}
+.footer-tab:hover, .footer-tab:focus, .footer-tab:active {
+    border-color: #e9c10e;
+    box-shadow: 0 0 16px 4px #e9c10e, 0 4px 16px rgba(41,41,41,0.13);
+}
+                </style>
+                <style>
+                @media (max-width: 700px) {
+                    .main-content {
+                        margin-top: -60px !important;
+                    }
+                }
+                </style>
