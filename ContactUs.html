@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us | Snugfit Mouth Guards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar {
+            position: absolute;
+            top: 32px;
+            right: 60px;
+            z-index: 10;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-tab {
+            color: #111 !important;
+            white-space: nowrap;
+        }
+        .nav-tab::after {
+            background: #111 !important;
+        }
+        .menu-toggle {
+            display: none;
+            background: #111;
+            color: #fff;
+            border: none;
+            font-size: 1.8em;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            position: absolute;
+            top: 28px;
+            right: 20px;
+            z-index: 20;
+        }
+        @media (max-width: 900px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                flex-direction: column;
+                background: #fff;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                gap: 0;
+                align-items: flex-start;
+                padding: 60px 0 0 0;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+            }
+            .navbar.open {
+                transform: translateX(0);
+            }
+            .nav-tab {
+                color: #111 !important;
+                padding: 18px 32px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #eee;
+                width: 100%;
+                text-align: left;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        .main-content-contact {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 120px 0;
+        }
+        .contact-row {
+            display: flex;
+            flex-direction: row;
+            gap: 32px;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 40px auto 32px auto;
+            max-width: 1100px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .contact-heading {
+            color: #1a237e;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            text-align: left;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+        .address-info-text {
+            color: rgb(124, 115, 115);
+            font-family: Poppins, Arial, sans-serif;
+            font-size: 1em;
+            line-height: 1.7;
+            margin: 0 0 24px 0;
+            text-align: justify;
+        }
+        .contact-info {
+            flex: 1 1 320px;
+            font-size: 1em;
+            color: rgb(124, 115, 115);
+            min-width: 220px;
+            max-width: 350px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .contact-info a {
+            color: #1a237e;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        .contact-map {
+            flex: 2 1 400px;
+            min-width: 220px;
+            max-width: 600px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .contact-map iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+            border-radius: 8px;
+            display: block;
+            min-width: 220px;
+            max-width: 100%;
+        }
+        @media (max-width: 900px) {
+            .contact-row {
+                flex-direction: column;
+                gap: 18px;
+                align-items: stretch;
+                width: 80%;
+            }
+            .contact-map, .contact-info {
+                max-width: 100%;
+                min-width: 0;
+            }
+            .contact-map iframe {
+                width: 100% !important;
+                min-width: 0;
+            }
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 8px;
+        }
+        .social-icons img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
+        <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
+        <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
+        <nav class="navbar" aria-label="Main menu">
+            <a href="practice1.html" class="nav-tab">Home</a>
+            <a href="Schools&Clubs.html" class="nav-tab">School & Clubs</a>
+            <a href="personalise.html" class="nav-tab">Personalise</a>
+            <a href="Reviews.html" class="nav-tab">Reviews</a>
+            <a href="#bookings" class="nav-tab">Bookings</a>
+            <a href="ContactUs.html" class="nav-tab">Contact Us</a>
+        </nav>
+    </div>
+    <div class="main-content-contact">
+        <div class="contact-row">
+            <div class="contact-info">
+                <h2 style="margin-top:0; color:#1a237e; font-size:clamp(0.9em, 4vw, 1.4em); font-weight:bold; text-align:left;">Physical Address</h2>
+                <p style="margin-top:0; font-size:clamp(0.9em, 4vw, 1.0em);">
+                7 Greenfield Road,<br>
+                Sandown Estate,<br>
+                Sandton,<br>
+                2196,<br>
+                South Africa</p>
+                <h2 style="margin-top:0; color:#1a237e; font-size:clamp(0.9em, 4vw, 1.4em); font-weight:bold; text-align:left;">Contact Details</h2>
+                <div style="font-weight:bold; margin-bottom:4px; color: rgb(124, 115, 115);"></div>
+                <p><strong>Telephone:</strong><br>
+                <a href="tel:0832159515">0832159515</a><br>
+                <a href="tel:0832517031">0832517031</a></p>
+                <p><strong>Email:</strong><br>
+                <a href="mailto:info@snugfitmouthguards.co.za">info@snugfitmouthguards.co.za</a></p>
+            </div>
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps?q=Snugfit+Mouth+Guards,+Sandown+Estate,+Sandton,+South+Africa&output=embed" width="100%" height="250" style="border:0; border-radius: 8px; min-width: 220px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2025</p>
+        <div class="social-icons">
+            <a href="mailto:info@snugfitmouthguards.co.za" aria-label="Email">
+                <img src="Website Design/Email Icon.png" alt="Email">
+            </a>
+            <a href="https://facebook.com/snugfitmouthguards/" target="_blank" aria-label="Facebook">
+                <img src="Website Design/Facebook Icon.png" alt="Facebook">
+            </a>
+            <a href="https://instagram.com/snugfitmouthguards/?hl=en" target="_blank" aria-label="Instagram">
+                <img src="Website Design/Insta Icon.png" alt="Instagram">
+            </a>
+            <a href="https://www.youtube.com/@snugfitmouthguards" target="_blank" aria-label="YouTube">
+                <img src="Website Design/YouTube Icon.png" alt="YouTube">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

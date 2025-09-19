@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schools & Clubs | Snugfit Mouth Guards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        .navbar {
+            position: absolute;
+            top: 32px;
+            right: 60px;
+            z-index: 10;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-tab {
+            color: #111 !important;
+            white-space: nowrap;
+        }
+        .nav-tab::after {
+            background: #111 !important;
+        }
+        .menu-toggle {
+            display: none;
+            background: #111;
+            color: #fff;
+            border: none;
+            font-size: 1.8em;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            position: absolute;
+            top: 28px;
+            right: 20px;
+            z-index: 20;
+        }
+        @media (max-width: 700px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                flex-direction: column;
+                background: #fff;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                gap: 0;
+                align-items: flex-start;
+                padding: 60px 0 0 0;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+            }
+            .navbar.open {
+                transform: translateX(0);
+            }
+            .nav-tab {
+                color: #111 !important;
+                padding: 18px 32px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #eee;
+                width: 100%;
+                text-align: left;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        .main-content-schools {
+            flex: 1 0 auto;
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+            margin-left: 40px;
+            margin-right: 40px;
+            align-items: center;
+        }
+        .main-content-headings {
+            color: #1a237e;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            text-align: left;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto 32px auto;
+            justify-items: center;
+        }
+        .image-square {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-square img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;
+            transition: opacity 0.3s;
+            border-radius: 12px;
+            display: block;
+            background: #fff;
+        }
+        .img-front { opacity: 1; z-index: 1; }
+        .img-hover { opacity: 0; z-index: 2; pointer-events: none; }
+        .image-square:hover .img-front { opacity: 0; }
+        .image-square:hover .img-hover { opacity: 1; }
+        @media (max-width: 900px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+            .image-square {
+                width: 44vw;
+                min-width: 120px;
+                max-width: 220px;
+                height: 44vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin: 0 auto 32px auto;
+                justify-items: center;
+            }
+            .image-square {
+                width: 40vw;
+                aspect-ratio: 1 / 1;
+                max-width: 240px;
+            }
+        }
+        .headings-row {
+            max-width: 1000px;
+            margin: 0 auto 0 auto;
+            padding-left: 0;
+            text-align: left;
+        }
+        .schools-heading, .clubs-heading {
+            font-size: 2em;
+            color: #1a237e;
+            font-weight: bold;
+            margin: 10px 0 24px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
+        <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
+        <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
+        <nav class="navbar" aria-label="Main menu">
+            <a href="practice1.html" class="nav-tab">Home</a>
+            <a href="#school" class="nav-tab">School & Clubs</a>
+            <a href="personalise.html" class="nav-tab">Personalise</a>
+            <a href="Reviews.html" class="nav-tab">Reviews</a>
+            <a href="#bookings" class="nav-tab">Bookings</a>
+            <a href="ContactUs.html" class="nav-tab">Contact Us</a>
+        </nav>
+    </div>
+    <div class="main-content-schools">
+        <p style="font-size: 1em; max-width:800px; margin-top: 120px; margin-bottom: -20px; text-align: center; color:rgb(124, 115, 115)">We are proud to supply mouth guards to the following schools and clubs. Click on each logo to view their designs.</p>
+        <div style="height: 100px;"></div>
+        <div class="headings-row">
+            <h2 class="clubs-heading">Schools</h2>
+        </div>
+        <div class="image-grid schools-grid">
+            <!-- Add school images here, same structure as above -->
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Dainfern 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Dainfern 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/EG Jansen 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/EG Jansen 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Fourways High 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Fourways High 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Garsfontein 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Garsfontein 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Helpmekaar 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Helpmekaar 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/HeronBridge 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/HeronBridge 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Jan Cellier's 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Jan Cellier's 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/JEPPE 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/JEPPE 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/KES 1.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/KES 2.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Kingsmead 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Kingsmead 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Michaelhouse 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Michaelhouse 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Northcliff 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Northcliff 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Parktown Boy's 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Parktown Boy's 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Pridwin 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Pridwin 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Roedean 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Roedean 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Saheti 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Saheti 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St Andrew's Girls 1.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/St Andrew's Girls 2.png" alt="Emblem" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St Alban's 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/St Alban's 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St Benedict's 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/St Benedict's 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St David's 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/St David's 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/SJC 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/SJC 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St Mary's 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/St Mary's 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St Peter's 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/St Peter's 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/St Stithian's 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/St Stithian's 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/The Ridge 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/The Ridge 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Trinity House 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/Trinity House 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Redhill 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/Redhill 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/WHPS 1.png" alt="Emoji" class="img-front">
+                    <img src="Website Design/WHPS 2.png" alt="Gold" class="img-hover">
+                </a>
+            </div>
+        </div>
+        <div class="headings-row">
+            <h2 class="schools-heading">Clubs</h2>
+        </div>
+        <div class="image-grid clubs-grid">
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Apex Gym.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Apex Gym.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Diggers.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Diggers.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Durandt's Boxing.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Durandt's Boxing.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/East Rand Rugby.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/East Rand Rugby.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Gracie Barra.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Gracie Barra.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Morningside Hockey.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Morningside Hockey.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Pirates.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Pirates.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Titans.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Titans.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Toweel Boxing.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Toweel Boxing.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/8292.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/8292.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Valke.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Valke.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Wanderers.png" alt="School Logo" class="img-front">
+                    <img src="Website Design/Wanderers.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+            <div class="image-square">
+                <a role="button">
+                    <img src="Website Design/Honey Badgers.png" alt="Custom Text" class="img-front">
+                    <img src="Website Design/Honey Badgers.png" alt="Club Logo" class="img-hover">
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2025</p>
+        <div class="social-icons">
+            <a href="mailto:info@snugfitmouthguards.co.za" aria-label="Email">
+                <img src="Website Design/Email Icon.png" alt="Email">
+            </a>
+            <a href="https://facebook.com/snugfitmouthguards/" target="_blank" aria-label="Facebook">
+                <img src="Website Design/Facebook Icon.png" alt="Facebook">
+            </a>
+            <a href="https://instagram.com/snugfitmouthguards/?hl=en" target="_blank" aria-label="Instagram">
+                <img src="Website Design/Insta Icon.png" alt="Instagram">
+            </a>
+            <a href="https://www.youtube.com/@snugfitmouthguards" target="_blank" aria-label="YouTube">
+                <img src="Website Design/YouTube Icon.png" alt="YouTube">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

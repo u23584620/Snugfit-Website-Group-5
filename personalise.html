@@ -5,6 +5,373 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Step 1 Standard Colours container and content */
+        .step1-colours-container {
+            background: #ffffff;
+            border-radius: 16px;
+            margin: 32px 50px 0 50px;
+            padding: 24px 32px;
+            box-sizing: border-box;
+            max-width: 90%;
+            width: auto;
+            min-height: 340px;
+        }
+        .step2-logo-options {
+            background: #ffffff;
+            border-radius: 16px;
+            margin: 32px 50px 0 50px;
+            padding: 24px 32px;
+            box-sizing: border-box;
+            max-width: 90%;
+            width: auto;
+        }
+        .step3-booking-process {
+            background: #ffffff;
+            border-radius: 16px;
+            margin: 20px 20px 0 40px;
+            padding: 24px 32px;
+            box-sizing: border-box;
+            max-width: 90%;
+            width: auto;
+        }
+        .step1-personalise-standardcolours {
+            color: #1a237e;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            text-align: left;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+        .step1-personalise-specialcolours {
+            color: #1a237e;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            text-align: left;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            padding-top: 30px;
+        }
+        .step3-personalise-Booking {
+            color: #1a237e;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            text-align: left;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            padding-top: 30px;
+        }
+        .step1-body-text {
+            color: rgb(124, 115, 115);
+            font-family: Poppins, Arial, sans-serif;
+            font-size: 1em;
+            line-height: 1.7;
+            margin: 0 0 24px 0;
+            text-align: justify;
+        }
+        .step2-body-text {
+            color: rgb(124, 115, 115);
+            font-family: Poppins, Arial, sans-serif;
+            font-size: 1em;
+            line-height: 1.7;
+            margin: 0 0 24px 0;
+            text-align: justify;
+        }
+        .step2-body1-text {
+            color: rgb(124, 115, 115);
+            font-family: Poppins, Arial, sans-serif;
+            font-size: 1em;
+            line-height: 1.7;
+            margin: 20px 0 24px 0;
+            text-align: justify;
+        }
+        .step3-body-text {
+            color: rgb(124, 115, 115);
+            font-family: Poppins, Arial, sans-serif;
+            font-size: 1em;
+            line-height: 1.7;
+            margin: 0 0 24px 0;
+            text-align: justify;
+        }
+        .slideshow-container {
+            width: 100%;
+            max-width: 80%;
+            margin: 0 auto 0 auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 0;
+        }
+        .slide-arrow {
+            background: none;
+            color: rgb(124, 115, 115);
+            border: none;
+            border-radius: 0;
+            width: 100px;
+            height: 100px;
+            font-size: 2.5em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 30px;
+            z-index: 2;
+            transition: color 0.2s;
+            outline: none;
+        }
+        .slide-arrow:active {
+            color: #444;
+        }
+        .slide-arrow:focus {
+            color: #444;
+        }
+        .slide-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 0;
+        }
+        .slide-image {
+            object-fit: contain;
+            border-radius: 12px;
+            transition: transform 0.3s, opacity 0.3s;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .slide-image.center {
+            width: 500px;
+            height: 280px;
+            z-index: 1;
+            opacity: 1;
+            transform: scale(1);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    
+        }
+        .slide-image.side {
+            width: 250px;
+            height: 140px;
+            opacity: 0.7;
+            z-index: 0;
+            transform: scale(0.85);
+            filter: grayscale(20%);
+        }
+        @media (max-width: 700px) {
+            .step1-body-text {
+                color: rgb(124, 115, 115);
+                font-family: Poppins, Arial, sans-serif;
+                font-size: 0.8em;
+                line-height: 1.7;
+                margin: 0 0 24px 0;
+                text-align: justify;
+            }
+            .step2-body-text {
+                color: rgb(124, 115, 115);
+                font-family: Poppins, Arial, sans-serif;
+                font-size: 0.8em;
+                line-height: 1.7;
+                margin: 0 0 24px 0;
+                text-align: justify;
+            }
+            .step2-body1-text {
+                color: rgb(124, 115, 115);
+                font-family: Poppins, Arial, sans-serif;
+                font-size: 0.8em;
+                line-height: 1.7;
+                margin: 20px 0 24px 0;
+                text-align: justify;
+            }
+            .step3-body-text {
+                color: rgb(124, 115, 115);
+                font-family: Poppins, Arial, sans-serif;
+                font-size: 0.8em;
+                line-height: 1.7;
+                margin: 0 0 24px 0;
+                text-align: justify;
+            }
+            .slideshow-container {
+                max-width: 98vw;
+                padding: 6px 0;
+            }
+            .slide-arrow {
+                width: 28px;
+                height: 28px;
+                font-size: 1.5em;
+                margin: 0;
+            }
+            /* Default for all slideshows */
+            .slide-image.center {
+                width: 160px;
+                height: 90px;
+            }
+            .slide-image.side {
+                width: 80px;
+                height: 50px;
+            }
+            /* Override for logo slideshow only */
+            #logo-slideshow-container .slide-image.center {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            }
+            #logo-slideshow-container .slide-image.side {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+            }
+        }
+        @media (max-width: 900px) {
+            .step1-colours-container {
+                margin: 18px 10vw 0 10vw;
+                padding: 18px 4vw 18px 4vw;
+                max-width: 98vw;
+            }
+            .step2-logo-options {
+                margin: 18px 10vw 0 10vw;
+                padding: 18px 4vw 18px 4vw;
+                max-width: 98vw;
+            }
+            .slideshow-container {
+                max-width: 98vw;
+                padding: 6px 0;
+            }
+            .slide-arrow {
+                width: 28px;
+                height: 28px;
+                font-size: 1.5em;
+                margin: 0;
+            }
+            /* Default for all slideshows */
+            .slide-image.center {
+                width: 160px;
+                height: 90px;
+            }
+            .slide-image.side {
+                width: 90px;
+                height: 50px;
+            }
+            /* Override for logo slideshow only */
+            #logo-slideshow-container .slide-image.center {
+                width: 180px;
+                height: 120px;
+                object-fit: cover;
+            }
+            #logo-slideshow-container .slide-image.side {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+            }
+            .booking-text-col {
+                font-size: 0.8em;
+            }
+        }
+        @media (max-width: 700px) {
+            .step1-colours-container {
+                margin: 12px 2vw 0 2vw;
+                padding: 12px 2vw 12px 2vw;
+                max-width: 99vw;
+            }
+            .step2-logo-options {
+                margin: 12px 2vw 0 2vw;
+                padding: 12px 2vw 12px 2vw;
+                max-width: 99vw;
+            }
+            .slideshow-container {
+                max-width: 98vw;
+            }
+        }
+        
+        /* Step 1 Personalise container and heading */
+        .step1-personalise-container {
+            background: rgb(192, 158, 6, 0.753);
+            border-radius: 16px;
+            margin: 32px 0px;                           
+            padding: 24px 24px;
+            box-sizing: border-box;
+            max-width: unset;
+            width: 100%;
+        }
+        .step1-personalise-heading {
+            color: #555;
+            font-size: clamp(1.1em, 4vw, 2em);
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+            letter-spacing: 1px;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        /* Step 2 Personalise container and heading */
+        .step2-personalise-container {
+            background: rgb(192, 158, 6, 0.753);
+            border-radius: 16px;
+            margin: 32px 0px;
+            padding: 24px 24px;
+            box-sizing: border-box;
+            max-width: unset;
+            width: 100%;
+        }
+        .step2-personalise-heading {
+            color: #555;
+            font-size: clamp(1.1em, 4vw, 2em);
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+            letter-spacing: 1px;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        @media (max-width: 700px) {
+            .step1-personalise-container {
+                margin: 24px 0px;
+                padding: 16px 8px;
+            }
+            .step2-personalise-container {
+                margin: 24px 0px;
+                padding: 16px 8px;
+            }
+            .step3-personalise-container {
+                margin: 24px 0px;
+                padding: 16px 8px;
+            }
+            .step3-booking-process ul {
+                font-size: 0.8em !important;
+            }
+        }
+        /* Step 3 Personalise container and heading */
+        .step3-personalise-container {
+            background: rgb(192, 158, 6, 0.753);
+            border-radius: 16px;
+            margin: 32px 0px;
+            padding: 24px 24px;
+            box-sizing: border-box;
+            max-width: unset;
+            width: 100%;
+        }
+        .step3-personalise-heading {
+            color: #555;
+            font-size: clamp(1.1em, 4vw, 2em);
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+            letter-spacing: 1px;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
+        /* Responsive Personalise title - single definition */
+        .personalise-title {
+            font-size: clamp(1.1em, 4vw, 2.5em);
+            margin: 0 50px 16px 50px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: rgba(192, 158, 6, 0.753);
+            border-radius: 0px;
+            padding: 8px 0;
+            box-sizing: border-box;
+            max-width: unset;
+            white-space: normal;
+            overflow-wrap: break-word;
+        }
         /* Override navbar/tab color for this page only */
         .navbar {
             position: absolute;
@@ -36,6 +403,7 @@
             right: 20px;
             z-index: 20;
         }
+    /* (removed duplicate .personalise-title block) */
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -66,8 +434,19 @@
             }
             .menu-toggle {
                 display: block;
-            }
         }
+        }
+        .bullets-img-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+@media (max-width: 700px) {
+  .bullets-img-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
     </style>
 </head>
 <body>
@@ -77,21 +456,246 @@
         <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
         <nav class="navbar" aria-label="Main menu">
             <a href="practice1.html" class="nav-tab">Home</a>
-            <a href="#school" class="nav-tab">School & Clubs</a>
+            <a href="Schools&Clubs.html" class="nav-tab">School & Clubs</a>
             <a href="personalise.html" class="nav-tab">Personalise</a>
             <a href="Reviews.html" class="nav-tab">Reviews</a>
             <a href="#bookings" class="nav-tab">Bookings</a>
-            <a href="#contact" class="nav-tab">Contact Us</a>
+            <a href="ContactUs.html" class="nav-tab">Contact Us</a>
         </nav>
     </div>
     <!-- Full-width video directly under the navbar -->
-    <video autoplay loop muted playsinline style="width: 100vw; height: auto; display: block; margin: 0; padding: 0;">
-        <source src="Website Design/Snugfit Personalise Web video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="main-content">
-        <div style="max-width: 800px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(41,41,41,0.06); padding: 40px;">
-            <!-- Other content here -->
+    <div style="background: #fff; border-radius: 16px; padding: 0; margin: 0 0 24px 0; max-width: 100vw; overflow: hidden;">
+        <video autoplay loop muted playsinline style="width: 100%; max-width: 100vw; height: auto; object-fit: contain; border-radius: 12px; display: block; background: #fff;">
+            <source src="Website Design/Snugfit Personalise Web video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="personalise-title">ENGINEERED FOR YOU, DESIGNED BY YOU!</div>
+    <div class="step1-personalise">
+        <div class="step1-personalise-container">
+            <div class="step1-personalise-heading">Step 1: Choose Your Colour</div>
+        </div>
+    <div class="step1-colours-container">
+        <div class="step1-personalise-standardcolours">Standard Colours</div>
+        <div class="step1-body-text">
+            Select from our range of 11 solid colours.
+        </div>
+    
+        <div class="slideshow-container">
+            <button class="slide-arrow" id="slide-left" aria-label="Previous Colour">&#8592;</button>
+            <div class="slide-track">
+                <img class="slide-image side" id="slide-prev" src="Website Design/Black.png" alt="Previous Colour">
+                <img class="slide-image center" id="slide-current" src="Website Design/Blue.png" alt="Current Colour">
+                <img class="slide-image side" id="slide-next" src="Website Design/Red.png" alt="Next Colour">
+            </div>
+            <button class="slide-arrow" id="slide-right" aria-label="Next Colour">&#8594;</button>
+        </div>
+        <div class="step1-personalise-specialcolours">Special Colours</div>
+        <div class="step1-body-text">
+            Stand out from the crowd with our Galaxy, Dual, and Tri-Colour mouthguard range. Explore bold designs that match your style and performance. Please enquire for current colour availability and any additional costs.
+        </div>
+        <div class="special-colours-images" style="display: flex; gap: 24px; justify-content: center; align-items: flex-start; margin: 24px 0 0 0; flex-wrap: wrap;">
+            <div style="flex: 1 1 220px; max-width: 340px; min-width: 140px; display: flex; flex-direction: column; align-items: center;">
+                <img src="Website Design/Dual & Tri-colour MGs.png" alt="Dual and Tricolour Mouthguards" style="width: 100%; max-width: 320px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); background: #fff;">
+                <div style="text-align: center; font-size: 1em; color: #1a237e; margin-top: 8px;">Dual &amp; Tri-Colour Range</div>
+            </div>
+            <div style="flex: 1 1 220px; max-width: 340px; min-width: 140px; display: flex; flex-direction: column; align-items: center;">
+                <img src="Website Design/Galaxy Colour MGs.png" alt="Galaxy Range Mouthguards" style="width: 100%; max-width: 320px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); background: #fff;">
+                <div style="text-align: center; font-size: 1em; color: #1a237e; margin-top: 8px;">Galaxy Range</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="step2-personalise">
+        <div class="step2-personalise-container">
+            <div class="step2-personalise-heading">Step 2: Choose Your Logo</div>
+    </div>
+    <div class="step2-logo-options" style="margin-top: 18px;">
+        <div class="step2-body-text">
+            In addition to selecting a colour or colour combination, you have the option of adding a logo or emblem to the front of your mouth guard. This includes school and club logos, as well as custom icons.
+        </div>
+        <div class="slideshow-container" id="logo-slideshow-container" style="margin-top: 18px;">
+        <button class="slide-arrow" id="logo-slide-left" aria-label="Previous Logo Option">&#8592;</button>
+        <div class="slide-track">
+            <img class="slide-image side" id="logo-slide-prev" src="Website Design/Custom Text.png" alt="Previous Logo Option">
+            <img class="slide-image center" id="logo-slide-current" src="Website Design/School Logo.png" alt="Current Logo Option">
+            <img class="slide-image side" id="logo-slide-next" src="Website Design/Club Logo.png" alt="Next Logo Option">
+        </div>
+        <button class="slide-arrow" id="logo-slide-right" aria-label="Next Logo Option">&#8594;</button>
+    </div>
+        <div class="step2-body1-text">
+                To view our partnered schools and clubs and their designs, please visit our <a href="#school" style="color: #1a237e; text-decoration: underline;">Schools & Clubs</a> section
+            </div>
+        
+    </div>
+    </div>
+    <div class="step3-personalise">
+        <div class="step3-personalise-container">
+                <div class="step3-personalise-heading">Step 3: Booking Form & Impression</div>
+        </div>
+        <div class="step3-booking-process">
+        <div class="step3-body-text-flex">
+            <div class="step3-body-text-col">
+                <div class="step3-personalise-Booking">Booking Process</div>
+                <ul style="font-size: 1.0em; line-height: 1.7; padding-left: 0px; text-align: left;">
+                    <li>Choose your colour & logo.</li>
+                    <li>Fill out the <a href="#bookings" style="color: #1a237e; text-decoration: underline; font-weight: bold;">Booking Form</a>.</li>
+                    <li>Book an appointment by contacting Snugfit via phone or email.</li>
+                    <li>Complete payment prior to appointment or at appointment.</li>
+                    <li>Get your impression taken.</li>
+                    <li>Your mouthguard will be custom made to your specifications.</li>
+                    <li>Upon completion of your order, you will be notified for pick-up.</li>
+                    <li>Receive your mouthguard in a protective case.</li>
+                    <li>Enquire about alternative pick-up/delivery methods.</li>
+                </ul>
+            </div>
+            <div class="step3-body-text-img-col">
+                <img src="Website Design/Elaine Impression.png" alt="Elaine taking impression" style="max-width: 400px; width: 100%; border-radius: 12px; background: #fff; margin-left: 0px;" />
+            </div>
+        </div>
+        </div>
+    </div>
+        <style>
+        .step3-body-text-flex {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 32px;
+        }
+        .step3-body-text-col {
+            flex: 2 1 0;
+            min-width: 0;
+        }
+        .step3-body-text-img-col {
+            flex: 1 1 260px;
+            min-width: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        @media (max-width: 900px) {
+            .step3-body-text-flex {
+                flex-direction: column;
+                gap: 18px;
+            }
+            .step3-body-text-img-col {
+                margin-left: 0;
+                justify-content: flex-start;
+            }
+        }
+        </style>
+        <script>
+        // --- Step 1 Colour Slideshow ---
+        const colourImgs = [
+            {src: 'Website Design/Blue.png', alt: 'Blue Mouth Guard'},
+            {src: 'Website Design/Red.png', alt: 'Red Mouth Guard'},
+            {src: 'Website Design/Gold.png', alt: 'Gold Mouth Guard'},
+            {src: 'Website Design/Silver.png', alt: 'Silver Mouth Guard'},
+            {src: 'Website Design/Green.png', alt: 'Green Mouth Guard'},
+            {src: 'Website Design/Yellow.png', alt: 'Yellow Mouth Guard'},
+            {src: 'Website Design/Orange.png', alt: 'Orange Mouth Guard'},
+            {src: 'Website Design/Pink.png', alt: 'Pink Mouth Guard'},
+            {src: 'Website Design/Purple.png', alt: 'Purple Mouth Guard'},
+            {src: 'Website Design/White.png', alt: 'White Mouth Guard'},
+            {src: 'Website Design/Black.png', alt: 'Black Mouth Guard'}
+        ];
+
+        let slideIdx = 0;
+        const prevImg = document.getElementById('slide-prev');
+        const currImg = document.getElementById('slide-current');
+        const nextImg = document.getElementById('slide-next');
+        let autoSlideTimer = null;
+
+        function updateSlides() {
+            const prevIdx = (slideIdx - 1 + colourImgs.length) % colourImgs.length;
+            const nextIdx = (slideIdx + 1) % colourImgs.length;
+            prevImg.src = colourImgs[prevIdx].src;
+            prevImg.alt = 'Previous: ' + colourImgs[prevIdx].alt;
+            currImg.src = colourImgs[slideIdx].src;
+            currImg.alt = 'Current: ' + colourImgs[slideIdx].alt;
+            nextImg.src = colourImgs[nextIdx].src;
+            nextImg.alt = 'Next: ' + colourImgs[nextIdx].alt;
+        }
+        function nextSlide() {
+            slideIdx = (slideIdx + 1) % colourImgs.length;
+            updateSlides();
+        }
+        function prevSlide() {
+            slideIdx = (slideIdx - 1 + colourImgs.length) % colourImgs.length;
+            updateSlides();
+        }
+        function startAutoSlide() {
+            if (autoSlideTimer) clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(nextSlide, 3000);
+        }
+
+        // Colour slideshow buttons
+        document.getElementById('slide-left').onclick = function() {
+            prevSlide();
+            startAutoSlide();
+        };
+        document.getElementById('slide-right').onclick = function() {
+            nextSlide();
+            startAutoSlide();
+        };
+
+        // Initialize colour slideshow
+        updateSlides();
+        startAutoSlide();
+
+
+        // --- Step 2 Logo Options Slideshow ---
+        const logoImgs = [
+            {src: 'Website Design/Custom Text.png', alt: 'Custom Text'},
+            {src: 'Website Design/School Logo.png', alt: 'School Logo'},
+            {src: 'Website Design/Club Logo.png', alt: 'Club Logo'},
+            {src: 'Website Design/Emoji.png', alt: 'Emoji'},
+            {src: 'Website Design/Emblems.png', alt: 'Emblem'}
+        ];
+
+        let logoSlideIdx = 0;
+        const logoPrevImg = document.getElementById('logo-slide-prev');
+        const logoCurrImg = document.getElementById('logo-slide-current');
+        const logoNextImg = document.getElementById('logo-slide-next');
+        let logoAutoSlideTimer = null;
+
+        function updateLogoSlides() {
+            const prevIdx = (logoSlideIdx - 1 + logoImgs.length) % logoImgs.length;
+            const nextIdx = (logoSlideIdx + 1) % logoImgs.length;
+            logoPrevImg.src = logoImgs[prevIdx].src;
+            logoPrevImg.alt = 'Previous: ' + logoImgs[prevIdx].alt;
+            logoCurrImg.src = logoImgs[logoSlideIdx].src;
+            logoCurrImg.alt = 'Current: ' + logoImgs[logoSlideIdx].alt;
+            logoNextImg.src = logoImgs[nextIdx].src;
+            logoNextImg.alt = 'Next: ' + logoImgs[nextIdx].alt;
+        }
+        function nextLogoSlide() {
+            logoSlideIdx = (logoSlideIdx + 1) % logoImgs.length;
+            updateLogoSlides();
+        }
+        function prevLogoSlide() {
+            logoSlideIdx = (logoSlideIdx - 1 + logoImgs.length) % logoImgs.length;
+            updateLogoSlides();
+        }
+        function startLogoAutoSlide() {
+            if (logoAutoSlideTimer) clearInterval(logoAutoSlideTimer);
+            logoAutoSlideTimer = setInterval(nextLogoSlide, 3000);
+        }
+
+        // Logo slideshow buttons
+        document.getElementById('logo-slide-left').onclick = function() {
+            prevLogoSlide();
+            startLogoAutoSlide();
+        };
+        document.getElementById('logo-slide-right').onclick = function() {
+            nextLogoSlide();
+            startLogoAutoSlide();
+        };
+
+        // Initialize logo slideshow
+        updateLogoSlides();
+        startLogoAutoSlide();
+        </script>
         </div>
     </div>
     <footer>
