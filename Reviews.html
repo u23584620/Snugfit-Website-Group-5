@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Responsive main content and review container */
+        /* Responsive main content & review container */
         @media (max-width: 1000px) {
             .main-content {
                 width: calc(100vw - 40px) !important;
@@ -44,7 +44,7 @@
                 margin-right: 20px !important;
             }
         }
-        /* Responsive reviews-list: always at least 2 columns */
+        /* Responsive reviews grid layout with always at least 2 columns */
         .reviews-list {
             display: grid !important;
             grid-template-columns: repeat(3, 1fr);
@@ -138,6 +138,7 @@
             .review-card {
                 font-size: 0.5em !important;
             }
+        /*Review Container & Cards Formatting & Responsiveness*/    
         }
         .review-container {
             max-width: 900px;
@@ -250,20 +251,19 @@
     </style>
 </head>
 <body>
-    <!-- Only for Reviews.html -->
+    <!-- Navigation page directories -->
     <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
         <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
         <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
         <nav class="navbar" aria-label="Main menu">
-            <a href="practice1.html" class="nav-tab">Home</a>
+            <a href="Home.html" class="nav-tab">Home</a>
             <a href="Schools&Clubs.html" class="nav-tab">School & Clubs</a>
             <a href="personalise.html" class="nav-tab">Personalise</a>
             <a href="Reviews.html" class="nav-tab">Reviews</a>
-            <a href="#bookings" class="nav-tab">Bookings</a>
+            <a href="Bookings.html" class="nav-tab">Bookings</a>
             <a href="ContactUs.html" class="nav-tab">Contact Us</a>
         </nav>
     </div>
-    <!-- Review Title stays at the top -->
     <div class="review-title" style="display: flex; align-items: center; justify-content: center; height: 100px; text-align: center;">
         Review Us!
     </div>
@@ -279,7 +279,6 @@
                 <button type="submit">Post Review</button>
             </form>
             <div class="reviews-list" id="reviews-list">
-                <!-- Existing reviews -->
                 <div class="review-card">
                     "I don't think you understand how awesome that is!"
                     <div class="review-author">- St. Stithian's coach</div>
@@ -332,13 +331,11 @@
         </div>
     </div>
     <script>
-        // Toggle review form
         document.getElementById('review-header').onclick = function() {
             const form = document.getElementById('review-form');
             form.style.display = (form.style.display === "flex") ? "none" : "flex";
         };
 
-        // Handle review submission
         document.getElementById('review-form').onsubmit = function(e) {
             e.preventDefault();
             const text = document.getElementById('review-text').value.trim();

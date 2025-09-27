@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookings | Snugfit Mouth Guards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        .main-content-bookings {
+            margin: 40px auto 20px auto;
+            width: 90%;
+            flex: 1 0 auto;
+        }
+        /* Navigation Bar Styles & Responsiveness */
+        .navbar {
+            position: absolute;
+            top: 32px;
+            right: 60px;
+            z-index: 10;
+            display: flex;
+            gap: 32px;
+        }
+        .nav-tab {
+            color: #111 !important;
+            white-space: nowrap;
+        }
+        .nav-tab::after {
+            background: #111 !important;
+        }
+        /* Dropdown Menu for Mobile Platforms */
+        .menu-toggle {
+            display: none;
+            background: #111;
+            color: #fff;
+            border: none;
+            font-size: 1.8em;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            position: absolute;
+            top: 28px;
+            right: 20px;
+            z-index: 20;
+        }
+        @media (max-width: 700px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                flex-direction: column;
+                background: #fff;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                gap: 0;
+                align-items: flex-start;
+                padding: 60px 0 0 0;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+            }
+            .navbar.open {
+                transform: translateX(0);
+            }
+            .nav-tab {
+                color: #111 !important;
+                padding: 18px 32px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #eee;
+                width: 100%;
+                text-align: left;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        /* Booking Process Section */
+        .booking-process-container {
+            margin-top: 100px;
+            margin-left: 50px;
+            flex: 2 1 0;
+            min-width: 0;
+        }
+        .booking-process-heading {
+            color: #1a237e;
+            font-size: clamp(1em, 2.5vw, 1.5em);
+            text-align: left;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            padding-top: 30px;
+        }
+        /* Responsive Booking Form Styles */
+        #snugfit-booking-form {
+            max-width: 80%;
+            margin: 100px auto;
+            background: #ffff;
+            padding: 32px;
+        }
+        #snugfit-booking-form h2 {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 16px;
+        }
+        #snugfit-booking-form label {
+            margin-top: 12px;
+            display: block;
+            font-size: 0.85em;
+            color: black;
+        }
+        #snugfit-booking-form input[type="text"],
+        #snugfit-booking-form input[type="tel"],
+        #snugfit-booking-form input[type="email"],
+        #snugfit-booking-form select {
+            width: 100%;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #bbb;
+            background: #f6f7f9;
+        }
+        #snugfit-booking-form fieldset {
+            border: 2px solid black;
+            border-radius: 8px;
+            padding: 18px;
+            background: #f6f7f9;
+            width: 80%;              /* Ensure all fieldsets are 80% width */
+            margin: 0 auto 40px auto; /* Center and add bottom margin */
+            box-sizing: border-box;   /* Include padding/border in width */
+        }
+        #snugfit-booking-form legend {
+            font-weight: bold;
+            color: black;
+        }
+        #snugfit-booking-form .submit-button {
+            margin-top: 24px;
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 32px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #snugfit-booking-form fieldset input[type="radio"],
+        #snugfit-booking-form fieldset input[type="checkbox"] {
+            color: #1a237e;
+            accent-color: #111; /* For modern browsers, ensures black radio/check color */
+        }
+        #snugfit-booking-form fieldset > div {
+            margin-bottom: 10px;
+        }
+        .logo-option-img {
+            height: 120px;         /* Increase this value for larger images */
+            width: auto;           /* Let width scale naturally */
+            min-width: unset;      /* Remove min-width so images aren't forced wide */
+            max-width: 100%;
+            object-fit: contain;
+            cursor: pointer;
+            transition: outline 0.2s, box-shadow 0.2s;
+            background: #fff;
+            padding: 0 px;
+            border-radius: 8px;
+            display: block;
+        }
+        .logo-option-img:focus {
+            outline: 3px solid #1a237e;
+        }
+        .logo-grid {
+            display: none;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            justify-items: center;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        @media (max-width: 700px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                flex-direction: column;
+                background: #fff;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                gap: 0;
+                align-items: flex-start;
+                padding: 60px 0 0 0;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+            }
+            .navbar.open {
+                transform: translateX(0);
+            }
+            .nav-tab {
+                color: #111 !important;
+                padding: 18px 32px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #eee;
+                width: 100%;
+                text-align: left;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            #snugfit-booking-form fieldset {
+                width: 100%;         /* Full width on mobile */
+            }
+            .logo-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation page directories -->
+    <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
+        <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
+        <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
+        <nav class="navbar" aria-label="Main menu">
+            <a href="Home.html" class="nav-tab">Home</a>
+            <a href="Schools&Clubs.html" class="nav-tab">School & Clubs</a>
+            <a href="personalise.html" class="nav-tab">Personalise</a>
+            <a href="Reviews.html" class="nav-tab">Reviews</a>
+            <a href="Bookings.html" class="nav-tab active">Bookings</a>
+            <a href="ContactUs.html" class="nav-tab">Contact Us</a>
+        </nav>
+    </div>
+
+            <!-- Responsive Booking Form (front-end only) -->
+<form id="snugfit-booking-form">
+    <!-- 2025 Costing (now at the top) -->
+    <h2>Our Products</h2>
+    <fieldset>
+        <legend>2026 Pricing</legend>
+        <div>
+            <input type="radio" name="costing" id="cost800" value="R800: Standard sports mouth guard" required>
+            <label for="cost800" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R800: Standard Sports Mouthguard (ie. where the wearer has no orthodontic / fixed braces)
+                </span>
+            </label>
+            <div style="font-size:0.75em; color: black; margin-left:24px;">
+                Custom-fitted in a colour of your choice with name embedded inside and logo in front (no extra cost).
+            </div>
+        </div>
+        <div>
+            <input type="radio" name="costing" id="cost850" value="R850: Orthodontic (top only) sports mouth guard">
+            <label for="cost850" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R850: Orthodontic (top only) Sports Mouthguard
+                </span>
+            </label>
+            <div style="font-size:0.75em; color: black; margin-left:24px;">
+                Custom-fitted in whatever colour required – no name or logo, as this reduces pliability of the sports guard and may then interfere with orthodontic process. Please note: aggressive orthodontic processes WILL affect the fit of the mouth guard and may render it unsuitable (eg. new brackets / extending wires/ elastics). In such cases, a new mouth guard will be required at full cost.
+            </div>
+        </div>
+        <div>
+            <input type="radio" name="costing" id="cost980" value="R980: Orthodontic (top and bottom) sports mouth guard">
+            <label for="cost980" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R980: Orthodontic (top and bottom) Sports Mouthguard
+                </span>
+            </label>
+            <div style="font-size:0.75em; color: black; margin-left:24px;">
+                Custom-fitted: separate guards (top in colour of your choice, bottom clear) with no name and logo due to thickness of double guard and possible interference with orthodontic process.
+            </div>
+        </div>
+        <div>
+            <input type="radio" name="costing" id="cost980bite" value="R980: Rubberised biteplate">
+            <label for="cost980bite" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R980: Rubberised Biteplate - Protects teeth from clenching (NOT FOR SPORT).
+                </span>
+            </label>
+        </div>
+        <div>
+            <input type="radio" name="costing" id="costretainer" value="Dental retainers">
+            <label for="costretainer" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R1600: Dental Retainers for post orthodontic treatment. 
+                </span>
+            </label>
+        </div>
+        <div>
+            <input type="radio" name="costing" id="costbleach" value="Bleaching trays">
+            <label for="costbleach" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R1600: Bleaching Trays for home dental whitening (Excludes syringes)
+                </span>
+            </label>
+        </div>
+    </fieldset>
+
+    <!-- Personal Details -->
+    <h2>Personal Details</h2>
+    <div>
+        <label>First Name of Wearer</label>
+        <input type="text" name="first_name" required>
+        <label>Surname of Wearer</label>
+        <input type="text" name="surname" required>
+        <label for="club_school">Club/School <span style="font-size:0.9em; color:#888;">(Type N/A if Not Applicable)</span></label>
+        <input type="text" list="club_school_list" name="club_school" id="club_school" required>
+        <datalist id="club_school_list">
+            <option value="Not Applicable (N/A)"></option>
+            <option value="APEX Gym"></option>
+            <option value="Auckland Park (APPS)"></option>
+            <option value="Brescia House"></option>
+            <option value="Bryanston Honey Badgers"></option>
+            <option value="Crawford Schools"></option>
+            <option value="Curro Schools"></option>
+            <option value="Dainfern College"></option>
+            <option value="De La Salle"></option>
+            <option value="Diggers"></option>
+            <option value="Durandt's Boxing Gym"></option>
+            <option value="East Rand Rugby"></option>
+            <option value="EG Jansen"></option>
+            <option value="Fourways High"></option>
+            <option value="Garsfontein"></option>
+            <option value="Gracie Barra"></option>
+            <option value="Glenwood High"></option>
+            <option value="Helpmekaar"></option>
+            <option value="Heronbridge"></option>
+            <option value="Hilton College"></option>
+            <option value="Hoerskool Die Wilgers"></option>
+            <option value="Hoerskool Eldoraigne"></option>
+            <option value="Hoerskool Florida"></option>
+            <option value="Hoerskool Menlopark"></option>
+            <option value="Hoerskool Randburg"></option>
+            <option value="Hoerskool Waterkloof"></option>
+            <option value="Jan Cellier"></option>
+            <option value="JEPPE"></option>
+            <option value="Kearsney College"></option>
+            <option value="King Edward VII"></option>
+            <option value="Kingsmead College"></option>
+            <option value="Kingswood College"></option>
+            <option value="KEPS"></option>
+            <option value="Linden Hoerskool"></option>
+            <option value="Lycée Français"></option>
+            <option value="Michaelhouse"></option>
+            <option value="Morningside Hockey"></option>
+            <option value="Northcliff High"></option>
+            <option value="Parktown Boys"></option>
+            <option value="Pirates"></option>
+            <option value="Pretoria Boys High"></option>
+            <option value="Pridwin"></option>
+            <option value="Reddam House"></option>
+            <option value="Redhill School"></option>
+            <option value="Roedean"></option>
+            <option value="Rondebosch"></option>
+            <option value="Rustenburg"></option>
+            <option value="Saheti"></option>
+            <option value="Sacred Heart College"></option>
+            <option value="SACS"></option>
+            <option value="Selborne College"></option>
+            <option value="Steyn City School"></option>
+            <option value="St Alban's College"></option>
+            <option value="St Andrew's Girls"></option>
+            <option value="St Benedict's"></option>
+            <option value="St David's Marist"></option>
+            <option value="St John's College"></option>
+            <option value="St John's Prep"></option>
+            <option value="St Mary's DSG"></option>
+            <option value="St Mary's Waverley"></option>
+            <option value="St Peter's College"></option>
+            <option value="St Stithians"></option>
+            <option value="Titans Rugby"></option>
+            <option value="The Ridge School"></option>
+            <option value="Toweel Boxing"></option>
+            <option value="Trevorton College"></option>
+            <option value="Trinity House"></option>
+            <option value="Valke"></option>
+            <option value="Wanderers Club"></option>
+            <option value="Westville Boys' High"></option>
+            <option value="Waterkloof House Prep (WHPS)"></option>
+            <option value="Other"></option>
+
+            <!-- Add more schools/clubs as needed -->
+        </datalist>
+        <label>Contact Number <span style="font-size:0.9em; color:#888;">(Of parent if minor.)</span></label>
+        <input type="tel" name="contact_number" required>
+        <label>Contact Email <span style="font-size:0.9em; color:#888;">(Of parent if minor.)</span></label>
+        <input type="email" name="contact_email" required>
+    </div>
+
+    <!-- Customisation -->
+    <h2>Customisation</h2>
+    <div>
+        <label>Colour of Mouthguard <span style="font-size:0.9em; color:#888;">(Dental retainers, bleaching trays, and orthodontic bottoms guards only available in clear.)</span></label>
+        <select name="colour" id="colour_select" required>
+            <option value="Clear">Clear</option>
+            <option value="Black">Black</option>
+            <option value="Blue">Blue</option>
+            <option value="Gold (+ R180)">Gold (+ R180)</option>
+            <option value="Green">Green</option>
+            <option value="Orange">Orange</option>
+            <option value="Pink">Pink</option>
+            <option value="Purple">Purple</option>
+            <option value="Red">Red</option>
+            <option value="Silver (+ R180)">Silver (+ R180)</option>
+            <option value="White">White</option>
+            <option value="Yellow">Yellow</option>
+            <option value="Dual Colour (+ R180)">Dual Colour (+ R180)</option>
+            <option value="Tri Colour (+ R180)">Tri-Colour (+ R180)</option>
+            <option value="Galaxy (+ R180)">Galaxy (+ R180)</option>
+        </select>
+        <span style="font-size:0.85em; color:#888; margin-top: -8px; margin-bottom:16px;">
+            Note: Special colours (Gold, Silver, Dual, Tri & Galaxy) incur an additional R180 charge.
+        </span>
+        <!-- Logo Dropdown -->
+        <label>Logo on Front of Mouthguard <span style="font-size:0.9em; color:#888;">(Not Applicable for orthodontic mouthguards, dental retainers, or bleaching trays.)</span></label>
+        <select name="logo" id="logo_select" required>
+            <option value="N/A">Not Applicable (N/A)</option>
+            <option value="No logo">No Logo</option>
+            <option value="Animals">Animals</option>
+            <option value="Butterflies & Flowers">Butterflies & Flowers</option>
+            <option value="Emojis">Emojis</option>
+            <option value="Famous Movies & Games">Famous Movies & Games</option>
+            <option value="Rugby/Hockey/Fighting">Rugby, Hockey & Fighting</option>
+            <option value="School Logo">Schools</option>
+            <option value="Skulls & Fangs">Skulls & Fangs</option>
+            <option value="Sports Team / Club Logo">Sports Teams, Clubs & Gyms</option>
+            <option value="Symbols">Symbols</option>
+            <option value="Custom Upload">Custom Image Upload</option>
+            <option value="Custom Text Upload">Custom Text Upload</option>
+        </select>
+
+        <!-- Chosen Logo Display Square -->
+        <div id="chosen-logo-square" style="margin: 18px 0; width: 120px; height: 120px;border: 2px solid #1a237e;border-radius: 10px;background: #f6f7f9;display: flex;align-items: center;justify-content: center;text-align: center;font-weight: bold;color: #1a237e;">
+            No Logo
+        </div>
+
+            <!-- Logo image or custom text image will appear here -->
+        </div>
+
+        <!-- Custom Upload Container: move here, right after the dropdown -->
+        <div id="custom-upload-container" style="display:none; margin: 18px 0;">
+            <label for="custom-logo-upload" style="font-size:0.95em;">Upload your logo/image:</label>
+            <input type="file" id="custom-logo-upload" name="custom_logo_upload" accept="image/*">
+            <!-- Preview uploaded image here -->
+            <div id="custom-upload-preview" style="margin-top:12px;"></div>
+        </div>
+
+        <!-- Custom Text Upload Container -->
+        <div id="custom-text-upload-container" style="display:none; margin: 18px 0; padding: 12px; background-color: #f6f7f9; border: 2px solid #1a237e;">
+            <label for="custom-text-input" style="font-size:0.95em;">Enter your text:</label>
+            <input type="text" id="custom-text-input" maxlength="20" style="width: 60%; margin-bottom: 8px;">
+            <br>
+            <label for="custom-text-font" style="font-size:0.95em;">Font Style:</label>
+            <select id="custom-text-font" style="margin-bottom:8px;">
+                <option value="Poppins, Arial, sans-serif">Poppins</option>
+                <option value="Arcena, sans-serif">Arcena</option>
+                <option value="Bodoni MT Black, sans-serif">Bodoni MT Black</option>
+                <option value="Comic Sans MS, Comic Sans, cursive">Comic Sans</option>
+                <option value="Cooper Black, Monaco, monospace">Cooper Black</option>
+                <option value="Courier New, Courier, monospace">Courier New</option>
+                <option value="Georgia, serif">Georgia</option>
+                <option value="Goudy Stout, sans-serif">Goudy Stout</option>
+                <option value="Impact, Charcoal, sans-serif">Impact</option>
+                <option value="Times New Roman, Times, serif">Times New Roman</option>
+                <option value="Verdana, sans-serif">Verdana</option>
+                <!-- Add more fonts as needed -->
+            </select>
+            <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 8px;">
+                <label for="custom-text-color" style="font-size:0.95em;">Text Colour:</label>
+                <input type="color" id="custom-text-color" value="#111111">
+                <label for="custom-bg-color" style="font-size:0.95em;">Background Colour:</label>
+                <input type="color" id="custom-bg-color" value="#ffffff">
+            </div>
+            <button type="button" id="custom-text-confirm" style="background-color:#1a237e; color: #ffffff;">Confirm</button>
+            <div id="custom-text-preview" style="margin-top:12px;"></div>
+            <span id="custom-text-confirm-hint" style="display:block; color:#c00; font-size:0.95em; margin-top:8px;">
+                Click confirm to save logo for uploading.
+            </span>
+        </div>
+
+        <!-- Hidden input to store selected image -->
+        <input type="hidden" name="logo_image" id="logo_image">
+
+        <!-- Logo image grids (hidden by default, shown as needed) -->
+        <div id="logo-image-grids" style="margin: 18px 0;">
+            <!-- School logo grid -->
+            <div class="logo-grid" id="school-logo-grid">
+                <img src="Website Design/Schools/Dainfern 1.png" alt="School 1" class="logo-option-img" data-value="School1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/EG Jansen 1.png" alt="School 2" class="logo-option-img" data-value="School2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Fourways High 1.png" alt="School 3" class="logo-option-img" data-value="School3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Garsfontein 1.png" alt="School 4" class="logo-option-img" data-value="School4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Helpmekaar 1.png" alt="School 5" class="logo-option-img" data-value="School5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/HeronBridge 1.png" alt="School 6" class="logo-option-img" data-value="School6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Jan Cellier's 1.png" alt="School 7" class="logo-option-img" data-value="School7.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/JEPPE 1.png" alt="School 8" class="logo-option-img" data-value="School8.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/KES 1.png" alt="School 9" class="logo-option-img" data-value="School9.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Kingsmead 1.png" alt="School 10" class="logo-option-img" data-value="School10.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Michaelhouse 1.png" alt="School 11" class="logo-option-img" data-value="School11.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Northcliff 1.png" alt="School 12" class="logo-option-img" data-value="School12.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Parktown Boy's 1.png" alt="School 13" class="logo-option-img" data-value="School13.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Pridwin 1.png" alt="School 14" class="logo-option-img" data-value="School14.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Roedean 1.png" alt="School 15" class="logo-option-img" data-value="School15.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Saheti 1.png" alt="School 16" class="logo-option-img" data-value="School16.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St Andrew's Girls 1.png" alt="School 17" class="logo-option-img" data-value="School17.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St Alban's 1.png" alt="School 18" class="logo-option-img" data-value="School18.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St Benedict's 1.png" alt="School 19" class="logo-option-img" data-value="School19.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St David's 1.png" alt="School 20" class="logo-option-img" data-value="School20.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/SJC 1.png" alt="School 21" class="logo-option-img" data-value="School21.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St Mary's 1.png" alt="School 22" class="logo-option-img" data-value="School22.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St Peter's 1.png" alt="School 23" class="logo-option-img" data-value="School23.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/St Stithian's 1.png" alt="School 24" class="logo-option-img" data-value="School24.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/The Ridge 1.png" alt="School 25" class="logo-option-img" data-value="School25.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Trinity House 1.png" alt="School 26" class="logo-option-img" data-value="School26.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/Redhill 1.png" alt="School 27" class="logo-option-img" data-value="School27.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Schools/WHPS 1.png" alt="School 28" class="logo-option-img" data-value="School28.png" tabindex="0" style="cursor:pointer;">
+                <!-- Add more school logo images as needed -->
+            </div>
+            <!-- Club logo grid -->
+            <div class="logo-grid" id="club-logo-grid">
+                <img src="Website Design/Clubs/All Blacks 1.png" alt="Club 1" class="logo-option-img" data-value="Club1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/All Blacks 2.png" alt="Club 2" class="logo-option-img" data-value="Club2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Apex Gym.png" alt="Club 3" class="logo-option-img" data-value="Club3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Honey Badgers.png" alt="Club 4" class="logo-option-img" data-value="Club4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Diggers.png" alt="Club 5" class="logo-option-img" data-value="Club5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Durandt's Boxing.png" alt="Club 6" class="logo-option-img" data-value="Club6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/East Rand Rugby.png" alt="Club 7" class="logo-option-img" data-value="Club7.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/English Rugby.png" alt="Club 8" class="logo-option-img" data-value="Club8.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/France Rugby.png" alt="Club 9" class="logo-option-img" data-value="Club9.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Gracie Barra.png" alt="Club 10" class="logo-option-img" data-value="Club10.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Irish Rugby.png" alt="Club 11" class="logo-option-img" data-value="Club11.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Morningside Hockey.png" alt="Club 12" class="logo-option-img" data-value="Club12.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Pirates.png" alt="Club 13" class="logo-option-img" data-value="Club13.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Springboks 1.png" alt="Club 14" class="logo-option-img" data-value="Club14.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Springboks 2.png" alt="Club 15" class="logo-option-img" data-value="Club15.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Titans.png" alt="Club 16" class="logo-option-img" data-value="Club16.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Toweel Boxing.png" alt="Club 17" class="logo-option-img" data-value="Club17.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/8292.png" alt="Club 18" class="logo-option-img" data-value="Club18.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Valke.png" alt="Club 19" class="logo-option-img" data-value="Club19.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Clubs/Wanderers.png" alt="Club 20" class="logo-option-img" data-value="Club20.png" tabindex="0" style="cursor:pointer;">
+                <!-- Add more club logo images as needed -->
+            </div>
+            <div class="logo-grid" id="Rugby/Hockey/Fighting-logo-grid">
+                <img src="Website Design/Sports Images/American Football.png" alt="Fighting Logo 1" class="logo-option-img" data-value="Fighting1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/BAM.png" alt="Fighting Logo 2" class="logo-option-img" data-value="Fighting2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Boxing Gloves 1.png" alt="Fighting Logo 3" class="logo-option-img" data-value="Fighting3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Boxing Gloves 2.png" alt="Fighting Logo 4" class="logo-option-img" data-value="Fighting4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Fire Boxing Glove.png" alt="Fighting Logo 5" class="logo-option-img" data-value="Fighting5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Hockey Stick 1.png" alt="Fighting Logo 6" class="logo-option-img" data-value="Fighting6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Hockey Stick 2.png" alt="Fighting Logo 7" class="logo-option-img" data-value="Fighting7.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Jiu Jitsu 1.png" alt="Fighting Logo 8" class="logo-option-img" data-value="Fighting8.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Jiu Jitsu 2.png" alt="Fighting Logo 9" class="logo-option-img" data-value="Fighting9.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/K.O..png" alt="Fighting Logo 10" class="logo-option-img" data-value="Fighting10.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/POW.png" alt="Fighting Logo 11" class="logo-option-img" data-value="Fighting11.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/ROCKY.png" alt="Fighting Logo 12" class="logo-option-img" data-value="Fighting12.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/SA Rugby Ball.png" alt="Fighting Logo 13" class="logo-option-img" data-value="Fighting13.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/Strength.png" alt="Fighting Logo 14" class="logo-option-img" data-value="Fighting14.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/UFC 1.png" alt="Fighting Logo 15" class="logo-option-img" data-value="Fighting15.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Sports Images/UFC 2.png" alt="Fighting Logo 16" class="logo-option-img" data-value="Fighting16.png" tabindex="0" style="cursor:pointer;">
+            </div>
+            <!-- Emoji grid -->
+            <div class="logo-grid" id="animals-logo-grid">
+                <img src="Website Design/Animal Images/Bear.png" alt="Bear" class="logo-option-img" data-value="Bear.png" tabindex="0">
+                <img src="Website Design/Animal Images/Bulldog.png" alt="Bulldog" class="logo-option-img" data-value="Bulldog.png" tabindex="0">
+                <img src="Website Design/Animal Images/Cardinal.png" alt="Cardinal" class="logo-option-img" data-value="Cardinal.png" tabindex="0">
+                <img src="Website Design/Animal Images/Cheetah.png" alt="Cheetah" class="logo-option-img" data-value="Cheetah.png" tabindex="0">
+                <img src="Website Design/Animal Images/Cobra.png" alt="Cobra" class="logo-option-img" data-value="Cobra.png" tabindex="0">
+                <img src="Website Design/Animal Images/Eagle.png" alt="Eagle" class="logo-option-img" data-value="Eagle.png" tabindex="0">
+                <img src="Website Design/Animal Images/Elephant.png" alt="Elephant" class="logo-option-img" data-value="Elephant.png" tabindex="0">
+                <img src="Website Design/Animal Images/Gorilla.png" alt="Gorilla" class="logo-option-img" data-value="Gorilla.png" tabindex="0">
+                <img src="Website Design/Animal Images/Honey Badger.png" alt="Honey Badger" class="logo-option-img" data-value="Honey Badger.png" tabindex="0">
+                <img src="Website Design/Animal Images/Hornet.png" alt="Hornet" class="logo-option-img" data-value="Hornet.png" tabindex="0">
+                <img src="Website Design/Animal Images/Horse.png" alt="Horse" class="logo-option-img" data-value="Horse.png" tabindex="0">
+                <img src="Website Design/Animal Images/Leopard.png" alt="Leopard" class="logo-option-img" data-value="Leopard.png" tabindex="0">
+                <img src="Website Design/Animal Images/Lion.png" alt="Lion" class="logo-option-img" data-value="Lion.png" tabindex="0">
+                <img src="Website Design/Animal Images/Pony.png" alt="Pony" class="logo-option-img" data-value="Pony.png" tabindex="0">
+                <img src="Website Design/Animal Images/Puma.png" alt="Puma" class="logo-option-img" data-value="Puma.png" tabindex="0">
+                <img src="Website Design/Animal Images/Puppy.png" alt="Puppy" class="logo-option-img" data-value="Puppy.png" tabindex="0">
+                <img src="Website Design/Animal Images/Ram.png" alt="Ram" class="logo-option-img" data-value="Ram.png" tabindex="0">
+                <img src="Website Design/Animal Images/Raven.png" alt="Raven" class="logo-option-img" data-value="Raven.png" tabindex="0">
+                <img src="Website Design/Animal Images/Shark.png" alt="Shark" class="logo-option-img" data-value="Shark.png" tabindex="0">
+                <img src="Website Design/Animal Images/Sword Cobra.png" alt="Sword Cobra" class="logo-option-img" data-value="Sword Cobra.png" tabindex="0">
+                <img src="Website Design/Animal Images/Tiger.png" alt="Tiger" class="logo-option-img" data-value="Tiger.png" tabindex="0">
+                <img src="Website Design/Animal Images/Unicorn 1.png" alt="Unicorn 1" class="logo-option-img" data-value="Unicorn 1.png" tabindex="0">
+                <img src="Website Design/Animal Images/Unicorn 2.png" alt="Unicorn 2" class="logo-option-img" data-value="Unicorn 2.png" tabindex="0">
+                <img src="Website Design/Animal Images/Viking.png" alt="Viking" class="logo-option-img" data-value="Viking.png" tabindex="0">
+                <img src="Website Design/Animal Images/Warthog.png" alt="Wolf 1" class="logo-option-img" data-value="Wolf 1.png" tabindex="0">
+                <img src="Website Design/Animal Images/Wolf 1.png" alt="Wolf 1" class="logo-option-img" data-value="Wolf 1.png" tabindex="0">
+                <img src="Website Design/Animal Images/Wolf 2.png" alt="Wolf 2" class="logo-option-img" data-value="Wolf 2.png" tabindex="0">
+                <img src="Website Design/Animal Images/Wolf 3.png" alt="Wolf 2" class="logo-option-img" data-value="Wolf 2.png" tabindex="0">
+            </div>
+            <div class="logo-grid" id="butterflies/flowers-logo-grid">
+                <img src="Website Design/Butterflies & Flowers Images/Butterfly 1.png" alt="Butterflies & Flowers 1" class="logo-option-img" data-value="Butterfly 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Butterfly 2.png" alt="Butterflies & Flowers 2" class="logo-option-img" data-value="Butterfly 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Butterfly 3.png" alt="Butterflies & Flowers 3" class="logo-option-img" data-value="Butterfly 3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Butterfly 4.png" alt="Butterflies & Flowers 4" class="logo-option-img" data-value="Butterfly 4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Butterfly 5.png" alt="Butterflies & Flowers 5" class="logo-option-img" data-value="Butterfly 5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Butterfly 6.png" alt="Butterflies & Flowers 6" class="logo-option-img" data-value="Butterfly 6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & FLowers Images/Fairy.png" alt="Butterflies & Flowers 7" class="logo-option-img" data-value="Fairy.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 1.png" alt="Butterflies & Flowers 8" class="logo-option-img" data-value="Flower 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 2.png" alt="Butterflies & Flowers 9" class="logo-option-img" data-value="Flower 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 3.png" alt="Butterflies & Flowers 10" class="logo-option-img" data-value="Flower 3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 4.png" alt="Butterflies & Flowers 11" class="logo-option-img" data-value="Flower 4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 5.png" alt="Butterflies & Flowers 12" class="logo-option-img" data-value="Flower 5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 6.png" alt="Butterflies & Flowers 13" class="logo-option-img" data-value="Flower 6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Butterflies & Flowers Images/Flower 7.png" alt="Butterflies & Flowers 14" class="logo-option-img" data-value="Flower 7.png" tabindex="0" style="cursor:pointer;">
+                <!-- Add more emoji images as needed -->
+            </div>
+            <div class="logo-grid" id="emoji-logo-grid">
+                <img src="Website Design/Emojis/Angry.png" alt="Emoji 1" class="logo-option-img" data-value="Angry.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Clown.png" alt="Emoji 2" class="logo-option-img" data-value="Clown.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Cool.png" alt="Emoji 3" class="logo-option-img" data-value="Cool.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Cross.png" alt="Emoji 4" class="logo-option-img" data-value="Cross.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Demon.png" alt="Emoji 5" class="logo-option-img" data-value="Demon.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Excited.png" alt="Emoji 6" class="logo-option-img" data-value="Excited.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Fire.png" alt="Emoji 7" class="logo-option-img" data-value="Fire.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Heart.png" alt="Emoji 8" class="logo-option-img" data-value="Heart.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Lightning.png" alt="Emoji 9" class="logo-option-img" data-value="Lightning.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Mermaid.png" alt="Emoji 10" class="logo-option-img" data-value="Mermaid.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Poop.png" alt="Emoji 11" class="logo-option-img" data-value="Poop.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/SHHHH.png" alt="Emoji 12" class="logo-option-img" data-value="SHHHH.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Side Eyes.png" alt="Emoji 13" class="logo-option-img" data-value="Side Eyes.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Emojis/Winking.png" alt="Emoji 14" class="logo-option-img" data-value="Winking.png" tabindex="0" style="cursor:pointer;">
+                <!-- Add more emoji images as needed -->
+            </div>
+            <div class="logo-grid" id="famous-logo-grid">
+                <img src="Website Design/Famous Movies & Games/Among Us.png" alt="Famous 1" class="logo-option-img" data-value="Among Us.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Barbie.png" alt="Famous 2" class="logo-option-img" data-value="Barbie.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Batman.png" alt="Famous 3" class="logo-option-img" data-value="Batman.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Call of Duty.png" alt="Famous 4" class="logo-option-img" data-value="Call of Duty.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Captain America.png" alt="Famous 5" class="logo-option-img" data-value="Captain America.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Cars.png" alt="Famous 6" class="logo-option-img" data-value="Cars.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Darth Vader.png" alt="Famous 7" class="logo-option-img" data-value="Darth Vader.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Deadpool.png" alt="Famous 8" class="logo-option-img" data-value="Deadpool.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Fight Club.png" alt="Famous 9" class="logo-option-img" data-value="Fight Club.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Fortnite.png" alt="Famous 10" class="logo-option-img" data-value="Fortnite.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/GODZILLA.png" alt="Famous 11" class="logo-option-img" data-value="GODZILLA.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Pacman.png" alt="Famous 12" class="logo-option-img" data-value="Pacman.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/RAMBO.png" alt="Famous 13" class="logo-option-img" data-value="RAMBO.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/ROCKY.png" alt="Famous 14" class="logo-option-img" data-value="ROCKY.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Spartan.png" alt="Famous 15" class="logo-option-img" data-value="Spartan.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Spiderman.png" alt="Famous 16" class="logo-option-img" data-value="Spiderman.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Star Wars.png" alt="Famous 17" class="logo-option-img" data-value="Star Wars.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Famous Movies & Games/Superman.png" alt="Famous 18" class="logo-option-img" data-value="Superman.png" tabindex="0" style="cursor:pointer;">
+                <!-- Add more emoji images as needed -->
+            </div>
+            <div class="logo-grid" id="Skulls/Fangs-logo-grid">
+                <img src="Website Design/Fangs & Skulls/Fangs 1.png" alt="Fangs 1" class="logo-option-img" data-value="Fangs 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Fangs 2.png" alt="Fangs 2" class="logo-option-img" data-value="Fangs 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Fangs 3.png" alt="Fangs 3" class="logo-option-img" data-value="Fangs 3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Fangs 4.png" alt="Fangs 4" class="logo-option-img" data-value="Fangs 4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Fangs 5.png" alt="Fangs 5" class="logo-option-img" data-value="Fangs 5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Fangs 6.png" alt="Fangs 6" class="logo-option-img" data-value="Fangs 6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Fangs 7.png" alt="Fangs 7" class="logo-option-img" data-value="Fangs 7.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 1.png" alt="Skull 1" class="logo-option-img" data-value="Skull 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 2.png" alt="Skull 2" class="logo-option-img" data-value="Skull 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 3.png" alt="Skull 3" class="logo-option-img" data-value="Skull 3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 4.png" alt="Skull 4" class="logo-option-img" data-value="Skull 4.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 5.png" alt="Skull 5" class="logo-option-img" data-value="Skull 5.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 6.png" alt="Skull 6" class="logo-option-img" data-value="Skull 6.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Fangs & Skulls/Skull 7.png" alt="Skull 7" class="logo-option-img" data-value="Skull 7.png" tabindex="0" style="cursor:pointer;">
+                <!-- Add more emoji images as needed -->
+            </div>
+            <div class="logo-grid" id="symbols-logo-grid">
+                <img src="Website Design/Symbols/Army 1.png" alt="Symbol 1" class="logo-option-img" data-value="Army 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Army 2.png" alt="Symbol 2" class="logo-option-img" data-value="Army 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Cross 1.png" alt="Symbol 3" class="logo-option-img" data-value="Cross 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Cross 2.png" alt="Symbol 4" class="logo-option-img" data-value="Cross 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Cross 3.png" alt="Symbol 5" class="logo-option-img" data-value="Cross 3.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Danger.png" alt="Symbol 6" class="logo-option-img" data-value="Danger.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Goodbye.png" alt="Symbol 7" class="logo-option-img" data-value="Goodbye.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Love 1.png" alt="Symbol 8" class="logo-option-img" data-value="Love 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Love 2.png" alt="Symbol 9" class="logo-option-img" data-value="Love 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Money.png" alt="Symbol 10" class="logo-option-img" data-value="Money.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Peace 1.png" alt="Symbol 11" class="logo-option-img" data-value="Peace 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Peace 2.png" alt="Symbol 12" class="logo-option-img" data-value="Peace 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Radioactive.png" alt="Symbol 13" class="logo-option-img" data-value="Radioactive.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Star of David.png" alt="Symbol 14" class="logo-option-img" data-value="Star of David.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Unity.png" alt="Symbol 15" class="logo-option-img" data-value="Unity.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Symbols/Yin Yang.png" alt="Symbol 16" class="logo-option-img" data-value="Yin Yang.png" tabindex="0" style="cursor:pointer;">
+            </div>
+            <!-- Add more grids for Emblem, Sports team, etc. as needed -->
+        </div>
+
+    </div>
+
+    <!-- Payment -->
+    <h2>Payment</h2>
+    <div>
+        <fieldset>
+            <legend>Payment option</legend>
+            <div style="color: red; font-size: 1em; margin-bottom:8px;">
+                Impressions will not be taken until the payment has been confirmed (ie. cash / card / POP).
+            </div>
+            <div>
+                <input type="radio" name="payment_option" value="Cash" required> Cash
+            </div>
+            <div>
+                <input type="radio" name="payment_option" value="Card/EFT" required> Card / EFT
+            </div>
+            <div style="font-size:0.95em; color:#444; margin-left:24px;">
+                Proof of payment presented prior to impression being taken
+            </div>
+        </fieldset>
+    </div>
+
+    <!-- Final Cost Block -->
+    <div id="final-cost-block" style="margin: 32px auto 0 auto; width: 80%; background: #f6f7f9; border: 2px solid #1a237e; border-radius: 8px; padding: 18px; font-size: 1.1em; font-weight: bold; color: #1a237e; text-align: center;">
+        Final Cost: R0
+    </div>
+
+    <button type="submit" class="submit-button">Submit form</button>
+
+</form>
+
+<script>
+const costingRadios = document.querySelectorAll('input[name="costing"]');
+const logoSelect = document.getElementById('logo_select');
+const colourSelect = document.getElementById('colour_select');
+const finalCostBlock = document.getElementById('final-cost-block');
+const customUploadContainer = document.getElementById('custom-upload-container');
+const customLogoUpload = document.getElementById('custom-logo-upload');
+const customUploadPreview = document.getElementById('custom-upload-preview');
+const chosenLogoSquare = document.getElementById('chosen-logo-square');
+
+function updateFormAndCost() {
+    let cost = 0;
+    let costingValue = document.querySelector('input[name="costing"]:checked');
+    let colourValue = colourSelect.value;
+    let showCost = true;
+    let costText = "";
+
+    // Enable all by default
+    logoSelect.disabled = false;
+    colourSelect.disabled = false;
+
+    // Default logo and colour options
+    logoSelect.value = logoSelect.value || "No logo";
+    colourSelect.value = colourSelect.value || "Clear";
+
+    if (costingValue) {
+        switch (costingValue.id) {
+            case "cost800":
+                cost = 800;
+                logoSelect.disabled = false;
+                break;
+            case "cost850":
+                cost = 850;
+                logoSelect.value = "N/A";
+                logoSelect.disabled = true;
+                break;
+            case "cost980":
+                cost = 980;
+                logoSelect.value = "N/A";
+                logoSelect.disabled = true;
+                break;
+            case "cost980bite":
+                cost = 980;
+                logoSelect.value = "N/A";
+                logoSelect.disabled = true;
+                colourSelect.value = "Clear";
+                colourSelect.disabled = true;
+                break;
+            case "costretainer":
+            case "costbleach":
+                cost = 0;
+                showCost = false;
+                logoSelect.value = "N/A";
+                logoSelect.disabled = true;
+                colourSelect.value = "Clear";
+                colourSelect.disabled = true;
+                break;
+        }
+    }
+
+    // Add R180 for special colours if allowed
+    if (
+        (costingValue && ["cost800", "cost850", "cost980"].includes(costingValue.id)) &&
+        ["Gold (+ R180)", "Silver (+ R180)","Dual Colour (+ R180)", "Tri Colour (+ R180)", "Galaxy (+ R180)"].includes(colourSelect.value)
+    ) {
+        cost += 180;
+    }
+
+    // Set cost text
+    if (costingValue && ["costretainer", "costbleach"].includes(costingValue.id)) {
+        costText = "Final Cost: R1600";
+    } else if (cost > 0) {
+        costText = "Final Cost: R" + cost;
+    } else {
+        costText = "Final Cost: R0";
+    }
+
+    finalCostBlock.textContent = costText;
+
+    // Remove "Not Applicable (N/A)" when R800 standard mouthguard is chosen
+    const logoDropdown = logoSelect;
+    const naOption = Array.from(logoDropdown.options).find(opt => opt.value === "N/A");
+    if (costingValue && costingValue.id === "cost800") {
+        if (naOption) {
+            logoDropdown.removeChild(naOption);
+        }
+        logoSelect.disabled = false;
+    } else {
+        // Add N/A option back if missing
+        if (!Array.from(logoDropdown.options).some(opt => opt.value === "N/A")) {
+            const option = document.createElement("option");
+            option.value = "N/A";
+            option.textContent = "Not Applicable (N/A)";
+            logoDropdown.insertBefore(option, logoDropdown.options[0]);
+        }
+        logoSelect.value = "N/A";
+        logoSelect.disabled = true;
+    }
+}
+
+// Listen for changes
+costingRadios.forEach(radio => {
+    radio.addEventListener('change', updateFormAndCost);
+colourSelect.addEventListener('change', updateFormAndCost);
+});
+
+// Also update on page load
+window.addEventListener('DOMContentLoaded', updateFormAndCost);
+
+document.getElementById('snugfit-booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert(
+        "Thank you for your order, please contact Snugfit to make an appointment for your impression.\n\n" +
+        "A copy of your order will be sent to your email and to info@snugfitmouthguards.co.za (PDF emailing requires backend setup)."
+    );
+    // Here you would send the form data to your backend for PDF generation and emailing.
+});
+
+const logoImageInput = document.getElementById('logo_image');
+const logoGrids = {
+    "School Logo": document.getElementById('school-logo-grid'),
+    "Sports Team / Club Logo": document.getElementById('club-logo-grid'),
+    "Rugby/Hockey/Fighting": document.getElementById('Rugby/Hockey/Fighting-logo-grid'),
+    "Animals": document.getElementById('animals-logo-grid'),
+    "Butterflies & Flowers": document.getElementById('butterflies/flowers-logo-grid'),
+    "Emojis": document.getElementById('emoji-logo-grid'),
+    "Famous Movies & Games": document.getElementById('famous-logo-grid'),
+    "Skulls & Fangs": document.getElementById('Skulls/Fangs-logo-grid'),
+    "Symbols": document.getElementById('symbols-logo-grid'),
+    // Add more mappings as needed
+};
+
+function showLogoGrid(selected) {
+    // Hide all grids
+    Object.values(logoGrids).forEach(grid => grid.style.display = 'none');
+    // Show relevant grid as grid
+    if (logoGrids[selected]) {
+        logoGrids[selected].style.display = 'grid';
+    }
+    // Clear previous image selection
+    logoImageInput.value = '';
+    document.querySelectorAll('.logo-option-img').forEach(img => img.style.outline = '');
+}
+
+function handleLogoSelectChange(selected) {
+    showLogoGrid(selected);
+    if (selected === "Custom Upload") {
+        customUploadContainer.style.display = "block";
+        customLogoUpload.required = true;
+        customTextUploadContainer.style.display = "none";
+    } else if (selected === "Custom Text Upload") {
+        customUploadContainer.style.display = "none";
+        customLogoUpload.required = false;
+        customTextUploadContainer.style.display = "block";
+        updateTextPreview(); // Show live preview immediately
+    } else {
+        customUploadContainer.style.display = "none";
+        customLogoUpload.required = false;
+        customTextUploadContainer.style.display = "none";
+    }
+}
+
+// When dropdown changes, show relevant grid or upload
+// When dropdown changes, show relevant grid or upload
+logoSelect.addEventListener('change', () => {
+    handleLogoSelectChange(logoSelect.value);
+    updateChosenLogoSquare();
+});
+
+// Allow re-selecting the same option (esp. Custom Text Upload and Custom Upload)
+logoSelect.addEventListener('click', () => {
+    if (logoSelect.value === "Custom Text Upload") {
+        handleLogoSelectChange("Custom Text Upload");
+    }
+    if (logoSelect.value === "Custom Upload") {
+        handleLogoSelectChange("Custom Upload");
+    }
+});
+
+// When an image is clicked, set hidden input and highlight
+document.querySelectorAll('.logo-option-img').forEach(img => {
+    img.addEventListener('click', function() {
+        document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
+        this.style.outline = '3px solid #1a237e';
+        logoImageInput.value = this.getAttribute('data-value');
+    });
+    img.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            this.click();
+        }
+    });
+});
+
+// Initialize logo grid display based on default selection
+window.addEventListener('DOMContentLoaded', function() {
+    handleLogoSelectChange(logoSelect.value);
+});
+
+customLogoUpload.addEventListener('change', function() {
+    customUploadPreview.innerHTML = '';
+    const file = this.files && this.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = "Uploaded Logo Preview";
+            img.className = "logo-option-img";
+            customUploadPreview.appendChild(img);
+            logoImageInput.value = img.src; 
+            updateChosenLogoSquare();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Custom Text Upload logic
+const customTextUploadContainer = document.getElementById('custom-text-upload-container');
+const customTextInput = document.getElementById('custom-text-input');
+const customTextColor = document.getElementById('custom-text-color');
+const customBgColor = document.getElementById('custom-bg-color');
+const customTextConfirm = document.getElementById('custom-text-confirm');
+const customTextPreview = document.getElementById('custom-text-preview');
+const customTextFont = document.getElementById('custom-text-font');
+
+// Show/hide custom text upload
+function handleLogoSelectChange(selected) {
+    showLogoGrid(selected);
+    if (selected === "Custom Upload") {
+        customUploadContainer.style.display = "block";
+        customLogoUpload.required = true;
+        customTextUploadContainer.style.display = "none";
+    } else if (selected === "Custom Text Upload") {
+        customUploadContainer.style.display = "none";
+        customLogoUpload.required = false;
+        customTextUploadContainer.style.display = "block";
+        updateTextPreview(); // Show live preview immediately
+    } else {
+        customUploadContainer.style.display = "none";
+        customLogoUpload.required = false;
+        customTextUploadContainer.style.display = "none";
+    }
+}
+
+// Render text as image on confirm
+// When the "Confirm" button is clicked, the custom text is rendered onto a canvas,
+// converted to a PNG image, displayed as a preview, and the image data URL is stored
+// in the hidden input 'logo_image' for form submission.
+customTextConfirm.addEventListener('click', function() {
+    const text = customTextInput.value.trim();
+    if (!text) {
+        alert("Please enter your text.");
+        return;
+    }
+    // Create canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = 200;
+    canvas.height = 75;
+    const ctx = canvas.getContext('2d');
+    // Fill background
+    ctx.fillStyle = customBgColor.value;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Draw text centered with 20px padding
+    ctx.font = "bold 30px " + customTextFont.value;
+    ctx.fillStyle = customTextColor.value;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+    // Show preview as image
+    customTextPreview.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = canvas.toDataURL("image/png");
+    img.alt = "Custom Text Logo Preview";
+    img.className = "logo-option-img";
+    img.style.width = "200px";
+    img.style.height = "75px";
+    customTextPreview.appendChild(img);
+    // Save image data for form submission if needed
+    document.getElementById('logo_image').value = img.src;
+    // Also update the chosen logo square
+    updateLogoImageFromCustomTextPreview();
+    updateChosenLogoSquare();
+});
+function updateTextPreview() {
+    const text = customTextInput.value;
+    const textColor = customTextColor.value;
+    const bgColor = customBgColor.value;
+    const fontFamily = customTextFont.value;
+    customTextPreview.innerHTML = '';
+    customTextPreview.style.width = "200px";
+    customTextPreview.style.height = "75px";
+    customTextPreview.style.display = "flex";
+    customTextPreview.style.alignItems = "center";
+    customTextPreview.style.justifyContent = "center";
+    customTextPreview.style.backgroundColor = bgColor;
+    customTextPreview.style.fontFamily = fontFamily;
+    customTextPreview.style.color = textColor;
+    customTextPreview.style.fontSize = "24px";
+    customTextPreview.style.fontWeight = "bold";
+    customTextPreview.style.borderRadius = "4px";
+    customTextPreview.style.marginTop = "8px";
+    customTextPreview.style.padding = "20px";
+    customTextPreview.textContent = text;
+}
+
+// Helper to update the chosen logo square
+function updateChosenLogoSquare() {
+    const selectedLogo = logoSelect.value;
+    const logoImageValue = logoImageInput.value;
+
+    if (selectedLogo === "N/A" || selectedLogo === "No logo") {
+        chosenLogoSquare.textContent = "No Logo";
+        return;
+    }
+
+    // If an image was chosen (grid, upload, or text-generated)
+    if (logoImageValue) {
+        chosenLogoSquare.innerHTML = ""; // this clears the chosen logo only when it is replaced
+        const img = document.createElement('img');
+        img.src = logoImageValue;
+        img.alt = "Chosen Logo";
+        img.style.maxWidth = "100px";
+        img.style.maxHeight = "100px";
+        img.style.objectFit = "contain";
+        chosenLogoSquare.appendChild(img);
+    } else {
+        chosenLogoSquare.textContent = "No Logo";
+    }
+}
+
+
+// Update chosen logo square when logo changes
+logoSelect.addEventListener('change', () => {
+    handleLogoSelectChange(logoSelect.value);
+});
+
+document.querySelectorAll('.logo-option-img').forEach(img => {
+    img.addEventListener('click', function() {
+    document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
+    this.style.outline = '3px solid #1a237e';
+    logoImageInput.value = this.src;
+    updateChosenLogoSquare();
+    });
+
+});
+
+customLogoUpload.addEventListener('change', () => {
+    setTimeout(() => {
+        const uploadedImg = customUploadPreview.querySelector("img");
+        if (uploadedImg) {
+            logoImageInput.value = uploadedImg.src;
+        }
+        updateChosenLogoSquare();
+    }, 300);
+});
+
+customTextConfirm.addEventListener('click', () => {
+    setTimeout(() => {
+        updateLogoImageFromCustomTextPreview();
+    }, 300);
+});
+
+// On page load
+window.addEventListener('DOMContentLoaded', updateChosenLogoSquare);
+
+customTextInput.addEventListener('input', updateTextPreview);
+customTextColor.addEventListener('input', updateTextPreview);
+customBgColor.addEventListener('input', updateTextPreview);
+customTextFont.addEventListener('change', updateTextPreview);
+
+function updateLogoImageFromCustomTextPreview() {
+    // Get the preview image from the custom text preview
+    const img = customTextPreview.querySelector('img');
+    if (img) {
+        logoImageInput.value = img.src;
+        updateChosenLogoSquare();
+    }
+}
+</script>
+
+<footer>
+    <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2025</p>
+    <div class="social-icons">
+        <a href="mailto:info@snugfitmouthguards.co.za" aria-label="Email">
+            <img src="Website Design/Email Icon.png" alt="Email" />
+        </a>
+        <a href="https://facebook.com/snugfitmouthguards/" target="_blank" aria-label="Facebook">
+            <img src="Website Design/Facebook Icon.png" alt="Facebook" />
+        </a>
+        <a href="https://instagram.com/snugfitmouthguards/?hl=en" target="_blank" aria-label="Instagram">
+            <img src="Website Design/Insta Icon.png" alt="Instagram">
+        </a>
+        <a href="https://www.youtube.com/@snugfitmouthguards" target="_blank" aria-label="YouTube">
+            <img src="Website Design/YouTube Icon.png" alt="YouTube" />
+        </a>
+    </div>
+</footer>
+</body>
+</html>
