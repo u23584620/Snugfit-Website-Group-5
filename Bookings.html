@@ -188,6 +188,13 @@
             align-items: center;
             margin-bottom: 16px;
         }
+        #snugfit-booking-form input:disabled,
+        #snugfit-booking-form select:disabled {
+            background:#e5e5e5 !important;
+            cursor:not-allowed;
+            
+            opacity:.85;
+        }
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -227,6 +234,14 @@
                 gap: 12px;
             }
         }
+        /* ...existing styles... */
+.product-warning {
+    display:none;
+    font-size:0.9em;
+    color:#c00;
+    font-weight:600;
+    margin:8px 0 16px 0;
+}
     </style>
 </head>
 <body>
@@ -247,11 +262,11 @@
             <!-- Responsive Booking Form (front-end only) -->
 <form id="snugfit-booking-form">
     <!-- 2025 Costing (now at the top) -->
-    <h2>Our Products</h2>
+    <h2>Select One of Our Products</h2>
     <fieldset>
         <legend>2026 Pricing</legend>
         <div>
-            <input type="radio" name="costing" id="cost800" value="R800: Standard sports mouth guard" required>
+            <input type="radio" name="costing" id="cost800" value="MG Standard" required>
             <label for="cost800" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
                     R800: Standard Sports Mouthguard (ie. where the wearer has no orthodontic / fixed braces)
@@ -262,7 +277,7 @@
             </div>
         </div>
         <div>
-            <input type="radio" name="costing" id="cost850" value="R850: Orthodontic (top only) sports mouth guard">
+            <input type="radio" name="costing" id="cost850" value="Ortho (T)">
             <label for="cost850" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
                     R850: Orthodontic (top only) Sports Mouthguard
@@ -273,7 +288,7 @@
             </div>
         </div>
         <div>
-            <input type="radio" name="costing" id="cost980" value="R980: Orthodontic (top and bottom) sports mouth guard">
+            <input type="radio" name="costing" id="cost980" value="Ortho (T&B)">
             <label for="cost980" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
                     R980: Orthodontic (top and bottom) Sports Mouthguard
@@ -284,7 +299,7 @@
             </div>
         </div>
         <div>
-            <input type="radio" name="costing" id="cost980bite" value="R980: Rubberised biteplate">
+            <input type="radio" name="costing" id="cost980bite" value="Rubberised">
             <label for="cost980bite" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
                     R980: Rubberised Biteplate - Protects teeth from clenching (NOT FOR SPORT).
@@ -292,7 +307,7 @@
             </label>
         </div>
         <div>
-            <input type="radio" name="costing" id="costretainer" value="Dental retainers">
+            <input type="radio" name="costing" id="costretainer" value="Retainer">
             <label for="costretainer" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
                     R1600: Dental Retainers for post orthodontic treatment. 
@@ -300,24 +315,27 @@
             </label>
         </div>
         <div>
-            <input type="radio" name="costing" id="costbleach" value="Bleaching trays">
+            <input type="radio" name="costing" id="costbleach" value="Bleaching">
             <label for="costbleach" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
-                    R1600: Bleaching Trays for home dental whitening (Excludes syringes)
+                    R1600: Bleaching Trays for home dental whitening (Excludes syringes).
                 </span>
             </label>
         </div>
     </fieldset>
 
+    <!-- SHOW THIS MESSAGE WHILE OTHER FIELDS ARE LOCKED -->
+    <div id="product-warning" class="product-warning">Please choose a product</div>
+
     <!-- Personal Details -->
     <h2>Personal Details</h2>
     <div>
         <label>First Name of Wearer</label>
-        <input type="text" name="first_name" required>
+        <input id="first_name" name="first_name" type="text"  required>
         <label>Surname of Wearer</label>
-        <input type="text" name="surname" required>
+        <input id="surname" name="surname" type="text"  required>
         <label for="club_school">Club/School <span style="font-size:0.9em; color:#888;">(Type N/A if Not Applicable)</span></label>
-        <input type="text" list="club_school_list" name="club_school" id="club_school" required>
+        <input id="club_school" name="club_school" type="text" list="club_school_list" required>
         <datalist id="club_school_list">
             <option value="Not Applicable (N/A)"></option>
             <option value="APEX Gym"></option>
@@ -395,16 +413,25 @@
             <!-- Add more schools/clubs as needed -->
         </datalist>
         <label>Contact Number <span style="font-size:0.9em; color:#888;">(Of parent if minor.)</span></label>
-        <input type="tel" name="contact_number" required>
+        <input type="tel"
+               name="contact_number"
+               id="contact_number"
+               required
+               placeholder="0821234567 or +27821234567"
+               pattern="^(?:0|\+27)[1-9][0-9]{8}$"
+               title="Use 0XXXXXXXXX or +27XXXXXXXXX (9 digits after 0 or +27)">
+        <div id="phoneError" style="display:none; font-size:0.75em; color:#c00; margin:-6px 0 12px 2px;">
+            Enter SA number: 0XXXXXXXXX or +27XXXXXXXXX (9 digits after prefix).
+        </div>
         <label>Contact Email <span style="font-size:0.9em; color:#888;">(Of parent if minor.)</span></label>
-        <input type="email" name="contact_email" required>
+        <input id="contact_email" name="contact_email" type="email"  required>
     </div>
 
     <!-- Customisation -->
     <h2>Customisation</h2>
     <div>
         <label>Colour of Mouthguard <span style="font-size:0.9em; color:#888;">(Dental retainers, bleaching trays, and orthodontic bottoms guards only available in clear.)</span></label>
-        <select name="colour" id="colour_select" required>
+        <select id="colour_select" name="colour" type="text" required>
             <option value="Clear">Clear</option>
             <option value="Black">Black</option>
             <option value="Blue">Blue</option>
@@ -426,7 +453,7 @@
         </span>
         <!-- Logo Dropdown -->
         <label>Logo on Front of Mouthguard <span style="font-size:0.9em; color:#888;">(Not Applicable for orthodontic mouthguards, dental retainers, or bleaching trays.)</span></label>
-        <select name="logo" id="logo_select" required>
+        <select id="logo_select" name="logo_select" required>
             <option value="N/A">Not Applicable (N/A)</option>
             <option value="No logo">No Logo</option>
             <option value="Animals">Animals</option>
@@ -693,7 +720,8 @@
             </div>
             <!-- Add more grids for Emblem, Sports team, etc. as needed -->
         </div>
-
+        <label for="additional_notes">Additional Notes (optional)</label>
+        <input type="text" name="additional_notes" id="additional_notes" placeholder="Enter any extra info or instructions here" style="width: 100%; margin-top: 6px; margin-bottom: 12px; padding: 10px; border-radius: 6px; border: 1px solid #bbb; background: #f6f7f9;">
     </div>
 
     <!-- Payment -->
@@ -705,13 +733,13 @@
                 Impressions will not be taken until the payment has been confirmed (ie. cash / card / POP).
             </div>
             <div>
-                <input type="radio" name="payment_option" value="Cash" required> Cash
+                <input type="radio" id="payment_cash" name="payment_option" value="Cash" required> Cash
             </div>
             <div>
-                <input type="radio" name="payment_option" value="Card/EFT" required> Card / EFT
+                <input type="radio" id="payment_card" name="payment_option" value="Card" required> Card
             </div>
-            <div style="font-size:0.95em; color:#444; margin-left:24px;">
-                Proof of payment presented prior to impression being taken
+            <div>
+                <input type="radio" id="payment_eft" name="payment_option" value="EFT" required> EFT
             </div>
         </fieldset>
     </div>
@@ -737,52 +765,49 @@ const chosenLogoSquare = document.getElementById('chosen-logo-square');
 
 function updateFormAndCost() {
     let cost = 0;
-    let costingValue = document.querySelector('input[name="costing"]:checked');
-    let colourValue = colourSelect.value;
-    let showCost = true;
-    let costText = "";
+    const costingValue = document.querySelector('input[name="costing"]:checked');
 
-    // Enable all by default
-    logoSelect.disabled = false;
-    colourSelect.disabled = false;
+    // If no costing yet selected: keep everything locked & exit
+    if (!costingValue){
+        setDependentFieldsEnabled(false);
+        finalCostBlock.textContent = "Final Cost: R0";
+        return;
+    } else {
+        // Unlock dependent fields (will be selectively re-disabled below if needed)
+        setDependentFieldsEnabled(true);
+    }
 
-    // Default logo and colour options
-    logoSelect.value = logoSelect.value || "No logo";
-    colourSelect.value = colourSelect.value || "Clear";
-
-    if (costingValue) {
-        switch (costingValue.id) {
-            case "cost800":
-                cost = 800;
-                logoSelect.disabled = false;
-                break;
-            case "cost850":
-                cost = 850;
-                logoSelect.value = "N/A";
-                logoSelect.disabled = true;
-                break;
-            case "cost980":
-                cost = 980;
-                logoSelect.value = "N/A";
-                logoSelect.disabled = true;
-                break;
-            case "cost980bite":
-                cost = 980;
-                logoSelect.value = "N/A";
-                logoSelect.disabled = true;
-                colourSelect.value = "Clear";
-                colourSelect.disabled = true;
-                break;
-            case "costretainer":
-            case "costbleach":
-                cost = 0;
-                showCost = false;
-                logoSelect.value = "N/A";
-                logoSelect.disabled = true;
-                colourSelect.value = "Clear";
-                colourSelect.disabled = true;
-                break;
-        }
+    switch (costingValue.id) {
+        case "cost800":
+            cost = 800;
+            logoSelect.disabled = false;
+            break;
+        case "cost850":
+            cost = 850;
+            logoSelect.value = "N/A";
+            logoSelect.disabled = true;
+            break;
+        case "cost980":
+            cost = 980;
+            logoSelect.value = "N/A";
+            logoSelect.disabled = true;
+            break;
+        case "cost980bite":
+            cost = 980;
+            logoSelect.value = "N/A";
+            logoSelect.disabled = true;
+            colourSelect.value = "Clear";
+            colourSelect.disabled = true;
+            break;
+        case "costretainer":
+        case "costbleach":
+            cost = 0;
+            showCost = false;
+            logoSelect.value = "N/A";
+            logoSelect.disabled = true;
+            colourSelect.value = "Clear";
+            colourSelect.disabled = true;
+            break;
     }
 
     // Add R180 for special colours if allowed
@@ -823,25 +848,52 @@ function updateFormAndCost() {
         logoSelect.value = "N/A";
         logoSelect.disabled = true;
     }
+
+    // Hide logo grid, custom upload, and custom text upload for non-standard mouthguard options
+    if (costingValue && costingValue.id !== "cost800") {
+        // Reset chosen logo preview to "No Logo"
+        logoImageInput.value = "";
+        chosenLogoSquare.textContent = "No Logo";
+        // Hide all logo grids
+        Object.values(logoGrids).forEach(grid => grid.style.display = 'none');
+        // Hide custom upload and custom text upload containers
+        customUploadContainer.style.display = "none";
+        customTextUploadContainer.style.display = "none";
+    } else {
+        // Show relevant logo grid or upload/text section based on logo dropdown
+        handleLogoSelectChange(logoSelect.value);
+    }
 }
 
 // Listen for changes
 costingRadios.forEach(radio => {
     radio.addEventListener('change', updateFormAndCost);
+});
 colourSelect.addEventListener('change', updateFormAndCost);
+
+// When an image is clicked, set hidden input and highlight
+document.querySelectorAll('.logo-option-img').forEach(img => {
+    img.addEventListener('click', function() {
+        document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
+        this.style.outline = '3px solid #1a237e';
+
+        // Convert clicked image to a data URL
+        fetch(this.src)
+            .then(res => res.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    // FIX: use the result (full data URL)
+                    logoImageInput.value = reader.result;
+                    updateChosenLogoSquare();
+                };
+                reader.readAsDataURL(blob);
+            });
+    });
 });
 
 // Also update on page load
 window.addEventListener('DOMContentLoaded', updateFormAndCost);
-
-document.getElementById('snugfit-booking-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert(
-        "Thank you for your order, please contact Snugfit to make an appointment for your impression.\n\n" +
-        "A copy of your order will be sent to your email and to info@snugfitmouthguards.co.za (PDF emailing requires backend setup)."
-    );
-    // Here you would send the form data to your backend for PDF generation and emailing.
-});
 
 const logoImageInput = document.getElementById('logo_image');
 const logoGrids = {
@@ -909,12 +961,19 @@ document.querySelectorAll('.logo-option-img').forEach(img => {
     img.addEventListener('click', function() {
         document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
         this.style.outline = '3px solid #1a237e';
-        logoImageInput.value = this.getAttribute('data-value');
-    });
-    img.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            this.click();
-        }
+
+        // Convert clicked image to a data URL
+        fetch(this.src)
+            .then(res => res.blob())
+            .then(blob => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    // FIX: use the result (full data URL)
+                    logoImageInput.value = reader.result;
+                    updateChosenLogoSquare();
+                };
+                reader.readAsDataURL(blob);
+            });
     });
 });
 
@@ -950,6 +1009,7 @@ const customTextConfirm = document.getElementById('custom-text-confirm');
 const customTextPreview = document.getElementById('custom-text-preview');
 const customTextFont = document.getElementById('custom-text-font');
 
+
 // Show/hide custom text upload
 function handleLogoSelectChange(selected) {
     showLogoGrid(selected);
@@ -978,6 +1038,7 @@ customTextConfirm.addEventListener('click', function() {
     if (!text) {
         alert("Please enter your text.");
         return;
+   
     }
     // Create canvas
     const canvas = document.createElement('canvas');
@@ -988,12 +1049,16 @@ customTextConfirm.addEventListener('click', function() {
     ctx.fillStyle = customBgColor.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     // Draw text centered with 20px padding
-    ctx.font = "bold 30px " + customTextFont.value;
+    let fontSize = 30;
+    if (customTextFont.value.includes("Goudy Stout")) {
+        fontSize = 24; // Slightly smaller for this font
+    }
+    ctx.font = "bold " + fontSize + "px " + customTextFont.value;
     ctx.fillStyle = customTextColor.value;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-    // Show preview as image
+       // Show preview as image
     customTextPreview.innerHTML = '';
     const img = document.createElement('img');
     img.src = canvas.toDataURL("image/png");
@@ -1031,6 +1096,7 @@ function updateTextPreview() {
 }
 
 // Helper to update the chosen logo square
+
 function updateChosenLogoSquare() {
     const selectedLogo = logoSelect.value;
     const logoImageValue = logoImageInput.value;
@@ -1059,16 +1125,6 @@ function updateChosenLogoSquare() {
 // Update chosen logo square when logo changes
 logoSelect.addEventListener('change', () => {
     handleLogoSelectChange(logoSelect.value);
-});
-
-document.querySelectorAll('.logo-option-img').forEach(img => {
-    img.addEventListener('click', function() {
-    document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
-    this.style.outline = '3px solid #1a237e';
-    logoImageInput.value = this.src;
-    updateChosenLogoSquare();
-    });
-
 });
 
 customLogoUpload.addEventListener('change', () => {
@@ -1103,6 +1159,124 @@ function updateLogoImageFromCustomTextPreview() {
         updateChosenLogoSquare();
     }
 }
+
+// Register dependent (locked) fields (everything that must wait for a costing choice)
+const dependentSelectors = [
+    '#snugfit-booking-form input[name="first_name"]',
+    '#snugfit-booking-form input[name="surname"]',
+    '#club_school',
+    '#snugfit-booking-form input[name="contact_number"]',
+    '#snugfit-booking-form input[name="contact_email"]',
+    '#colour_select',
+    '#logo_select',
+    '#additional_notes',
+    'input[name="payment_option"]',
+    '#snugfit-booking-form .submit-button'
+];
+
+function setDependentFieldsEnabled(enable){
+    const warning = document.getElementById('product-warning');
+    const tooltipText = "Please choose a product";
+
+    dependentSelectors.forEach(sel=>{
+        if (sel === 'input[name="payment_option"]') {
+            document.querySelectorAll(sel).forEach(el=>{
+                el.disabled = !enable;
+                if (!enable) {
+                    el.setAttribute('title', tooltipText);
+                } else {
+                    el.removeAttribute('title');
+                }
+            });
+        } else {
+            const el = document.querySelector(sel);
+            if (el){
+                el.disabled = !enable;
+                if (!enable) {
+                    el.setAttribute('title', tooltipText);
+                } else {
+                    el.removeAttribute('title');
+                }
+            }
+        }
+    });
+
+    if (warning) warning.style.display = enable ? 'none' : 'block';
+
+    if (!enable){
+        logoImageInput.value = "";
+        chosenLogoSquare.textContent = "No Logo";
+        Object.values(logoGrids).forEach(g=> g.style.display='none');
+        customUploadContainer.style.display = "none";
+        customTextUploadContainer.style.display = "none";
+    }
+}
+
+// Optional: if you want a custom styled tooltip (uncomment CSS + wrapper approach)
+/*
+Add to <style>:
+.locked-tip[disabled] {
+    position:relative;
+}
+.locked-tip[disabled]:hover::after {
+    content:"Please choose a product";
+    position:absolute;
+    top:100%;
+    left:0;
+    white-space:nowrap;
+    background:#1a237e;
+    color:#fff;
+    font-size:0.7em;
+    padding:4px 8px;
+    border-radius:4px;
+    margin-top:4px;
+    z-index:50;
+}
+Then add class "locked-tip" to the inputs you want styled.
+*/
+// INITIAL LOCK before any costing is chosen
+window.addEventListener('DOMContentLoaded', ()=> {
+    if (!document.querySelector('input[name="costing"]:checked')) {
+        setDependentFieldsEnabled(false);
+    }
+});
+
+// PHONE VALIDATION ONLY
+const phoneInput = document.getElementById('contact_number');
+const phoneError = document.getElementById('phoneError');
+
+function validatePhone(){
+    const v = phoneInput.value.trim();
+    const re = /^(?:0|\+27)[1-9][0-9]{8}$/;
+    const ok = re.test(v);
+    if (ok){
+        phoneInput.classList.remove('input-error');
+        phoneError.style.display = 'none';
+    } else {
+        phoneInput.classList.add('input-error');
+        phoneError.style.display = 'block';
+    }
+    return ok;
+}
+
+phoneInput.addEventListener('input', validatePhone);
+
+// MODIFY existing submit handler (keep other logic)
+/* document.getElementById('snugfit-booking-form').addEventListener('submit', function(e) {
+    if (!validatePhone()){
+        e.preventDefault();
+        phoneInput.focus();
+        return;
+    }
+    e.preventDefault();
+    window.location.href = 'ThankYou.html';
+});
+*/
+
+// Optional basic styling for error border (add once if not present)
+const styleTag = document.createElement('style');
+styleTag.textContent = '.input-error{border:2px solid #c00 !important; background:#ffecec !important;}';
+document.head.appendChild(styleTag);
 </script>
 
 <footer>
@@ -1123,4 +1297,5 @@ function updateLogoImageFromCustomTextPreview() {
     </div>
 </footer>
 </body>
+<script src="BookingBackend.js"></script>
 </html>
