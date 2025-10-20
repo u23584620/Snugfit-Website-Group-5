@@ -235,13 +235,33 @@
             }
         }
         /* ...existing styles... */
-.product-warning {
-    display:none;
-    font-size:0.9em;
-    color:#c00;
-    font-weight:600;
-    margin:8px 0 16px 0;
-}
+        .product-warning {
+            display:none;
+            font-size:0.9em;
+            color:#c00;
+            font-weight:600;
+            margin:8px 0 16px 0;
+        }
+        /* Loading overlay */
+        .loading-overlay { 
+            position: fixed; inset: 0; 
+            background: rgba(255,255,255,0.85);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+        }
+        .loading-overlay.hidden { display: none; }
+        .loading-box {
+            display: flex; align-items: center; gap: 12px;
+            background: #ffffff; color:#1a237e; font-weight: 600;
+            border: 2px solid #1a237e; border-radius: 10px;
+            padding: 14px 18px; box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+        }
+        .spinner {
+            width: 26px; height: 26px; border-radius: 50%;
+            border: 3px solid #d2d6dc; border-top-color: #1a237e;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -750,6 +770,24 @@
     </div>
 
     <button type="submit" class="submit-button">Submit form</button>
+    <div id="loading-overlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-label="Submitting form">
+        <div class="loading-box">
+            <div class="spinner" aria-hidden="true"></div>
+            <div>Your form is being processed</div>
+        </div>
+    </div>
+    <!-- Make small helpers globally available -->
+    <script>
+    // ...existing code...
+    window.showFormLoading = function() {
+        const el = document.getElementById('loading-overlay');
+        if (el) el.classList.remove('hidden');
+    };
+    window.hideFormLoading = function() {
+        const el = document.getElementById('loading-overlay');
+        if (el) el.classList.add('hidden');
+    };
+    </script>
 
 </form>
 

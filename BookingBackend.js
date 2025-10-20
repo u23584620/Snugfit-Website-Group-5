@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbxvwcq2ONq_zmvxIwav4_KADO0BOyGppR11j04yd4Xr1EXqn58KlRT4AtaHokOfOtRVGQ/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("snugfit-booking-form");
@@ -70,9 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
     console.groupEnd();
 
     try {
+      // Show loading overlay just before sending
+      if (window.showFormLoading) window.showFormLoading();
+
+      // Send as FormData; keep current behavior
       await fetch(scriptURL, { method: "POST", body: fd, redirect: "follow", credentials: "omit" });
+
+      // Navigation will replace the page (overlay goes away naturally)
       window.location.href = "ThankYou.html";
     } catch (err) {
+      // Hide on error and notify
+      if (window.hideFormLoading) window.hideFormLoading();
       alert("Error submitting form: " + err);
     }
   });
