@@ -6,7 +6,8 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Responsive main content & review container */
+
+        /* RESPONSIVE MAIN CONTENT & REVIEW CONTAINER */
         @media (max-width: 1000px) {
             .main-content {
                 width: calc(100vw - 40px) !important;
@@ -44,7 +45,7 @@
                 margin-right: 20px !important;
             }
         }
-        /* Responsive reviews grid layout with always at least 2 columns */
+        /* RESPONSIVE REVIEWS GRID LAYOUT WITH ALWAYS AT LEAST 2 COLUMNS FOR AESTHETICS */
         .reviews-list {
             display: grid !important;
             grid-template-columns: repeat(3, 1fr);
@@ -69,7 +70,6 @@
             margin: 0;
             padding: 0;
         }
-        /* Override navbar/tab color for this page only */
         .navbar {
             position: absolute;
             top: 32px;
@@ -85,7 +85,6 @@
         .nav-tab::after {
             background: #111 !important;
         }
-        /* Dropdown menu styles for mobile */
         .menu-toggle {
             display: none;
             background: #111;
@@ -100,6 +99,7 @@
             right: 20px;
             z-index: 20;
         }
+        /* RESPONSIVE MOBILE NAVBAR DESIGN */
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -138,7 +138,8 @@
             .review-card {
                 font-size: 0.5em !important;
             }
-        /*Review Container & Cards Formatting & Responsiveness*/    
+            
+        /*FORMATTING REVIEW CONTAINERS & CARDS */
         }
         .review-container {
             max-width: 900px;
@@ -251,7 +252,7 @@
     </style>
 </head>
 <body>
-    <!-- Navigation page directories -->
+    <!-- NAVIGATION DIRECTORY LINKS -->
     <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
         <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
         <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
@@ -278,6 +279,7 @@
                 <textarea id="review-text" placeholder="Type your review here..." required></textarea>
                 <button type="submit">Post Review</button>
             </form>
+            <!-- EXISTING REVIEW CARDS -->
             <div class="reviews-list" id="reviews-list">
                 <div class="review-card">
                     "I don't think you understand how awesome that is!"

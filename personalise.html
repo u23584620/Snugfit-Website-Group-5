@@ -5,7 +5,6 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Step 1 Standard Colours container and content */
         .step1-colours-container {
             background: #ffffff;
             border-radius: 16px;
@@ -145,7 +144,6 @@
             opacity: 1;
             transform: scale(1);
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    
         }
         .slide-image.side {
             width: 250px;
@@ -198,7 +196,6 @@
                 font-size: 1.5em;
                 margin: 0;
             }
-            /* Default for all slideshows */
             .slide-image.center {
                 width: 160px;
                 height: 90px;
@@ -207,7 +204,6 @@
                 width: 80px;
                 height: 50px;
             }
-            /* Override for logo slideshow only */
             #logo-slideshow-container .slide-image.center {
                 width: 150px;
                 height: 150px;
@@ -240,7 +236,6 @@
                 font-size: 1.5em;
                 margin: 0;
             }
-            /* Default for all slideshows */
             .slide-image.center {
                 width: 160px;
                 height: 90px;
@@ -249,7 +244,6 @@
                 width: 90px;
                 height: 50px;
             }
-            /* Override for logo slideshow only */
             #logo-slideshow-container .slide-image.center {
                 width: 180px;
                 height: 120px;
@@ -280,7 +274,7 @@
             }
         }
         
-        /* Step 1 Personalise container and heading */
+        /* Step 1) PERSONALISE CONTAINER & HEADING */
         .step1-personalise-container {
             background: rgb(192, 158, 6, 0.753);
             border-radius: 16px;
@@ -300,7 +294,7 @@
             white-space: normal;
             overflow-wrap: break-word;
         }
-        /* Step 2 Personalise container and heading */
+        /* Step 2) PERSONALISE CONTAINER & HEADING */
         .step2-personalise-container {
             background: rgb(192, 158, 6, 0.753);
             border-radius: 16px;
@@ -337,7 +331,7 @@
                 font-size: 0.8em !important;
             }
         }
-        /* Step 3 Personalise container and heading */
+        /* Step 3) PERSONALISE CONTAINER & HEADING */
         .step3-personalise-container {
             background: rgb(192, 158, 6, 0.753);
             border-radius: 16px;
@@ -372,7 +366,7 @@
             white-space: normal;
             overflow-wrap: break-word;
         }
-        /* Override navbar/tab color for this page only */
+        /* Override navbar/tab color for this page only*/
         .navbar {
             position: absolute;
             top: 32px;
@@ -388,7 +382,7 @@
         .nav-tab::after {
             background: #111 !important;
         }
-        /* Dropdown menu styles for mobile */
+        /* DROPDOWN MENU MOBILE RESPONSIVENESS */
         .menu-toggle {
             display: none;
             background: #111;
@@ -403,7 +397,6 @@
             right: 20px;
             z-index: 20;
         }
-    /* (removed duplicate .personalise-title block) */
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -437,20 +430,21 @@
         }
         }
         .bullets-img-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
-}
-@media (max-width: 700px) {
-  .bullets-img-row {
-    flex-direction: column;
-    align-items: center;
-  }
-}
+        display: flex;
+        align-items: flex-start;
+        gap: 32px;
+        }
+        @media (max-width: 700px) {
+        .bullets-img-row {
+            flex-direction: column;
+            align-items: center;
+        }
+        }
     </style>
 </head>
+
+
 <body>
-    <!-- Only for personalise.html -->
     <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
         <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
         <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
@@ -463,13 +457,15 @@
             <a href="ContactUs.html" class="nav-tab">Contact Us</a>
         </nav>
     </div>
-    <!-- Full-width video directly under the navbar -->
+
+    <!-- VIDEO BELOW NAVBAR (contain) -->
     <div style="background: #fff; border-radius: 16px; padding: 0; margin: 0 0 24px 0; max-width: 100vw; overflow: hidden;">
         <video autoplay loop muted playsinline style="width: 100%; max-width: 100vw; height: auto; object-fit: contain; border-radius: 12px; display: block; background: #fff;">
             <source src="Website Design/Snugfit Personalise Web video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
+
     <div class="personalise-title">ENGINEERED FOR YOU, DESIGNED BY YOU!</div>
     <div class="step1-personalise">
         <div class="step1-personalise-container">
@@ -585,7 +581,7 @@
         }
         </style>
         <script>
-        // --- Step 1 Colour Slideshow ---
+        // MOUTHGUARD COLOUR OPTIONS SLIDESHOW
         const colourImgs = [
             {src: 'Website Design/Blue.png', alt: 'Blue Mouth Guard'},
             {src: 'Website Design/Red.png', alt: 'Red Mouth Guard'},
@@ -644,7 +640,7 @@
         startAutoSlide();
 
 
-        // --- Step 2 Logo Options Slideshow ---
+        // MOUTHGUARD LOGO OPTIONS SLIDESHOW
         const logoImgs = [
             {src: 'Website Design/Custom Text.png', alt: 'Custom Text'},
             {src: 'Website Design/School Logo.png', alt: 'School Logo'},
@@ -682,7 +678,6 @@
             logoAutoSlideTimer = setInterval(nextLogoSlide, 3000);
         }
 
-        // Logo slideshow buttons
         document.getElementById('logo-slide-left').onclick = function() {
             prevLogoSlide();
             startLogoAutoSlide();
@@ -692,12 +687,12 @@
             startLogoAutoSlide();
         };
 
-        // Initialize logo slideshow
         updateLogoSlides();
         startLogoAutoSlide();
         </script>
         </div>
     </div>
+
     <footer>
         <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2025</p>
         <div class="social-icons">
