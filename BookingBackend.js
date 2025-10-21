@@ -1,3 +1,5 @@
+
+// LINKING TO GOOGLE APPS SCRIPT BACKEND (WEB APP URL)
 const scriptURL = "https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -7,20 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const phoneEl = document.getElementById("contact_number");
   const isValidPhone = v => /^(?:0|\+27)[1-9][0-9]{8}$/.test((v||"").trim());
 
-
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
+    // BASIC PHONE NUMBER VALIDATION CHECK OTHERWISE ALERT AND FOCUS
     if (!isValidPhone(phoneEl?.value)) {
       alert("Enter SA number: 0XXXXXXXXX or +27XXXXXXXXX");
       phoneEl?.focus();
       return;
     }
 
-    // Enable any disabled controls so we can read their values
+    // ENABLE ANY DISABLED FIELDS TO READ THEIR DEFAULT VALUES FOR SUBMISSION
     document.querySelectorAll("[disabled], fieldset[disabled]").forEach(el => el.disabled = false);
 
-    // Ensure logo_image is a data URL
+    // ENSURING LOGO_IMAGE IS A DATA URL FOR SUBMISSION
     const logoHidden = document.getElementById("logo_image");
     if (logoHidden && logoHidden.value && !logoHidden.value.startsWith("data:")) {
       try {
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch {}
     }
 
-    // Read from form OR document (handles fields placed outside the form)
+    // READS ALL REQUIRED FIELDS AND CREATES FORMDATA PACKAGE
     const readValue = (name, fallbacks = []) => {
       const sel = `[name="${name}"]`;
       const checked = form.querySelector(`${sel}:checked`) || document.querySelector(`${sel}:checked`);
@@ -45,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       return "";
     };
-
+    // CONSTRUCT FORMDATA OR PAYLOAD FOR SUBMISSION TO BACKEND API
     const fd = new FormData();
     fd.append("first_name",       readValue("first_name", ["#first_name"]));
     fd.append("surname",          readValue("surname", ["#surname"]));
@@ -54,32 +55,32 @@ document.addEventListener("DOMContentLoaded", () => {
     fd.append("contact_email",    readValue("contact_email", ["#contact_email"]));
     fd.append("payment_option",   readValue("payment_option"));
     fd.append("costing",          readValue("costing"));
-    // Support either name="colour" or name="colour_selection" or id="colour_select"
+    // Supports either name="colour" or name="colour_selection" or id="colour_select" to avoid id mismatches
     let colour = readValue("colour", ["#colour_select"]);
     if (!colour) colour = readValue("colour_selection");
     fd.append("colour", colour);
     fd.append("additional_notes", readValue("additional_notes", ["#additional_notes"]));
     fd.append("logo_image",       logoHidden?.value || "");
-    // Optional: include what was chosen in logo_select
+    
     const logoSelectVal = readValue("logo_select", ["#logo_select"]);
     if (logoSelectVal) fd.append("logo_select", logoSelectVal);
 
-    // Debug: print keys/values clearly
+    // DEBUGGING: LOG FINAL FormData KEYS/VALUES CLEARLY ON CONSOLE
     console.group("FINAL FormData");
     for (const [k, v] of fd.entries()) console.log(k, typeof v === "string" ? (v.slice(0,60) + (v.length>60 ? "…":"")) : v);
     console.groupEnd();
 
     try {
-      // Show loading overlay just before sending
+      // LOADING/FORM SUBMISSION OVERLAY SHOW
       if (window.showFormLoading) window.showFormLoading();
 
-      // Send as FormData; keep current behavior
+      // SEND AS FORMDATA (keep current behaviour) to BACKEND API/WEB APP
       await fetch(scriptURL, { method: "POST", body: fd, redirect: "follow", credentials: "omit" });
 
-      // Navigation will replace the page (overlay goes away naturally)
+      // DIRECTED TO THANK YOU PAGE ON FORM SUBMISSION SUCCESS
       window.location.href = "ThankYou.html";
     } catch (err) {
-      // Hide on error and notify
+      // IF SUBMISSION ERROR, HIDE LOADING OVERLAY AND ALERT ERROR
       if (window.hideFormLoading) window.hideFormLoading();
       alert("Error submitting form: " + err);
     }

@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+<!--
+-----------------------------------------------------------------------------------------------------------------------------------
+IMPORTANT: This is the Bookings HTML page for Snugfit Mouth Guards, featuring a responsive design, that includes a detailed booking 
+form with product selection, personal details, and customization and payment options. The purpose of this form is to automate snugfits 
+order capturing and management process by integrating with a backend API or web application for processing bookings.
+-----------------------------------------------------------------------------------------------------------------------------------
+-->
 <html>
 <head>
     <title>Bookings | Snugfit Mouth Guards</title>
@@ -23,7 +30,6 @@
             width: 90%;
             flex: 1 0 auto;
         }
-        /* Navigation Bar Styles & Responsiveness */
         .navbar {
             position: absolute;
             top: 32px;
@@ -39,7 +45,6 @@
         .nav-tab::after {
             background: #111 !important;
         }
-        /* Dropdown Menu for Mobile Platforms */
         .menu-toggle {
             display: none;
             background: #111;
@@ -54,6 +59,7 @@
             right: 20px;
             z-index: 20;
         }
+        /* RESPONSIVE MOBILE NAVBAR DESIGN */
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -86,7 +92,6 @@
                 display: block;
             }
         }
-        /* Booking Process Section */
         .booking-process-container {
             margin-top: 100px;
             margin-left: 50px;
@@ -137,9 +142,9 @@
             border-radius: 8px;
             padding: 18px;
             background: #f6f7f9;
-            width: 80%;              /* Ensure all fieldsets are 80% width */
-            margin: 0 auto 40px auto; /* Center and add bottom margin */
-            box-sizing: border-box;   /* Include padding/border in width */
+            width: 80%;              
+            margin: 0 auto 40px auto; 
+            box-sizing: border-box;   
         }
         #snugfit-booking-form legend {
             font-weight: bold;
@@ -159,15 +164,15 @@
         #snugfit-booking-form fieldset input[type="radio"],
         #snugfit-booking-form fieldset input[type="checkbox"] {
             color: #1a237e;
-            accent-color: #111; /* For modern browsers, ensures black radio/check color */
+            accent-color: #111; 
         }
         #snugfit-booking-form fieldset > div {
             margin-bottom: 10px;
         }
         .logo-option-img {
-            height: 120px;         /* Increase this value for larger images */
-            width: auto;           /* Let width scale naturally */
-            min-width: unset;      /* Remove min-width so images aren't forced wide */
+            height: 120px;         /* SETTING LOGO IMAGE SIZE */
+            width: auto;           /* AUTOMATICALLY SCALE WIDTH */
+            min-width: unset;      
             max-width: 100%;
             object-fit: contain;
             cursor: pointer;
@@ -195,6 +200,7 @@
             
             opacity:.85;
         }
+        /*RESPONSIVE NAVBAR STYLING*/
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -227,14 +233,14 @@
                 display: block;
             }
             #snugfit-booking-form fieldset {
-                width: 100%;         /* Full width on mobile */
+                width: 100%;        
             }
             .logo-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
         }
-        /* ...existing styles... */
+        /* FORCE PRODUCT SELECTION STYLING */
         .product-warning {
             display:none;
             font-size:0.9em;
@@ -242,7 +248,7 @@
             font-weight:600;
             margin:8px 0 16px 0;
         }
-        /* Loading overlay */
+        /* POST-SUBMISSION PROCESSING TRANSPARENT OVERLAY */
         .loading-overlay { 
             position: fixed; inset: 0; 
             background: rgba(255,255,255,0.85);
@@ -261,11 +267,12 @@
             border: 3px solid #d2d6dc; border-top-color: #1a237e;
             animation: spin 0.9s linear infinite;
         }
+        /* SPINNER ANIMATION */
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <!-- Navigation page directories -->
+    <!-- NAVIGATION PAGE DIRECTORIES -->
     <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
         <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
         <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
@@ -279,9 +286,9 @@
         </nav>
     </div>
 
-            <!-- Responsive Booking Form (front-end only) -->
+<!-- ORDER/BOOKING FORM DEVELOPMENT (front-end only) -->
 <form id="snugfit-booking-form">
-    <!-- 2025 Costing (now at the top) -->
+    <!-- 2025 PRODUCT ID PRICING (mandatory field to complete before proceeding with booking form) -->
     <h2>Select One of Our Products</h2>
     <fieldset>
         <legend>2026 Pricing</legend>
@@ -344,10 +351,10 @@
         </div>
     </fieldset>
 
-    <!-- SHOW THIS MESSAGE WHILE OTHER FIELDS ARE LOCKED -->
+    <!-- PRODUCT SELECTION WARNING MESSAGE BEFORE PROCEEDING -->
     <div id="product-warning" class="product-warning">Please choose a product</div>
 
-    <!-- Personal Details -->
+    <!-- PERSONAL DETAILS FORM ENTRY -->
     <h2>Personal Details</h2>
     <div>
         <label>First Name of Wearer</label>
@@ -429,9 +436,9 @@
             <option value="Westville Boys' High"></option>
             <option value="Waterkloof House Prep (WHPS)"></option>
             <option value="Other"></option>
-
-            <!-- Add more schools/clubs as needed -->
+            <!-- ADD MORE SCHOOLS/CLUBS AS NEEDED FOR SELECTION -->
         </datalist>
+        <!-- CONTACT DETAILS FORM ENTRY WITH FORCED DISPLAY TO ENSURE DATA QUALITY -->
         <label>Contact Number <span style="font-size:0.9em; color:#888;">(Of parent if minor.)</span></label>
         <input type="tel"
                name="contact_number"
@@ -447,7 +454,7 @@
         <input id="contact_email" name="contact_email" type="email"  required>
     </div>
 
-    <!-- Customisation -->
+    <!-- CUSTOMISATION OPTIONS FORM ENTRY -->
     <h2>Customisation</h2>
     <div>
         <label>Colour of Mouthguard <span style="font-size:0.9em; color:#888;">(Dental retainers, bleaching trays, and orthodontic bottoms guards only available in clear.)</span></label>
@@ -467,11 +474,12 @@
             <option value="Dual Colour (+ R180)">Dual Colour (+ R180)</option>
             <option value="Tri Colour (+ R180)">Tri-Colour (+ R180)</option>
             <option value="Galaxy (+ R180)">Galaxy (+ R180)</option>
+            <!-- ADD MORE COLOUR OPTIONS AS NEEDED -->
         </select>
         <span style="font-size:0.85em; color:#888; margin-top: -8px; margin-bottom:16px;">
             Note: Special colours (Gold, Silver, Dual, Tri & Galaxy) incur an additional R180 charge.
         </span>
-        <!-- Logo Dropdown -->
+        <!-- LOGO SELECTION DROPDOWN OPTIONS -->
         <label>Logo on Front of Mouthguard <span style="font-size:0.9em; color:#888;">(Not Applicable for orthodontic mouthguards, dental retainers, or bleaching trays.)</span></label>
         <select id="logo_select" name="logo_select" required>
             <option value="N/A">Not Applicable (N/A)</option>
@@ -489,23 +497,23 @@
             <option value="Custom Text Upload">Custom Text Upload</option>
         </select>
 
-        <!-- Chosen Logo Display Square -->
+        <!-- CHOSEN LOGO DISPLAY SQUARE -->
         <div id="chosen-logo-square" style="margin: 18px 0; width: 120px; height: 120px;border: 2px solid #1a237e;border-radius: 10px;background: #f6f7f9;display: flex;align-items: center;justify-content: center;text-align: center;font-weight: bold;color: #1a237e;">
             No Logo
         </div>
 
-            <!-- Logo image or custom text image will appear here -->
+        <!-- LOGO IMAGE PREVIEW WILL SHOW HERE -->
         </div>
 
-        <!-- Custom Upload Container: move here, right after the dropdown -->
+        <!-- CUSTOM IMAGE/LOGO UPLOAD CONTAINER -->
         <div id="custom-upload-container" style="display:none; margin: 18px 0;">
             <label for="custom-logo-upload" style="font-size:0.95em;">Upload your logo/image:</label>
             <input type="file" id="custom-logo-upload" name="custom_logo_upload" accept="image/*">
-            <!-- Preview uploaded image here -->
+            <!-- UPLOADED IMAGE PREVIEW WILL SHOW HERE -->
             <div id="custom-upload-preview" style="margin-top:12px;"></div>
         </div>
 
-        <!-- Custom Text Upload Container -->
+        <!-- CUSTOM TEXT IMAGE UPLOAD CONTAINER -->
         <div id="custom-text-upload-container" style="display:none; margin: 18px 0; padding: 12px; background-color: #f6f7f9; border: 2px solid #1a237e;">
             <label for="custom-text-input" style="font-size:0.95em;">Enter your text:</label>
             <input type="text" id="custom-text-input" maxlength="20" style="width: 60%; margin-bottom: 8px;">
@@ -523,7 +531,7 @@
                 <option value="Impact, Charcoal, sans-serif">Impact</option>
                 <option value="Times New Roman, Times, serif">Times New Roman</option>
                 <option value="Verdana, sans-serif">Verdana</option>
-                <!-- Add more fonts as needed -->
+                <!-- ADD MORE FONTS AS NEEDED FOR CUSTOM TEXT FORMATTING -->
             </select>
             <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 8px;">
                 <label for="custom-text-color" style="font-size:0.95em;">Text Colour:</label>
@@ -538,12 +546,12 @@
             </span>
         </div>
 
-        <!-- Hidden input to store selected image -->
+        <!-- HIDDEN INPUT TO STORE THE CHOSEN/SELECTED LOGO IMAGE -->
         <input type="hidden" name="logo_image" id="logo_image">
 
-        <!-- Logo image grids (hidden by default, shown as needed) -->
+        <!-- LOGO IMAGE GRIDS LINKING TO LOGO SELECTION DROPDOWN OPTIONS -->
         <div id="logo-image-grids" style="margin: 18px 0;">
-            <!-- School logo grid -->
+            <!-- SCHOOL LOGO GRID -->
             <div class="logo-grid" id="school-logo-grid">
                 <img src="Website Design/Schools/Dainfern 1.png" alt="School 1" class="logo-option-img" data-value="School1.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Schools/EG Jansen 1.png" alt="School 2" class="logo-option-img" data-value="School2.png" tabindex="0" style="cursor:pointer;">
@@ -573,9 +581,9 @@
                 <img src="Website Design/Schools/Trinity House 1.png" alt="School 26" class="logo-option-img" data-value="School26.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Schools/Redhill 1.png" alt="School 27" class="logo-option-img" data-value="School27.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Schools/WHPS 1.png" alt="School 28" class="logo-option-img" data-value="School28.png" tabindex="0" style="cursor:pointer;">
-                <!-- Add more school logo images as needed -->
+                <!-- ADD MORE SCHOOL LOGO IMAGES AS NEEDED -->
             </div>
-            <!-- Club logo grid -->
+            <!-- CLUB LOGO GRID -->
             <div class="logo-grid" id="club-logo-grid">
                 <img src="Website Design/Clubs/All Blacks 1.png" alt="Club 1" class="logo-option-img" data-value="Club1.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Clubs/All Blacks 2.png" alt="Club 2" class="logo-option-img" data-value="Club2.png" tabindex="0" style="cursor:pointer;">
@@ -597,8 +605,9 @@
                 <img src="Website Design/Clubs/8292.png" alt="Club 18" class="logo-option-img" data-value="Club18.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Clubs/Valke.png" alt="Club 19" class="logo-option-img" data-value="Club19.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Clubs/Wanderers.png" alt="Club 20" class="logo-option-img" data-value="Club20.png" tabindex="0" style="cursor:pointer;">
-                <!-- Add more club logo images as needed -->
+                <!-- ADD MORE CLUB LOGO IMAGES AS NEEDED -->
             </div>
+            <!-- SPORTS LOGO GRID -->
             <div class="logo-grid" id="Rugby/Hockey/Fighting-logo-grid">
                 <img src="Website Design/Sports Images/American Football.png" alt="Fighting Logo 1" class="logo-option-img" data-value="Fighting1.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Sports Images/BAM.png" alt="Fighting Logo 2" class="logo-option-img" data-value="Fighting2.png" tabindex="0" style="cursor:pointer;">
@@ -617,7 +626,7 @@
                 <img src="Website Design/Sports Images/UFC 1.png" alt="Fighting Logo 15" class="logo-option-img" data-value="Fighting15.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Sports Images/UFC 2.png" alt="Fighting Logo 16" class="logo-option-img" data-value="Fighting16.png" tabindex="0" style="cursor:pointer;">
             </div>
-            <!-- Emoji grid -->
+            <!-- ANIMALS LOGO GRID -->
             <div class="logo-grid" id="animals-logo-grid">
                 <img src="Website Design/Animal Images/Bear.png" alt="Bear" class="logo-option-img" data-value="Bear.png" tabindex="0">
                 <img src="Website Design/Animal Images/Bulldog.png" alt="Bulldog" class="logo-option-img" data-value="Bulldog.png" tabindex="0">
@@ -648,6 +657,7 @@
                 <img src="Website Design/Animal Images/Wolf 2.png" alt="Wolf 2" class="logo-option-img" data-value="Wolf 2.png" tabindex="0">
                 <img src="Website Design/Animal Images/Wolf 3.png" alt="Wolf 2" class="logo-option-img" data-value="Wolf 2.png" tabindex="0">
             </div>
+            <!-- BUTTERFLY/FLOWERS LOGO GRID -->
             <div class="logo-grid" id="butterflies/flowers-logo-grid">
                 <img src="Website Design/Butterflies & Flowers Images/Butterfly 1.png" alt="Butterflies & Flowers 1" class="logo-option-img" data-value="Butterfly 1.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Butterflies & Flowers Images/Butterfly 2.png" alt="Butterflies & Flowers 2" class="logo-option-img" data-value="Butterfly 2.png" tabindex="0" style="cursor:pointer;">
@@ -663,8 +673,8 @@
                 <img src="Website Design/Butterflies & Flowers Images/Flower 5.png" alt="Butterflies & Flowers 12" class="logo-option-img" data-value="Flower 5.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Butterflies & Flowers Images/Flower 6.png" alt="Butterflies & Flowers 13" class="logo-option-img" data-value="Flower 6.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Butterflies & Flowers Images/Flower 7.png" alt="Butterflies & Flowers 14" class="logo-option-img" data-value="Flower 7.png" tabindex="0" style="cursor:pointer;">
-                <!-- Add more emoji images as needed -->
             </div>
+            <!-- EMOJI LOGO GRID -->
             <div class="logo-grid" id="emoji-logo-grid">
                 <img src="Website Design/Emojis/Angry.png" alt="Emoji 1" class="logo-option-img" data-value="Angry.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Emojis/Clown.png" alt="Emoji 2" class="logo-option-img" data-value="Clown.png" tabindex="0" style="cursor:pointer;">
@@ -680,8 +690,8 @@
                 <img src="Website Design/Emojis/SHHHH.png" alt="Emoji 12" class="logo-option-img" data-value="SHHHH.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Emojis/Side Eyes.png" alt="Emoji 13" class="logo-option-img" data-value="Side Eyes.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Emojis/Winking.png" alt="Emoji 14" class="logo-option-img" data-value="Winking.png" tabindex="0" style="cursor:pointer;">
-                <!-- Add more emoji images as needed -->
             </div>
+            <!-- FAMOUS LOGO GRID -->
             <div class="logo-grid" id="famous-logo-grid">
                 <img src="Website Design/Famous Movies & Games/Among Us.png" alt="Famous 1" class="logo-option-img" data-value="Among Us.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Famous Movies & Games/Barbie.png" alt="Famous 2" class="logo-option-img" data-value="Barbie.png" tabindex="0" style="cursor:pointer;">
@@ -701,8 +711,8 @@
                 <img src="Website Design/Famous Movies & Games/Spiderman.png" alt="Famous 16" class="logo-option-img" data-value="Spiderman.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Famous Movies & Games/Star Wars.png" alt="Famous 17" class="logo-option-img" data-value="Star Wars.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Famous Movies & Games/Superman.png" alt="Famous 18" class="logo-option-img" data-value="Superman.png" tabindex="0" style="cursor:pointer;">
-                <!-- Add more emoji images as needed -->
             </div>
+            <!-- SKULLS/FANGS LOGO GRID -->
             <div class="logo-grid" id="Skulls/Fangs-logo-grid">
                 <img src="Website Design/Fangs & Skulls/Fangs 1.png" alt="Fangs 1" class="logo-option-img" data-value="Fangs 1.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Fangs & Skulls/Fangs 2.png" alt="Fangs 2" class="logo-option-img" data-value="Fangs 2.png" tabindex="0" style="cursor:pointer;">
@@ -718,8 +728,8 @@
                 <img src="Website Design/Fangs & Skulls/Skull 5.png" alt="Skull 5" class="logo-option-img" data-value="Skull 5.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Fangs & Skulls/Skull 6.png" alt="Skull 6" class="logo-option-img" data-value="Skull 6.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Fangs & Skulls/Skull 7.png" alt="Skull 7" class="logo-option-img" data-value="Skull 7.png" tabindex="0" style="cursor:pointer;">
-                <!-- Add more emoji images as needed -->
             </div>
+            <!-- SYMBOLS LOGO GRID -->
             <div class="logo-grid" id="symbols-logo-grid">
                 <img src="Website Design/Symbols/Army 1.png" alt="Symbol 1" class="logo-option-img" data-value="Army 1.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Symbols/Army 2.png" alt="Symbol 2" class="logo-option-img" data-value="Army 2.png" tabindex="0" style="cursor:pointer;">
@@ -738,16 +748,17 @@
                 <img src="Website Design/Symbols/Unity.png" alt="Symbol 15" class="logo-option-img" data-value="Unity.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Symbols/Yin Yang.png" alt="Symbol 16" class="logo-option-img" data-value="Yin Yang.png" tabindex="0" style="cursor:pointer;">
             </div>
-            <!-- Add more grids for Emblem, Sports team, etc. as needed -->
+            <!-- ADD MORE LOGO OPTION GRIDS IF NECESSARY BUT UPDATE LOGO SELECTION OPTIONS -->
         </div>
         <label for="additional_notes">Additional Notes (optional)</label>
         <input type="text" name="additional_notes" id="additional_notes" placeholder="Enter any extra info or instructions here" style="width: 100%; margin-top: 6px; margin-bottom: 12px; padding: 10px; border-radius: 6px; border: 1px solid #bbb; background: #f6f7f9;">
     </div>
 
-    <!-- Payment -->
+    <!-- PAYMENT DETAILS FORM ENTRY -->
     <h2>Payment</h2>
     <div>
         <fieldset>
+            <!-- PAYMENT OPTIONS -->
             <legend>Payment option</legend>
             <div style="color: red; font-size: 1em; margin-bottom:8px;">
                 Impressions will not be taken until the payment has been confirmed (ie. cash / card / POP).
@@ -764,21 +775,20 @@
         </fieldset>
     </div>
 
-    <!-- Final Cost Block -->
+    <!-- FINAL COST BLOCK/AMOUNT DUE (calculated from product selection & colour selection (with or without surcharge)) -->
     <div id="final-cost-block" style="margin: 32px auto 0 auto; width: 80%; background: #f6f7f9; border: 2px solid #1a237e; border-radius: 8px; padding: 18px; font-size: 1.1em; font-weight: bold; color: #1a237e; text-align: center;">
         Final Cost: R0
     </div>
-
+    <!-- SUBMISSION BUTTON -->
     <button type="submit" class="submit-button">Submit form</button>
+    <!-- FORM PROCESSING/LOADING OVERLAY -->
     <div id="loading-overlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-label="Submitting form">
         <div class="loading-box">
             <div class="spinner" aria-hidden="true"></div>
             <div>Your form is being processed</div>
         </div>
     </div>
-    <!-- Make small helpers globally available -->
     <script>
-    // ...existing code...
     window.showFormLoading = function() {
         const el = document.getElementById('loading-overlay');
         if (el) el.classList.remove('hidden');
@@ -805,16 +815,16 @@ function updateFormAndCost() {
     let cost = 0;
     const costingValue = document.querySelector('input[name="costing"]:checked');
 
-    // If no costing yet selected: keep everything locked & exit
+    // IF NO 2026 PRODUCT TYPE CHOSEN, KEEP FORM FIELDS LOCKED (ensures product chosen first to allow form fields to respond to chosen product).
     if (!costingValue){
         setDependentFieldsEnabled(false);
         finalCostBlock.textContent = "Final Cost: R0";
         return;
     } else {
-        // Unlock dependent fields (will be selectively re-disabled below if needed)
+        // OTHERWISE ENABLE DEPENDENT FIELDS
         setDependentFieldsEnabled(true);
     }
-
+    // ADJUST (LIMIT) FORM FIELDS BASED ON PRODUCT SELECTION & CUSTOMISATION OPTIONS
     switch (costingValue.id) {
         case "cost800":
             cost = 800;
@@ -848,7 +858,7 @@ function updateFormAndCost() {
             break;
     }
 
-    // Add R180 for special colours if allowed
+    // IF SPECIAL COLOUR SHEET CHOSEN, ADD R180 TO FINAL COST BLOCK FOR SPECIAL COLOURS IF ALLOWED
     if (
         (costingValue && ["cost800", "cost850", "cost980"].includes(costingValue.id)) &&
         ["Gold (+ R180)", "Silver (+ R180)","Dual Colour (+ R180)", "Tri Colour (+ R180)", "Galaxy (+ R180)"].includes(colourSelect.value)
@@ -856,7 +866,7 @@ function updateFormAndCost() {
         cost += 180;
     }
 
-    // Set cost text
+    // FINAL COST BLOCK UPDATE
     if (costingValue && ["costretainer", "costbleach"].includes(costingValue.id)) {
         costText = "Final Cost: R1600";
     } else if (cost > 0) {
@@ -867,7 +877,7 @@ function updateFormAndCost() {
 
     finalCostBlock.textContent = costText;
 
-    // Remove "Not Applicable (N/A)" when R800 standard mouthguard is chosen
+    // REMOVE DEFAULT OPTION: "Not Applicable (N/A)" FOR LOGO FIELD WHEN R800 MG STANDARD CHOSEN (only MG Standard can have a logo, nothing else)
     const logoDropdown = logoSelect;
     const naOption = Array.from(logoDropdown.options).find(opt => opt.value === "N/A");
     if (costingValue && costingValue.id === "cost800") {
@@ -876,7 +886,7 @@ function updateFormAndCost() {
         }
         logoSelect.disabled = false;
     } else {
-        // Add N/A option back if missing
+        // OTHERWISE, ADD BACK "Not Applicable (N/A)" OPTION IF MISSING & DISABLE LOGO SELECT
         if (!Array.from(logoDropdown.options).some(opt => opt.value === "N/A")) {
             const option = document.createElement("option");
             option.value = "N/A";
@@ -887,7 +897,7 @@ function updateFormAndCost() {
         logoSelect.disabled = true;
     }
 
-    // Hide logo grid, custom upload, and custom text upload for non-standard mouthguard options
+    // HIDE LOGO GRID, CUSTOM UPLOAD, AND CUSTOM TEXT UPLOAD FOR NON MG STANDARD MOUTHGUARD OPTIONS
     if (costingValue && costingValue.id !== "cost800") {
         // Reset chosen logo preview to "No Logo"
         logoImageInput.value = "";
@@ -898,30 +908,30 @@ function updateFormAndCost() {
         customUploadContainer.style.display = "none";
         customTextUploadContainer.style.display = "none";
     } else {
-        // Show relevant logo grid or upload/text section based on logo dropdown
+        // SHOW RELEVANT LOGO GRID OR UPLOAD/TEXT SECTION BASED ON LOGO DROPDOWN SELECTION
         handleLogoSelectChange(logoSelect.value);
     }
 }
 
-// Listen for changes
+// ENABLE FORM LISTENING FOR WHEN PRODUCT SELECTION CHANGES (initiates form field enabling/disabling & cost calculation)
 costingRadios.forEach(radio => {
     radio.addEventListener('change', updateFormAndCost);
 });
 colourSelect.addEventListener('change', updateFormAndCost);
 
-// When an image is clicked, set hidden input and highlight
+// ADDING LISTENER FOR LOGO IMAGE CLICKS TO SET HIDDEN INPUT AND HIGHLIGHT SELECTED IMAGE
 document.querySelectorAll('.logo-option-img').forEach(img => {
     img.addEventListener('click', function() {
         document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
         this.style.outline = '3px solid #1a237e';
 
-        // Convert clicked image to a data URL
+        // CONVERTING CLICKED IMAGE INTO A DATA URL TO BE READ AS BLOB FOR PAYLOAD
         fetch(this.src)
             .then(res => res.blob())
             .then(blob => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    // FIX: use the result (full data URL)
+                    // use the result (full data URL)
                     logoImageInput.value = reader.result;
                     updateChosenLogoSquare();
                 };
@@ -930,7 +940,7 @@ document.querySelectorAll('.logo-option-img').forEach(img => {
     });
 });
 
-// Also update on page load
+// LISTENER TO UPDATE FORM AND COST ON INITIAL PAGE LOAD
 window.addEventListener('DOMContentLoaded', updateFormAndCost);
 
 const logoImageInput = document.getElementById('logo_image');
@@ -944,17 +954,17 @@ const logoGrids = {
     "Famous Movies & Games": document.getElementById('famous-logo-grid'),
     "Skulls & Fangs": document.getElementById('Skulls/Fangs-logo-grid'),
     "Symbols": document.getElementById('symbols-logo-grid'),
-    // Add more mappings as needed
+    // ADD MORE MAPPINGS TO LOGO OPTIONS IF NEEDED
 };
 
 function showLogoGrid(selected) {
-    // Hide all grids
+    // HIDE ALL GRIDS WHEN UNSELECTED
     Object.values(logoGrids).forEach(grid => grid.style.display = 'none');
-    // Show relevant grid as grid
+    // SHOW RELEVANT SELECTED GRID AS GRID
     if (logoGrids[selected]) {
         logoGrids[selected].style.display = 'grid';
     }
-    // Clear previous image selection
+    // CLEAR IMAGE SELECTION WHEN CHANGING OPTIONS
     logoImageInput.value = '';
     document.querySelectorAll('.logo-option-img').forEach(img => img.style.outline = '');
 }
@@ -969,7 +979,7 @@ function handleLogoSelectChange(selected) {
         customUploadContainer.style.display = "none";
         customLogoUpload.required = false;
         customTextUploadContainer.style.display = "block";
-        updateTextPreview(); // Show live preview immediately
+        updateTextPreview(); // SHOW LIVE PREVIEW OF CUSTOM TEXT IMAGE DESIGN TO FACILITATE CUSTOMISATION
     } else {
         customUploadContainer.style.display = "none";
         customLogoUpload.required = false;
@@ -977,14 +987,13 @@ function handleLogoSelectChange(selected) {
     }
 }
 
-// When dropdown changes, show relevant grid or upload
-// When dropdown changes, show relevant grid or upload
+// IF DROPDOWN CHANGES, SHOW RELEVANT GRID OR UPLOAD
 logoSelect.addEventListener('change', () => {
     handleLogoSelectChange(logoSelect.value);
     updateChosenLogoSquare();
 });
 
-// Allow re-selecting the same option (esp. Custom Text Upload and Custom Upload)
+// ALLOW RESELECT OF PREVIOUS CUSTOM TEXT/IMAGE UPLOAD OPTIONS
 logoSelect.addEventListener('click', () => {
     if (logoSelect.value === "Custom Text Upload") {
         handleLogoSelectChange("Custom Text Upload");
@@ -994,19 +1003,19 @@ logoSelect.addEventListener('click', () => {
     }
 });
 
-// When an image is clicked, set hidden input and highlight
+// ADDING LISTENER FOR LOGO IMAGE CLICKS TO SET HIDDEN INPUT AND HIGHLIGHT SELECTED IMAGE
 document.querySelectorAll('.logo-option-img').forEach(img => {
     img.addEventListener('click', function() {
         document.querySelectorAll('.logo-option-img').forEach(i => i.style.outline = '');
         this.style.outline = '3px solid #1a237e';
 
-        // Convert clicked image to a data URL
+        // CONVERTING CLICKED IMAGE INTO A DATA URL TO BE READ AS BLOB FOR PAYLOAD
         fetch(this.src)
             .then(res => res.blob())
             .then(blob => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    // FIX: use the result (full data URL)
+                    // use the result (full data URL)
                     logoImageInput.value = reader.result;
                     updateChosenLogoSquare();
                 };
@@ -1015,11 +1024,11 @@ document.querySelectorAll('.logo-option-img').forEach(img => {
     });
 });
 
-// Initialize logo grid display based on default selection
+// INITIALIZE LOGO GRID DISPLAY BASED ON THE DEFAULT SELECTION
 window.addEventListener('DOMContentLoaded', function() {
     handleLogoSelectChange(logoSelect.value);
 });
-
+// HANDLING CUSTOM UPLOAD IMAGE TO BE READ AS FILE FOR PAYLOAD
 customLogoUpload.addEventListener('change', function() {
     customUploadPreview.innerHTML = '';
     const file = this.files && this.files[0];
@@ -1038,7 +1047,7 @@ customLogoUpload.addEventListener('change', function() {
     }
 });
 
-// Custom Text Upload logic
+// CUSTOM TEXT UPLOAD LOGIC 
 const customTextUploadContainer = document.getElementById('custom-text-upload-container');
 const customTextInput = document.getElementById('custom-text-input');
 const customTextColor = document.getElementById('custom-text-color');
@@ -1059,7 +1068,7 @@ function handleLogoSelectChange(selected) {
         customUploadContainer.style.display = "none";
         customLogoUpload.required = false;
         customTextUploadContainer.style.display = "block";
-        updateTextPreview(); // Show live preview immediately
+        updateTextPreview(); // SHOW LIVE PREVIEW OF CUSTOM TEXT IMAGE DESIGN TO FACILITATE CUSTOMISATION
     } else {
         customUploadContainer.style.display = "none";
         customLogoUpload.required = false;
@@ -1078,25 +1087,25 @@ customTextConfirm.addEventListener('click', function() {
         return;
    
     }
-    // Create canvas
+    // CREATING CANVAS FOR TEXT RENDERING
     const canvas = document.createElement('canvas');
     canvas.width = 200;
     canvas.height = 75;
     const ctx = canvas.getContext('2d');
-    // Fill background
+    // FILL BACKGROUND
     ctx.fillStyle = customBgColor.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // Draw text centered with 20px padding
+    // INSERT CENTERED TEXT
     let fontSize = 30;
     if (customTextFont.value.includes("Goudy Stout")) {
-        fontSize = 24; // Slightly smaller for this font
+        fontSize = 24; // SLIGHTLY SMALLER FONT SIZE FOR THIS SPECIFIC FONT TO FIT BETTER
     }
     ctx.font = "bold " + fontSize + "px " + customTextFont.value;
     ctx.fillStyle = customTextColor.value;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-       // Show preview as image
+       // SHOW PREVIEW OF RENDERED IMAGE
     customTextPreview.innerHTML = '';
     const img = document.createElement('img');
     img.src = canvas.toDataURL("image/png");
@@ -1105,9 +1114,9 @@ customTextConfirm.addEventListener('click', function() {
     img.style.width = "200px";
     img.style.height = "75px";
     customTextPreview.appendChild(img);
-    // Save image data for form submission if needed
+    // SAVE IMAGE DATA FOR FORM SUBMISSION IF NEEDED
     document.getElementById('logo_image').value = img.src;
-    // Also update the chosen logo square
+    // UPDATE CHOSEN LOGO SQUARE WITH CUSTOM TEXT IMAGE PREVIEW
     updateLogoImageFromCustomTextPreview();
     updateChosenLogoSquare();
 });
@@ -1144,9 +1153,9 @@ function updateChosenLogoSquare() {
         return;
     }
 
-    // If an image was chosen (grid, upload, or text-generated)
+    // If A LOGO IMAGE WAS SELECTED (GRID, OR CUSTOM) 
     if (logoImageValue) {
-        chosenLogoSquare.innerHTML = ""; // this clears the chosen logo only when it is replaced
+        chosenLogoSquare.innerHTML = ""; // CLEAR PREVIOUS CHOSEN LOGO WHEN NEW LOGO SELECTED
         const img = document.createElement('img');
         img.src = logoImageValue;
         img.alt = "Chosen Logo";
@@ -1159,8 +1168,7 @@ function updateChosenLogoSquare() {
     }
 }
 
-
-// Update chosen logo square when logo changes
+// UPDATE CHOSEN LOGO SQUARE WHEN CHANGING SELECTED LOGO
 logoSelect.addEventListener('change', () => {
     handleLogoSelectChange(logoSelect.value);
 });
@@ -1181,7 +1189,7 @@ customTextConfirm.addEventListener('click', () => {
     }, 300);
 });
 
-// On page load
+// LISTENER TO UPDATE CHOSEN LOGO SQUARE ON PAGE LOAD
 window.addEventListener('DOMContentLoaded', updateChosenLogoSquare);
 
 customTextInput.addEventListener('input', updateTextPreview);
@@ -1190,7 +1198,7 @@ customBgColor.addEventListener('input', updateTextPreview);
 customTextFont.addEventListener('change', updateTextPreview);
 
 function updateLogoImageFromCustomTextPreview() {
-    // Get the preview image from the custom text preview
+    // GET THE PREVIEW IMAGE FROM THE CUSTOM TEXT PREVIEW
     const img = customTextPreview.querySelector('img');
     if (img) {
         logoImageInput.value = img.src;
@@ -1198,7 +1206,7 @@ function updateLogoImageFromCustomTextPreview() {
     }
 }
 
-// Register dependent (locked) fields (everything that must wait for a costing choice)
+// SETTING REGISTER DEPENDENT (LOCKED) FIELDS (everything except product selection)
 const dependentSelectors = [
     '#snugfit-booking-form input[name="first_name"]',
     '#snugfit-booking-form input[name="surname"]',
@@ -1250,29 +1258,7 @@ function setDependentFieldsEnabled(enable){
     }
 }
 
-// Optional: if you want a custom styled tooltip (uncomment CSS + wrapper approach)
-/*
-Add to <style>:
-.locked-tip[disabled] {
-    position:relative;
-}
-.locked-tip[disabled]:hover::after {
-    content:"Please choose a product";
-    position:absolute;
-    top:100%;
-    left:0;
-    white-space:nowrap;
-    background:#1a237e;
-    color:#fff;
-    font-size:0.7em;
-    padding:4px 8px;
-    border-radius:4px;
-    margin-top:4px;
-    z-index:50;
-}
-Then add class "locked-tip" to the inputs you want styled.
-*/
-// INITIAL LOCK before any costing is chosen
+// INITIAL LOCK BEFORE PRODUCT SELECTION IS CHOSEN
 window.addEventListener('DOMContentLoaded', ()=> {
     if (!document.querySelector('input[name="costing"]:checked')) {
         setDependentFieldsEnabled(false);
@@ -1299,19 +1285,7 @@ function validatePhone(){
 
 phoneInput.addEventListener('input', validatePhone);
 
-// MODIFY existing submit handler (keep other logic)
-/* document.getElementById('snugfit-booking-form').addEventListener('submit', function(e) {
-    if (!validatePhone()){
-        e.preventDefault();
-        phoneInput.focus();
-        return;
-    }
-    e.preventDefault();
-    window.location.href = 'ThankYou.html';
-});
-*/
-
-// Optional basic styling for error border (add once if not present)
+// ERROR BORDER STYLING FOR INPUTS MARKED AN INVALID
 const styleTag = document.createElement('style');
 styleTag.textContent = '.input-error{border:2px solid #c00 !important; background:#ffecec !important;}';
 document.head.appendChild(styleTag);

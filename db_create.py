@@ -1,6 +1,12 @@
+#-------------------------------------------------------------------------------------------------------------------------------
+# IMPORTANT: This python script automates the creation and population of an SQLite database
+# from the Snugfit Order Capture Google Sheet document (tab "A00"), specifically designed for order management of online orders.
+#-------------------------------------------------------------------------------------------------------------------------------
+
 import sqlite3
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
 #---------------------------------------------------------------------------
 # GOOGLE SHEETS AND SQLITE CONFIGURATION
 #---------------------------------------------------------------------------

@@ -48,6 +48,7 @@
             right: 20px;
             z-index: 20;
         }
+        /*RESPONSIVE MOBILE NAVBAR DESIGN*/
         @media (max-width: 700px) {
             .navbar {
                 position: fixed;
@@ -127,6 +128,8 @@
         .img-hover { opacity: 0; z-index: 2; pointer-events: none; }
         .image-square:hover .img-front { opacity: 0; }
         .image-square:hover .img-hover { opacity: 1; }
+
+        /* RESPONSIVE IMAGE GRID DESIGN */
         @media (max-width: 900px) {
             .image-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -168,6 +171,7 @@
     </style>
 </head>
 <body>
+    <!-- NAVIGATION DIRECTORY LINKS -->
     <div class="hero-section" id="personalise" style="height: 100px; min-height: unset;">
         <img src="Website Design/Snugfit Secondary Logo TP BG.png" alt="Snugfit Logo" style="position: absolute; top: 28px; left: 60px; height: 54px; z-index: 11;">
         <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.navbar').classList.toggle('open')">&#9776;</button>
@@ -187,7 +191,8 @@
             <h2 class="clubs-heading">Schools</h2>
         </div>
         <div class="image-grid schools-grid">
-            <!-- Add school images here, same structure as above -->
+            <!-- ADD ADDITIONAL SCHOOL IMAGES HERE -->
+            <!-- HOVER FUNCTIONALITY FOR EACH SCHOOL IMAGE -->
             <div class="image-square">
                 <a role="button">
                     <img src="Website Design/Schools/Dainfern 1.png" alt="School Logo" class="img-front">
@@ -361,6 +366,8 @@
             <h2 class="schools-heading">Clubs</h2>
         </div>
         <div class="image-grid clubs-grid">
+            <!-- ADD ADDITIONAL CLUB IMAGES HERE -->
+            <!-- HOVER FUNCTIONALITY FOR EACH CLUB IMAGE -->
             <div class="image-square">
                 <a role="button">
                     <img src="Website Design/Clubs/Apex Gym.png" alt="School Logo" class="img-front">
