@@ -44,15 +44,15 @@ requires modernisation.
 
 ## Automated Order Capture & Management System Demonstration:
 
-1) Open `Home.html` and navigate through websites pages through the navbar.
-2) Select Bookings (i.e. `Bookings.html`), fill out booking form with test data and a valid email to receive confirmation email (as customer would for ordering a product).
-3) Click Submit and wait for the form to submit. When directed to `ThankYou.html`, the submission was a success.
+1) Open `Home.html` and navigate through website pages using the navbar.
+2) Select Bookings (i.e. `Bookings.html`), fill out booking form with test data and a valid email address to receive confirmation email (as customer would when ordering a product).
+3) Click Submit, and when directed to `ThankYou.html`, the submission was a success.
 4) Check your email inbox for "Your Snugfit Order Confirmation".
 5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home).
 6) Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
 7) To test data validation for production, open the google sheet via the Google Website, and change your order payment status to "Paid". This will append a new row in yellow in the Google document for paid orders (also visible in the Google Website).
-8) To update the database `snugfit_orders.db`, manually run 
-
+8) Your paid order is now ready to be checked, printed, and produced.
+9) To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
 
 ## Database Setup
 ### Using SQLite Command Line
@@ -60,6 +60,22 @@ requires modernisation.
 2. Run the SQL command:
 <pre> Get-Content snugfit_orders.sql | sqlite3 snugfit_orders.db </pre>   
 
+## File Setup
+
+├── Home.html                       # Main home page
+├── Schools&Clubs.html              # Affiliates page
+├── personalise.html                # Personalistion Options page
+├── Reviews.html                    # Review Us page
+├── Bookings.html                   # Customer booking from
+    ├── BookingBackend.js
+    └── GoogleAppScript
+        └── GoogleBackendAPI.gs
+        └── appsscript.json
+├── ContactUs.html                  # Contact Us page
+├── db_create.py                    # Create db and sync with Google sheets entries
+├── snufgit_orders.db               # SQLite database (created after running setup)
+├── snugfit_orders.sql              # Database schema and sample data
+└── readme.md                       # This file
 
 
 
