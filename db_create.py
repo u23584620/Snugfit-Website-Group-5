@@ -196,3 +196,16 @@ for row in data:
 conn.commit()
 conn.close()
 print("SQLite DB has synced successfully with the Google Sheet")
+
+# -------------------------------------
+# EXPORTING THE DATABASE TO A .SQL FILE
+# -------------------------------------
+DB_FILE = "snugfit_orders.db"  # my created database file
+SQL_FILE = "snugfit_orders.sql"  # desired output SQL file
+
+conn = sqlite3.connect(DB_FILE)
+with open(SQL_FILE, "w", encoding="utf-8") as f:
+    for line in conn.iterdump():
+        f.write('%s\n' % line)
+conn.close()
+print(f"SQL file '{SQL_FILE}' has been generated successfully!")
