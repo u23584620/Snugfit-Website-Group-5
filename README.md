@@ -42,9 +42,16 @@ requires modernisation.
 - **Python:** Automates the creation and population of an SQLite database from the Snugfit Order Capture Google Sheet.
 - **SQLite:** Set up the database schema, and populate it with data.
 
-## Order Capture & Management System Demonstration:
+## Automated Order Capture & Management System Demonstration:
 
-1) 
+1) Open `Home.html` and navigate through websites pages through the navbar.
+2) Select Bookings (i.e. `Bookings.html`), fill out booking form with test data and a valid email to receive confirmation email (as customer would for ordering a product).
+3) Click Submit and wait for the form to submit. When directed to `ThankYou.html`, the submission was a success.
+4) Check your email inbox for "Your Snugfit Order Confirmation".
+5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home).
+6) Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
+7) To test data validation for production, open the google sheet via the Google Website, and change your order payment status to "Paid". This will append a new row in yellow in the Google document for paid orders (also visible in the Google Website).
+8) To update the database `snugfit_orders.db`, manually run 
 
 
 ## Database Setup
