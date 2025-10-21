@@ -61,21 +61,27 @@ requires modernisation.
 <pre> Get-Content snugfit_orders.sql | sqlite3 snugfit_orders.db </pre>   
 
 ## File Setup
-
-├── Home.html                       # Main home page
-├── Schools&Clubs.html              # Affiliates page
-├── personalise.html                # Personalistion Options page
-├── Reviews.html                    # Review Us page
-├── Bookings.html                   # Customer booking from
-    ├── BookingBackend.js
-    └── GoogleAppScript
-        └── GoogleBackendAPI.gs
-        └── appsscript.json
-├── ContactUs.html                  # Contact Us page
-├── db_create.py                    # Create db and sync with Google sheets entries
-├── snufgit_orders.db               # SQLite database (created after running setup)
-├── snugfit_orders.sql              # Database schema and sample data
-└── readme.md                       # This file
-
-
+<pre>
+snugfit/
+├── frontend/
+│   ├── Home.html                       # Main home page
+│   ├── Schools&Clubs.html              # Affiliates page
+│   ├── personalise.html                # Personalistion Options page
+│   ├── Reviews.html                    # Review Us page
+│   ├── Bookings.html                   # Customer booking from
+│   ├── ContactUs.html                  # Contact Us page
+│   ├── Website Design                  # Visual Assets
+│   ├── PDFs                            # PDF Assets
+│   │   
+├── backend/
+│   ├── BookingBackend.js               # Sending FormData to WebApp
+│   ├── db_create.py                    # Create db and sync with Google sheets entries
+│   ├── snugfit_orders.db               # SQLite database (created after running setup)
+│   └── snugfit_orders.sql              # Database schema and sample data
+├── GoogleAppScript/
+│   ├── GoogleBackendAPI.gs             # recieving data, populating Google documents, & sendig emails
+│   └── appsscript.json
+├── README.md                           # This file
+└── .gitignore
+</pre>
 
