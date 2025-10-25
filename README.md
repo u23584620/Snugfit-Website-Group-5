@@ -123,5 +123,33 @@ erDiagram
     Customers ||--o{ Orders : "places"
     Products  ||--o{ Orders : "includes"
 ```
+The database includes the following:
+
+### Tables:
+
+1) **Customers:** Customer ID and their personal details (name, surname, club/school, contact details)
+2) **Product:** Product catalog IDs and corresponding pricing (product code/description, colour, base price, colour surcharge)
+3) **Orders:** Order specifications, payment details, and additional information (including order date, unique impression ID (UK), customer ID (FK), and product ID (FK))
+
+### Normalisation:
+
+- This database follows the Third Normal Form (3NF):
+1) **1NF:** all of the attributes are atomic with no repeating groups or lists
+2) **2NF:** all of the non-key attributes are fully dependent on their table's PK, with no partial dependencies.
+3) **3NF:** there are no transitive dependencies
+
+### Relationships:
+
+| Relationship           | Type             | Description                           |
+| ---------------------- | ---------------- | ------------------------------------- |
+| `Customers → Orders`   | **1-to-Many**    | One customer can place many orders    |
+| `Products → Orders`    | **1-to-Many**    | One product can appear in many orders |
+| `Customers ↔ Products` | **Many-to-Many** | Resolved using `Orders` junction table  |
+
+### Sample Data
+
+The data contained in the uploaded `snugfit_orders.db` file, contains the order data as captured on the order capture Google sheet. Currently, updating the database to include new sheet entries requires running `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
+
+## Conclusion
 
 
