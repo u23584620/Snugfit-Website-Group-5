@@ -85,4 +85,43 @@ snugfit/
 2. Run the SQL command:
 <pre> Get-Content snugfit_orders.sql | sqlite3 snugfit_orders.db </pre>   
 
+## Database Schema
+
+```mermaid
+erDiagram
+    Customers {
+        INTEGER customer_id PK
+        TEXT first_name
+        TEXT surname
+        TEXT club_school
+        TEXT contact_number
+        TEXT contact_email
+    }
+
+    Products {
+        INTEGER product_id PK
+        TEXT product_code
+        TEXT colour_selection
+        REAL base_price
+        REAL colour_surcharge
+    }
+
+    Orders {
+        INTEGER order_id PK
+        TEXT order_date
+        TEXT impression_id UK
+        INTEGER customer_id FK
+        INTEGER product_id FK
+        TEXT payment_method
+        TEXT payment_status
+        REAL total_price
+        TEXT public_image_url
+        TEXT additional_notes
+        TEXT email_status
+    }
+
+    Customers ||--o{ Orders : "places"
+    Products  ||--o{ Orders : "includes"
+```
+
 
