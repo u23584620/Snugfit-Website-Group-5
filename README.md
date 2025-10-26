@@ -76,8 +76,10 @@ snugfit/
 5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home).
 6) Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
 7) To test data validation for production, open the google sheet via the Google Website, and change your order payment status to "Paid". This will append a new row in yellow in the Google document for paid orders (also visible in the Google Website).
-8) Your paid order is now ready to be checked, printed, and produced.
+   - **Note:** The URL saved in the logo column is saved as a Google Drive link, this Drive has been shared with the lecturers.
+8) Your paid order is now ready to be data quality checked, printed, and produced.
 9) To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
+    - **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet, and shouldn't be shared to eliminate security risks.
 
 ## Database Setup
 ### Using SQLite Command Line
