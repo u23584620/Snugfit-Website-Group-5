@@ -18,6 +18,7 @@ requires modernisation.
 - **Website:** Full html and CSS website redesign, accommodating the new booking form.
 - **Responsive HTML Booking Form:** An online, web-based html form, on `Bookings.html`, that adjusts field entries based on product selection.
 - **Automated Order Capture System:** Form submission triggers a Google WebApp to fetch form responses, automatically populating a Google spreadsheet and assigning a unique impression ID.
+- **Revised Hybrid Unique Impression ID Generation:** The online form automatically updates the 'A00' tab in the Google sheet upon submission, where impression ID starts from 'A01' at the start of a new year. This means a new sheet would be created annually. There is also the option for customers to fill out a paper-based order form that the staff manually enter on the 'M00' tab in the same Google sheet. 
 - **Email API:** Appending a new order row in the Google sheet activates Google Apps Script's service, MailApp, to send a order confirmation email to the customer including their unique impression ID and an order copy email to Snugfit.
 - **SQLite Database:** A back-up SQLite database receives order data from the populated Google Sheet row entries upon manual request from `db_create.py`, storing in `snugfit_orders.db`.
 - **Data Validation for Production:** Once an order row is marked "Paid" on the Google Sheet, Google Apps Script sends the necessary data corresponding to that order to a printable Google document. This ensures production of paid orders only.
