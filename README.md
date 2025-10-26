@@ -73,13 +73,12 @@ snugfit/
 2) Select Bookings (i.e. `Bookings.html`), fill out booking form with test data and a valid email address to receive confirmation email (as customer would when ordering a product).
 3) Click Submit, and when directed to `ThankYou.html`, the submission was a success.
 4) Check your email inbox for "Your Snugfit Order Confirmation".
-5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home).
-6) Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
-7) To test data validation for production, open the google sheet via the Google Website, and change your order payment status to "Paid". This will append a new row in yellow in the Google document for paid orders (also visible in the Google Website). Yellow rows indicate newly paid orders to be checked before printing.
-   - **Note:** The URL saved in the logo column is saved as a Google Drive link, this Drive has been shared with the lecturers.
-8) Your paid order is now ready to be data quality checked, printed, and produced.
-9) To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
-    - **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet, and shouldn't be shared with anyone to ensure data security.
+5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home) to see the Snugfit staff's order dashboard. Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
+6) To test data validation for production, open this [Google Sheet](https://docs.google.com/spreadsheets/d/1CBs1X0cbDWphWTv7IzIriT16uDOZ0-vrXdk0aVnJY-M/edit?usp=sharing), (seen on the Google Website), and change your order payment status to "Paid". This will append a new yellow row in the Google document for paid orders (doc also seen on the Google Website).
+   - **Note:** Yellow rows in the Google doc indicate newly paid orders to be checked before printing and the URL populated in the sheet's logo column is saved in this [Google Drive Logo Folder](https://drive.google.com/drive/folders/1V0sGiBHhb6XiBxmyp3zy34hkz9cqGo5i?usp=sharing).
+7) Your paid order is now ready to be data quality checked, printed, and produced by the Snugfit staff.
+8) To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
+    - **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet and shouldn't be shared with anyone to ensure data security.
 
 ## Database Setup
 ### Using SQLite Command Line
