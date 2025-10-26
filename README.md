@@ -1,7 +1,7 @@
 # Automating Snugfit Mouthguards Order Capture & Management System
 
 Snugfit Mouth Guards, located in a dental practice in Sandton, Johannesburg, produces
-custom-fitted and personalisable mouthguards for athletes competing in contact sports. In addition to this, and in coordination with dental practice, they aslo produce rubberised biteplates, bleaching trays, and retainers.
+custom-fitted and personalisable mouthguards for athletes competing in contact sports. In addition to this, and in coordination with the dental practice, they also produce rubberised biteplates, bleaching trays, and retainers.
 
 ## Problem Statement
 
@@ -18,7 +18,7 @@ requires modernisation.
 - **Website:** Full html and CSS website redesign, accommodating the new booking form.
 - **Responsive HTML Booking Form:** An online, web-based html form, on `Bookings.html`, that adjusts field entries based on product selection.
 - **Automated Order Capture System:** Form submission triggers a Google WebApp to fetch form responses, automatically populating a Google spreadsheet and assigning a unique impression ID.
-- **Email API:** Appending a new order row in the Google sheet activates Google Apps Script's service, MailApp, to send a order confirmation email to the customer and an order copy email to Snugfit.
+- **Email API:** Appending a new order row in the Google sheet activates Google Apps Script's service, MailApp, to send a order confirmation email to the customer including their unique impression ID and an order copy email to Snugfit.
 - **SQLite Database:** A back-up SQLite database receives order data from the populated Google Sheet row entries upon manual request from `db_create.py`, storing in `snugfit_orders.db`.
 - **Data Validation for Production:** Once an order row is marked "Paid" on the Google Sheet, Google Apps Script sends the necessary data corresponding to that order to a printable Google document. This ensures production of paid orders only.
 - **Order Dashboard Google Website:** A simple, integrated dashboard for Snugfit staff to view the Google sheet and document on a single user interface (UI).
@@ -40,7 +40,7 @@ requires modernisation.
   - Handles the logic of receiving order data, processing it, saving it to Google Sheets and Drive, and sending confirmation emails. 
 - **JSON:** Formats the incoming order data from the web form and the response sent back to the web app.
 - **Python:** Automates the creation and population of an SQLite database from the Snugfit Order Capture Google Sheet.
-- **SQLite:** Set up the database schema, and populate it with data.
+- **SQLite:** To set up the database schema, and populate it with data.
 
 ## File Setup
 <pre>
@@ -63,8 +63,8 @@ snugfit/
 ├── GoogleAppScript/
 │   ├── GoogleBackendAPI.gs             # recieving data, populating Google documents, & sendig emails
 │   └── appsscript.json
-├── README.md                           # This file
-└── .gitignore
+└── README.md                           # This file
+
 </pre>
 
 ## Automated Order Capture & Management System Demonstration:
@@ -75,11 +75,11 @@ snugfit/
 4) Check your email inbox for "Your Snugfit Order Confirmation".
 5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home).
 6) Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
-7) To test data validation for production, open the google sheet via the Google Website, and change your order payment status to "Paid". This will append a new row in yellow in the Google document for paid orders (also visible in the Google Website).
+7) To test data validation for production, open the google sheet via the Google Website, and change your order payment status to "Paid". This will append a new row in yellow in the Google document for paid orders (also visible in the Google Website). Yellow rows indicate newly paid orders to be checked before printing.
    - **Note:** The URL saved in the logo column is saved as a Google Drive link, this Drive has been shared with the lecturers.
 8) Your paid order is now ready to be data quality checked, printed, and produced.
 9) To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
-    - **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet, and shouldn't be shared to eliminate security risks.
+    - **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet, and shouldn't be shared with anyone to ensure data security.
 
 ## Database Setup
 ### Using SQLite Command Line
@@ -154,4 +154,4 @@ The data contained in the uploaded `snugfit_orders.db` file, contains the order 
 
 ## Conclusion
 
-Snugfit Mouthguards currently spends ten minutes manually processing a single order form, and also expressed their need for a more modernised and aesthetic website. The proposed solution, involving a redesigned website with a front and back-end order management system, automates their order capture and data entry processes, eliminating all manual processes for online completed forms, with quality checks remaining the only manual step. This has reduced the processing time for orders from 10mins/order to just 1 min/order, resulting in a 90% time redcution in the order management process, illustrating a dramatic productivity and efficiency improvement. Furthermore, automating the data capture process, eliminates human-error and results in higher quality data. Overall, the proposed solution adds value to the business by enhancing their brand image and marketability through their website, while minimising the inefficiencies experienced with their current order management system.
+Snugfit Mouthguards currently spends ten minutes manually processing a single order form, and also expressed their need for a more modernised and aesthetic website. The proposed solution, involving a redesigned website with a front and back-end order management system, automates their order capture and data entry processes, eliminating all manual processes for online completed forms, with quality checks remaining the only manual step. This has reduced the processing time for orders from 10mins/order to just 1 min/order, resulting in a 90% time redcution in the order management process, illustrating a dramatic productivity and efficiency improvement. Furthermore, automating the data capture process, eliminates human-error and results in higher data quality. Overall, the proposed solution adds value to the business by enhancing their brand image and marketability through their website, while minimising the inefficiencies experienced with their current order management system.
