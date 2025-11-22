@@ -2,6 +2,9 @@
 // LINKING TO GOOGLE APPS SCRIPT BACKEND (WEB APP URL)
 const scriptURL = "https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec";
 
+// PROXY URL FOR REAL PRODUCTION SUBMISSION
+const proxyURL = "https://snugfit-website-group-5.onrender.com/api/orders";
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("snugfit-booking-form");
   if (!form) return;
@@ -70,12 +73,54 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const [k, v] of fd.entries()) console.log(k, typeof v === "string" ? (v.slice(0,60) + (v.length>60 ? "…":"")) : v);
     console.groupEnd();
 
+    // REAL PRODUCTION SUBMISSION FUNCTION
+    async function submitBoth(fd){
+      // 1. Real production submit (unchanged)
+      const gasResp = await fetch(scriptURL, { method: "POST", body: fd });
+      // 2. Build JSON for proxy (only fields you need)
+      const payload = {
+        first_name: fd.get("first_name"),
+        surname: fd.get("surname"),
+        club_school: fd.get("club_school"),
+        contact_number: fd.get("contact_number"),
+        contact_email: fd.get("contact_email"),
+        payment_option: fd.get("payment_option"),
+        costing: fd.get("costing"),
+        colour: fd.get("colour") || fd.get("colour_selection") || "",
+        logo_image: fd.get("logo_image"),          // data URL if present
+        additional_notes: fd.get("additional_notes")
+      };
+      let proxyId = null;
+      try {
+        const proxyResp = await fetch(proxyURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        if (proxyResp.ok){
+          const data = await proxyResp.json();
+          proxyId = data.id;
+          console.log("Proxy order id:", proxyId);
+        } else {
+          console.warn("Proxy API reject:", await proxyResp.text());
+        }
+      } catch(e){
+        console.warn("Proxy API error:", e);
+      }
+      return { gasOk: gasResp.ok, proxyId };
+    }
+
     try {
       // LOADING/FORM SUBMISSION OVERLAY SHOW
       if (window.showFormLoading) window.showFormLoading();
 
       // SEND AS FORMDATA (keep current behaviour) to BACKEND API/WEB APP
-      await fetch(scriptURL, { method: "POST", body: fd, redirect: "follow", credentials: "omit" });
+      const result = await submitBoth(fd);
+      
+      // (Optional) show proxyId to lecturer:
+      if(result.proxyId){
+        localStorage.setItem("proxyOrderId", result.proxyId);
+      }
 
       // DIRECTED TO THANK YOU PAGE ON FORM SUBMISSION SUCCESS
       window.location.href = "ThankYou.html";

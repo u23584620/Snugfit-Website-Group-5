@@ -1,0 +1,122 @@
+{
+  "info": {
+    "name": "Snugfit Proxy API",
+    "_postman_id": "c9b4a4c7-3c12-4c89-8bdb-df6f1c9f0c44",
+    "description": "Collection for testing the Snugfit Flask Proxy API deployed on Render.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Root Endpoint",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "List All Orders",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/orders",
+          "host": ["{{base_url}}"],
+          "path": ["api", "orders"]
+        }
+      }
+    },
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"first_name\": \"John\",\n  \"surname\": \"Doe\",\n  \"club_school\": \"Example Club\",\n  \"contact_number\": \"0821234567\",\n  \"contact_email\": \"jd@example.com\",\n  \"payment_option\": \"EFT\",\n  \"costing\": \"R500\",\n  \"colour\": \"Blue\",\n  \"additional_notes\": \"Test order from Postman\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/orders",
+          "host": ["{{base_url}}"],
+          "path": ["api", "orders"]
+        }
+      }
+    },
+    {
+      "name": "Get Order by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/orders/{{order_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "orders", "{{order_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Update Order by ID",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"additional_notes\": \"Updated via Postman\",\n  \"colour\": \"Red\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/orders/{{order_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "orders", "{{order_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Get KPIs",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/kpis",
+          "host": ["{{base_url}}"],
+          "path": ["api", "kpis"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://snugfit-website-group-5.onrender.com"
+    },
+    {
+      "key": "order_id",
+      "value": "PX01"
+    }
+  ]
+}
