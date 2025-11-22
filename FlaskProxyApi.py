@@ -138,7 +138,16 @@ def create_order():
 
     # Normalize colour (prefer 'colour' over 'colour_selection')
     colour = payload.get("colour") or payload.get("colour_selection") or ""
-    order_id = next_order_id()
+
+    provided_id = (
+        payload.get("id")
+        or payload.get("impression")
+        or payload.get("impression_number")
+    )
+    if provided_id and any(o["id"] == provided_id for o in ORDERS):
+        return jsonify({"status": "error", "message": f"ID {provided_id} already exists"}), 409
+
+    order_id = provided_id if provided_id else next_order_id()
     ts = int(time.time())
 
     order_record = {

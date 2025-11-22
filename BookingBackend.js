@@ -1,4 +1,3 @@
-
 // LINKING TO GOOGLE APPS SCRIPT BACKEND (WEB APP URL)
 const scriptURL = "https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec";
 
@@ -75,10 +74,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // REAL PRODUCTION SUBMISSION FUNCTION
     async function submitBoth(fd){
-      // 1. Real production submit (unchanged)
+      // 1. Send to Google Apps Script (production flow unchanged)
       const gasResp = await fetch(scriptURL, { method: "POST", body: fd });
-      // 2. Build JSON for proxy (only fields you need)
+
+      // Extract impression number from GAS JSON response
+      let impressionNumber = null;
+      try {
+        const gasData = await gasResp.json();           // GAS returns JSON string, safe to parse
+        impressionNumber = gasData.impression || null;  // field in your doPost return
+        console.log("Impression from GAS:", impressionNumber);
+        if (impressionNumber) localStorage.setItem("impressionNumber", impressionNumber);
+      } catch (e){
+        console.warn("Could not parse GAS response JSON:", e);
+      }
+
+      // 2. Build payload for proxy using same impression as id
       const payload = {
+        id: impressionNumber,            // primary id for proxy
+        impression: impressionNumber,    // store original field too
         first_name: fd.get("first_name"),
         surname: fd.get("surname"),
         club_school: fd.get("club_school"),
@@ -87,9 +100,10 @@ document.addEventListener("DOMContentLoaded", () => {
         payment_option: fd.get("payment_option"),
         costing: fd.get("costing"),
         colour: fd.get("colour") || fd.get("colour_selection") || "",
-        logo_image: fd.get("logo_image"),          // data URL if present
+        logo_image: fd.get("logo_image"),
         additional_notes: fd.get("additional_notes")
       };
+
       let proxyId = null;
       try {
         const proxyResp = await fetch(proxyURL, {
@@ -98,16 +112,16 @@ document.addEventListener("DOMContentLoaded", () => {
           body: JSON.stringify(payload)
         });
         if (proxyResp.ok){
-          const data = await proxyResp.json();
-          proxyId = data.id;
-          console.log("Proxy order id:", proxyId);
+            const data = await proxyResp.json();
+            proxyId = data.id;
+            console.log("Proxy stored id:", proxyId);
         } else {
-          console.warn("Proxy API reject:", await proxyResp.text());
+            console.warn("Proxy API reject:", await proxyResp.text());
         }
       } catch(e){
         console.warn("Proxy API error:", e);
       }
-      return { gasOk: gasResp.ok, proxyId };
+      return { gasOk: gasResp.ok, proxyId, impressionNumber };
     }
 
     try {
