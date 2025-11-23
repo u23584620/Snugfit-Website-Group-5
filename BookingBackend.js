@@ -130,7 +130,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // SEND AS FORMDATA TO BACKEND API/WEB APP
       const result = await submitBoth(fd);
-      
+
+      // STORING FORM RESPONSE DATA NEED FOR THANK YOU OAGE IN LOCALSTORAGE
+      localStorage.setItem("first_name", fd.get("first_name") || "");
+      localStorage.setItem("contact_email", fd.get("contact_email") || "");
+      if(result.impressionNumber) localStorage.setItem("impressionNumber", result.impressionNumber);
+
       // SHOWING PROXY ID TO LECTURER FOR MARKING PURPOSES
       if(result.proxyId){
         localStorage.setItem("proxyOrderId", result.proxyId);
