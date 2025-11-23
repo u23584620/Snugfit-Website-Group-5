@@ -24,6 +24,7 @@
 .thankyou-wrapper p{ margin:0 0 10px; line-height:1.45; font-family:Poppins, Arial, sans-serif; }
 .back-link{ display:inline-block; margin-top:18px; background:#1a237e; color:#fff; text-decoration:none; padding:10px 18px; border-radius:6px; font-weight:600; font-family:Poppins, Arial, sans-serif; }
 .back-link:hover{ background:#142064; }
+.impression-highlight { color:#1a237e; font-weight:700; }
 </style>
 </head>
 <body>
@@ -44,7 +45,7 @@
 <main>
   <section class="thankyou-wrapper">
     <h1 id="thankTitle">Thank You</h1>
-    <p id="thankLine1">Your submission has been received.</p>
+    <p>Your submission has been received.</p>
     <p id="thankLine2"></p>
     <p id="thankLine3"></p>
     <p>Please contact us to make an appointment for a fitting.</p>
@@ -64,10 +65,9 @@ navToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
   const contactEmail = localStorage.getItem('contact_email') || '';
   if(firstName){
     document.getElementById('thankTitle').textContent = `Thank You, ${firstName}`;
-    document.getElementById('thankLine1').textContent = `Thank you, ${firstName}, your submission has been received.`;
   }
   if(impression){
-    document.getElementById('thankLine2').textContent = `Your impression number is ${impression}.`;
+    document.getElementById('thankLine2').innerHTML = `Your impression number is <span class="impression-highlight">${impression}</span>.`;
   }
   if(contactEmail){
     document.getElementById('thankLine3').textContent = `A copy of your order has been emailed to ${contactEmail}.`;
