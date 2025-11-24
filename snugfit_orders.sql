@@ -15,6 +15,14 @@ INSERT INTO "Customers" VALUES(5,'Connor','MacKenzie','Hilton College','012 345 
 INSERT INTO "Customers" VALUES(6,'Bruce','MacKenzie','King Edward VII','012 345 6789','info@snugfitmouthguards.co.za');
 INSERT INTO "Customers" VALUES(7,'Jane','Doe','St Mary''s DSG','012 345 6789','janedoe@test.com');
 INSERT INTO "Customers" VALUES(8,'Final','Test','SACS','012 345 8678','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(9,'Adrian','MacKenzie','Not Applicable (N/A)','063 468 2925','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(10,'Render','Test','Diggers','012 345 8678','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(11,'Dual','Backend Test','Not Applicable (N/A)','063 468 2925','adrianmackzie@gmail.com');
+INSERT INTO "Customers" VALUES(12,'Netlify','Dual Test','Diggers','063 468 2925','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(13,'Netlify','Test 2','Not Applicable (N/A)','012 345 8678','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(14,'Updated','Thank You Page','Not Applicable (N/A)','012 345 8678','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(15,'Updated','Thank You v2','Valke','012 345 8678','u23584620@tuks.co.za');
+INSERT INTO "Customers" VALUES(16,'Adrian','Thank You v3','St John''s College','012 345 8678','u23584620@tuks.co.za');
 CREATE TABLE Orders (
     order_date TEXT,
     order_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,6 +46,16 @@ INSERT INTO "Orders" VALUES('2025/10/20',5,'A05',5,4,'Card','Paid','R800.00','ht
 INSERT INTO "Orders" VALUES('2025/10/20',6,'A06',6,46,'Cash','Not Paid','R980.00','None','None.','SENT');
 INSERT INTO "Orders" VALUES('2025/10/21',7,'A07',7,5,'Cash','Not Paid','R800.00','https://drive.google.com/uc?export=view&id=1MZCh6lrz3kUrkMIdjC8IjCtSRkie3wHG','Delivery by uber pickup.','SENT');
 INSERT INTO "Orders" VALUES('2025/10/26',8,'A08',8,13,'Card','Not Paid','R800.00','https://drive.google.com/uc?export=view&id=1wuOXEcpSH8vqRnFNpJmTfL7vk7V40UDg','I want a white background please.','SENT');
+INSERT INTO "Orders" VALUES('2025/05/02',17,'A09',9,9,'Cash','Paid','R800.00','https://drive.google.com/uc?export=view&id=1ttqu6rVKXpQVNvoaZK5nnLSkR4X-7tOT','Pre-exam test','SENT');
+INSERT INTO "Orders" VALUES('2025/05/16',18,'A10',9,9,'Cash','Not Paid','R800.00','https://drive.google.com/uc?export=view&id=18-pUUYyuFBIdnGTAqjksDX4Gc_Wve4WZ','Netlify test','SENT');
+INSERT INTO "Orders" VALUES('2025/05/22',19,'A11',3,6,'Cash','Paid','R800.00','https://drive.google.com/uc?export=view&id=1ptnHFOtxdgZEDbqrBXOaSpomjt0ZqX1l','Live netlify website test','SENT');
+INSERT INTO "Orders" VALUES('2025/05/24',20,'A12',10,18,'Card','Not Paid','R850.00','None','Render Backend Test','SENT');
+INSERT INTO "Orders" VALUES('2025/06/15',21,'A13',11,41,'EFT','Not Paid','R1,160.00','','Test','SENT');
+INSERT INTO "Orders" VALUES('2025/07/09',22,'A14',12,37,'EFT','Paid','R980.00','','Netlify dual backend test','SENT');
+INSERT INTO "Orders" VALUES('2025/08/06',23,'A15',13,20,'Cash','Not Paid','R850.00','','Netlify dual backend test 2','SENT');
+INSERT INTO "Orders" VALUES('2025/09/14',24,'A16',14,9,'Cash','Paid','R800.00','https://drive.google.com/uc?export=view&id=19k2TW64Lo89iu6PkCUxe8A8eFUAjjv1l','Checking responsive thank you page','SENT');
+INSERT INTO "Orders" VALUES('2025/11/23',25,'A17',15,6,'EFT','Paid','R800.00','https://drive.google.com/uc?export=view&id=1QuXwSvLnOG5BanM3ZUE_dVxuwfKITL61','Pre-exam test','SENT');
+INSERT INTO "Orders" VALUES('2025/11/23',26,'A18',16,19,'Card','Not Paid','R850.00','','Thank You message test','SENT');
 CREATE TABLE Products (
     product_id INTEGER PRIMARY KEY AUTOINCREMENT,
     product_code TEXT,
@@ -95,7 +113,7 @@ INSERT INTO "Products" VALUES(46,'Rubberised','Clear',980.0,0.0);
 INSERT INTO "Products" VALUES(47,'Retainer','Clear',1600.0,0.0);
 INSERT INTO "Products" VALUES(48,'Bleaching','Clear',1600.0,0.0);
 DELETE FROM "sqlite_sequence";
-INSERT INTO "sqlite_sequence" VALUES('Products',48);
-INSERT INTO "sqlite_sequence" VALUES('Customers',8);
-INSERT INTO "sqlite_sequence" VALUES('Orders',8);
+INSERT INTO "sqlite_sequence" VALUES('Products',96);
+INSERT INTO "sqlite_sequence" VALUES('Customers',16);
+INSERT INTO "sqlite_sequence" VALUES('Orders',26);
 COMMIT;
