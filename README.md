@@ -140,14 +140,12 @@ I, Adrian MacKenzie (u23584620), developed and completed the entire project myse
 | 4 | Render endpoint demo | Check the Render-stored data on your browser using `https://snugfit-website-group-5.onrender.com/api/orders/AXX` , by changing XX to your allocated impression number. This will return a copy of your stored order details.<br>- To check the other endpoints listed earlier, type after `api/`. |
 | 5 | Google API demo | Visit this [Snugfit Order Capture Sheet](https://docs.google.com/spreadsheets/d/1CBs1X0cbDWphWTv7IzIriT16uDOZ0-vrXdk0aVnJY-M/edit?usp=sharing) to view your automatically logged order. Your order will have appended as a new row.<br>**Optional:**<br>&nbsp;&nbsp;- Change the payment status of your order to "Paid" (as Snugfit staff would) on the Google Sheet, and then click [here](https://docs.google.com/document/d/1RyQu7pKGFdfKlfkJiudK7VI3eQs-wkmHFmxQPmzAt3Q/edit?usp=sharing) to view your order added as a yellow row to the printable production list Google doc.<br>&nbsp;&nbsp;- View this [Google Drive Logo Folder](https://drive.google.com/drive/folders/1V0sGiBHhb6XiBxmyp3zy34hkz9cqGo5i?usp=sharing) storing the uploaded logos for standard mouth guards.<br>- Your paid order is now ready to be quality checked, printed, and produced by the Snugfit staff. |
 | 6 | Staff dashboard | Open the Google Website link, [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home), to see the Snugfit staff order dashboard. The Google Sheet and Google doc will be visible with your order. If not, refresh the page.<br>- View the `Analytics` page to see the KPIs and charts based off the Google Sheet data. |
-| 7 | Update local database | To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.<br>- **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet and shouldn't be shared with anyone to ensure data security. |
+| 7 | Observe database | To update the database `snugfit_orders.db`, one would normally manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.<br>- **Note:** `db_create.py` requires a `credentials.json` file from my Google service account to fetch the Google sheet data. This is not possible to replicate on the Github repo. as a service account key cannot be exposed in a repo. according to Github protection protocols to ensure data security. Instead, a recently updated `snugfit_orders.sql` file has been provided as an example of the database setup. |
 
 
 ## Database Setup
-### Using SQLite Command Line
-1. Using the Powershell one-liner in the project directory
-2. Run the SQL command:
-<pre> Get-Content snugfit_orders.sql | sqlite3 snugfit_orders.db </pre>   
+
+As aforementioned, a new `snugfit_orders.sql` file cannot be created without a `credentials.json` file, instead, a recently updated `snugfit_orders.sql` file has been provided as an example of the database setup.
 
 ## Database Schema
 
