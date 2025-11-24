@@ -17,27 +17,30 @@ requires modernisation.
 
 - **Website:** Full html and CSS website redesign, accommodating the new booking form.
 - **Responsive HTML Booking Form:** An online, web-based html form, on `Bookings.html`, that adjusts field entries based on product selection.
-- **Automated Order Capture System:** Form submission triggers a Google WebApp to fetch form responses, automatically populating a Google spreadsheet and assigning a unique impression ID.
+- **Automated Order Capture System with Dual Backend:** Form submission triggers a Google WebApp to fetch form responses, automatically populating a Google spreadsheet and assigning a unique impression ID. Additionally, form submission sends payload to a flask proxy API on Render. This is purely to demonstrate REST design for academic purposes and doesn't form part of the company's order management system.
 - **Revised Hybrid Unique Impression ID Generation:** The online form automatically updates the 'A00' tab in the Google sheet upon submission, where impression ID starts from 'A01' at the start of a new year. This means a new sheet would be created annually. There is also the option for customers to fill out a paper-based order form that the staff manually enter on the 'M00' tab in the same Google sheet. 
 - **Email API:** Appending a new order row in the Google sheet activates Google Apps Script's service, MailApp, to send a order confirmation email to the customer including their unique impression ID and an order copy email to Snugfit.
 - **SQLite Database:** A back-up SQLite database receives order data from the populated Google Sheet row entries upon manual request from `db_create.py`, storing in `snugfit_orders.db`.
 - **Data Validation for Production:** Once an order row is marked "Paid" on the Google Sheet, Google Apps Script sends the necessary data corresponding to that order to a printable Google document. This ensures production of paid orders only.
-- **Order Dashboard Google Website:** A simple, integrated dashboard for Snugfit staff to view the Google sheet and document on a single user interface (UI).
+- **Order Dashboard Google Website:** A simple, integrated dashboard for Snugfit staff to view the Google sheet and production order document on a single user interface (UI).
+- KPIs: KPIs have been developed both on the flask proxy API and on Snugfit's order management dashboard (Google Website).
 
 ## Solution Benefits
 
-- Improves website usability, functionality, and marketability.
+- Improved website usability, functionality, and marketability.
 - Eliminates time inefficiencies associated with the manual order management system and improves order accuracy/data quality.
 - Data backed-up on SQLite database and in Google Cloud.
 - Improves transaction visibility for both Snugfit and their customers.
 - Order dashboard website is simple to understand for staff and requires little training/effort to implement.
+- KPIs and analystics give real-time updates and will improve decision-making.
+- Meets both the company's demand for a simple, Google order management backend, and academic purposes with the flask backend.
 
 ## Technologies Used
 
 - **HTML5:** Snugfit website structuring and form.
 - **CSS:** Snugfit website styling.
 - **JavaScript:**
-  - Sending `FormData` to the Google WebApp.
+  - Sending `FormData` to the Google WebApp and the flask proxy API.
   - Handles the logic of receiving order data, processing it, saving it to Google Sheets and Drive, and sending confirmation emails. 
 - **JSON:** Formats the incoming order data from the web form and the response sent back to the web app.
 - **Python:** Automates the creation and population of an SQLite database from the Snugfit Order Capture Google Sheet.
@@ -58,6 +61,10 @@ snugfit/
 │   │   
 ├── backend/
 │   ├── BookingBackend.js               # Sending FormData to WebApp
+│   ├── FlaskProxyAPI.py                # Creating proxy flask API to recieve formData on Render
+│   ├── requirements.txt                # Requirement for Render setup
+│   ├── Procfile                        # Requirement for Render setup
+│   ├── SnugfitProxyAPI.postman_collection.json  # testing REST endpoints using Postman
 │   ├── db_create.py                    # Create db and sync with Google sheets entries
 │   ├── snugfit_orders.db               # SQLite database (created after running setup)
 │   └── snugfit_orders.sql              # Database schema and sample data
@@ -68,7 +75,56 @@ snugfit/
 
 </pre>
 
-## Automated Order Capture & Management System Demonstration:
+## Live Links
+
+- **Frontend:** [Snugfit Netflify hosted website](https://snugfit-bfb-group5.netlify.app) & [Snugfit Order Management Google Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home)
+- **Backend:**
+  - Core Google API: [WebApp](https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec) & [Source Code](https://script.google.com/d/1WxXGkOj1kxDJh0QMowdrNHAiXJcoC9sci-vKhgWtS9OS2URn0bwtOJl2/edit?usp=sharing)
+  - Flask Proxy API: [Snugfit Render](https://snugfit-website-group-5.onrender.com/)
+
+## Render Design:
+- **API Endpoint Overview:**
+
+| # | Method | Endpoint | Description |
+|---|--------|----------|-------------|
+| **1** | `GET` | `/api/orders` | Lists all captured proxy orders from the html booking form. |
+| **2** | `POST` | `/api/orders` | Accepts booking-form JSON payload from html booking form submission. |
+| **3** | `GET` | `/api/orders/<id>` | Allows retrieval of a single order by impression number/id generated by Google Apps Script. |
+| **4** | `PUT` | `/api/orders/<id>` | Allows partial updates of an existing order. |
+| **5** | `GET` | `/api/kpis` | Simple derived metrics from captured orders. |
+| **6** | `Get` | `/` | Confirms the API is running and lists all the available endpoints. |
+| **7** | `Get` | `/health` | Health check endpoint. |
+
+- **KPIs:**
+
+| KPI Name | JSON Field | Meaning / Explanation |
+|----------|------------|------------------------|
+| **Total Orders** | `total_orders` | The total number of orders currently stored in the proxy API’s in-memory list. |
+| **Distinct Product Types Ordered** | `distinct_product_types_ordered` | Counts how many unique product types have been ordered across all orders. |
+| **Product Breakdown** | `product_breakdown` | Shows how many orders fall under each product type. |
+| **Most Popular Product** | `most_popular_product` | The product type with the highest frequency ordered (the most commonly selected). |
+
+## Google Website KPIs:
+
+| Category | Metric / Chart | Description |
+|----------|----------------|-------------|
+| **KPIs** | **New Orders Today** | Number of new customer orders created on the current day. |
+| | **Monthly Paid Orders** | Count of all orders marked as “Paid” within the current month. |
+| | **Annual Paid Orders** | Total number of paid orders across the current year. |
+| | **Total Annual Revenue** | Sum of all paid order amounts for the current year. |
+| **Charts** | **Monthly Sales Revenue** | Bar chart showing total revenue per month. |
+| | **Frequency of Product Type Sold Monthly** | Visual breakdown of how many units of each product type were sold each month. |
+| | **Sheet Colour Orders by Month** | Chart showing the distribution of sheet colour selections for each month. |
+
+## Architecture:
+
+![Web Architecture](BFB Web Architecture.png)
+
+## Team Contributions
+
+I, Adrian MacKenzie (u23584620), developed and completed the entire project myself from frontend to backend. I completed this BFB 321 project for Snugfit Mouth Guards and took on the challenge of pursuing/satisfying the requirements of both the project memo and the company.
+
+## Automated Order Capture & Management System Deployment Instructions:
 
 1) Open `Home.html` and navigate through website pages using the navbar.
 2) Select Bookings (i.e. `Bookings.html`), fill out booking form with test data and a valid email address to receive confirmation email (as customer would when ordering a product).
