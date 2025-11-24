@@ -79,7 +79,7 @@ snugfit/
 
 - **Frontend:** [Snugfit Netflify hosted website](https://snugfit-bfb-group5.netlify.app) & [Snugfit Order Management Google Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home)
 - **Backend:**
-  - Core Google API: [WebApp](https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec) & [Source Code](https://script.google.com/d/1WxXGkOj1kxDJh0QMowdrNHAiXJcoC9sci-vKhgWtS9OS2URn0bwtOJl2/edit?usp=sharing)
+  - Core Google API: [Source Code](https://script.google.com/d/1WxXGkOj1kxDJh0QMowdrNHAiXJcoC9sci-vKhgWtS9OS2URn0bwtOJl2/edit?usp=sharing)
   - Flask Proxy API: [Snugfit Render](https://snugfit-website-group-5.onrender.com/)
 
 ## Render Design:
