@@ -120,22 +120,28 @@ snugfit/
 
 ![Web Architecture](BFB%20Web%20Architecture.png)
 
+- **Justification for using a Proxy Flask API:**
+  - Snugfit Mouth Guards requested all backend functionality for the system to be managed in the Google ecosystem using Google Apps Script, Sheets, Drive, and Docs.
+  - Google Apps Script `doPost` is a single endpoint and doesn't meet the memo requirements for Flask and a minimum 5 REST endpoints.
+  - To satisfy memo requirements, and without altering the working system, a Flask-based proxy API was implemented that returns the submitted form data using order id/impression number as a unique identifier to illustrate the REST principles.
+  - In reality, this middleman is unecessary, as Google Apps Script efficiently handles backend functionality on its own.
+
 ## Team Contributions
 
 I, Adrian MacKenzie (u23584620), developed and completed the entire project myself from frontend to backend. I completed this BFB 321 project for Snugfit Mouth Guards and took on the challenge of pursuing/satisfying the requirements of both the project memo and the company.
 
 ## Automated Order Capture & Management System Deployment Instructions:
 
-1) Open `Home.html` and navigate through website pages using the navbar.
-2) Select Bookings (i.e. `Bookings.html`), fill out booking form with test data and a valid email address to receive confirmation email (as customer would when ordering a product).
-3) Click Submit, and when directed to `ThankYou.html`, the submission was a success.
-4) Check your email inbox for "Your Snugfit Order Confirmation".
-5) Open the following Google Website link: [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home) to see the Snugfit staff's order dashboard. Your specific form response should have appended as a new row in the embedded Google sheet. If not, refresh page.
-6) To test data validation for production, open this [Google Sheet](https://docs.google.com/spreadsheets/d/1CBs1X0cbDWphWTv7IzIriT16uDOZ0-vrXdk0aVnJY-M/edit?usp=sharing), (seen on the Google Website), and change your order payment status to "Paid". This will append a new yellow row in the [Google document](https://docs.google.com/document/d/1RyQu7pKGFdfKlfkJiudK7VI3eQs-wkmHFmxQPmzAt3Q/edit?usp=sharing) for paid orders (doc also seen on the Google Website).
-   - **Note:** Yellow rows in the Google doc indicate newly paid orders to be checked before printing and the URL populated in the sheet's logo column is saved in this [Google Drive Logo Folder](https://drive.google.com/drive/folders/1V0sGiBHhb6XiBxmyp3zy34hkz9cqGo5i?usp=sharing).
-7) Your paid order is now ready to be data quality checked, printed, and produced by the Snugfit staff.
-8) To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.
-    - **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet and shouldn't be shared with anyone to ensure data security.
+| Step | Action | Notes / Links |
+|------|--------|---------------|
+| 1 | Visit the live frontend | Click [here](https://snugfit-bfb-group5.netlify.app/bookings) to visit the Netlify, live-hosted frontend containing the booking form (which is the starting point of the demonstration). The other web pages, available in the navbar, are also hosted for your viewing. |
+| 2 | Fill out the booking form | - choose standard MG as the product at the top.<br>- Use your email address to receive your unique impression number via the email API.<br>- Select a logo from the options to demonstrate sending images through the system.<br>- Click Submit, and when directed to `ThankYou.html`, the submission was a success. |
+| 3 | Email API demo | Check your email inbox for "Your Snugfit Order Confirmation" to view a copy of your form response containing your unique impression number “AXX” (this is also displayed in the post-submission Thank You page message). |
+| 4 | Render endpoint demo | Check the Render-stored data on your browser using `https://snugfit-website-group-5.onrender.com/api/orders/AXX` , by changing XX to your allocated impression number. This will return a copy of your stored order details.<br>- To check the other endpoints listed earlier, type after `api/`. |
+| 5 | Google API demo | Visit this [Snugfit Order Capture Sheet](https://docs.google.com/spreadsheets/d/1CBs1X0cbDWphWTv7IzIriT16uDOZ0-vrXdk0aVnJY-M/edit?usp=sharing) to view your automatically logged order. Your order will have appended as a new row.<br>**Optional:**<br>&nbsp;&nbsp;- Change the payment status of your order to "Paid" (as Snugfit staff would) on the Google Sheet, and then click [here](https://docs.google.com/document/d/1RyQu7pKGFdfKlfkJiudK7VI3eQs-wkmHFmxQPmzAt3Q/edit?usp=sharing) to view your order added as a yellow row to the printable production list Google doc.<br>&nbsp;&nbsp;- View this [Google Drive Logo Folder](https://drive.google.com/drive/folders/1V0sGiBHhb6XiBxmyp3zy34hkz9cqGo5i?usp=sharing) storing the uploaded logos for standard mouth guards.<br>- Your paid order is now ready to be quality checked, printed, and produced by the Snugfit staff. |
+| 6 | Staff dashboard | Open the Google Website link, [Snugfit Order Dashboard](https://sites.google.com/view/snugfit-order-dashboard/home), to see the Snugfit staff order dashboard. The Google Sheet and Google doc will be visible with your order. If not, refresh the page.<br>- View the `Analytics` page to see the KPIs and charts based off the Google Sheet data. |
+| 7 | Update local database | To update the database `snugfit_orders.db`, manually run `db_create.py`. This syncs the populated Google sheet to the database and creates `snugfit_orders.sql`.<br>- **Note:** In order for `db_create.py` to fetch the Google sheet data, a Google service account was created and shared with the Google sheet. The `credentials.json` file gives the python file access to the sheet and shouldn't be shared with anyone to ensure data security. |
+
 
 ## Database Setup
 ### Using SQLite Command Line
@@ -210,4 +216,4 @@ The data contained in the uploaded `snugfit_orders.db` file, contains the order 
 
 ## Conclusion
 
-Snugfit Mouthguards currently spends ten minutes manually processing a single order form, and also expressed their need for a more modernised and aesthetic website. The proposed solution, involving a redesigned website with a front and back-end order management system, automates their order capture and data entry processes, eliminating all manual processes for online completed forms, with quality checks remaining the only manual step. This has reduced the processing time for orders from 10mins/order to just 1 min/order, resulting in a 90% time redcution in the order management process, illustrating a dramatic productivity and efficiency improvement. Furthermore, automating the data capture process, eliminates human-error and results in higher data quality. Overall, the proposed solution adds value to the business by enhancing their brand image and marketability through their website, while minimising the inefficiencies experienced with their current order management system.
+Snugfit Mouthguards currently spends ten minutes manually processing a single order form, and also expressed their need for a more modernised and aesthetic website. The proposed solution, involving a redesigned website with a front and back-end order management system, automates their order capture and data entry processes, eliminating all manual processes for online completed forms, with quality checks remaining the only manual step. This has reduced the processing time for orders from 10mins/order to just 1 min/order, resulting in a 90% time reduction in the order management process, illustrating a dramatic productivity and efficiency improvement. Furthermore, automating the data capture process, eliminates human-error and results in higher data quality. Overall, the proposed solution adds value to the business by enhancing their brand image and marketability through their website, while minimising the inefficiencies experienced with their current order management system.
