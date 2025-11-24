@@ -118,7 +118,7 @@ snugfit/
 
 ## Architecture:
 
-![Web Architecture](BFB Web Architecture.png)
+![Web Architecture](BFB%20Web%20Architecture.png)
 
 ## Team Contributions
 
