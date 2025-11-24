@@ -23,7 +23,7 @@ requires modernisation.
 - **SQLite Database:** A back-up SQLite database receives order data from the populated Google Sheet row entries upon manual request from `db_create.py`, storing in `snugfit_orders.db`.
 - **Data Validation for Production:** Once an order row is marked "Paid" on the Google Sheet, Google Apps Script sends the necessary data corresponding to that order to a printable Google document. This ensures production of paid orders only.
 - **Order Dashboard Google Website:** A simple, integrated dashboard for Snugfit staff to view the Google sheet and production order document on a single user interface (UI).
-- KPIs: KPIs have been developed both on the flask proxy API and on Snugfit's order management dashboard (Google Website).
+- **KPIs:** KPIs have been developed both on the flask proxy API and on Snugfit's order management dashboard (Google Website).
 
 ## Solution Benefits
 
