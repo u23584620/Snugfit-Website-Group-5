@@ -36,14 +36,14 @@
         .step1-personalise-standardcolours {
             color: #1a237e;
             font-size: clamp(1em, 2.5vw, 1.5em);
-            text-align: left;
+            text-align: center;
             font-weight: bold;
             margin: 0 0 8px 0;
         }
         .step1-personalise-specialcolours {
             color: #1a237e;
             font-size: clamp(1em, 2.5vw, 1.5em);
-            text-align: left;
+            text-align: center;
             font-weight: bold;
             margin: 0 0 8px 0;
             padding-top: 30px;
@@ -62,7 +62,7 @@
             font-size: 1em;
             line-height: 1.7;
             margin: 0 0 24px 0;
-            text-align: justify;
+            text-align: center;
         }
         .step2-body-text {
             color: rgb(124, 115, 115);
@@ -134,8 +134,13 @@
         .slide-image {
             object-fit: contain;
             border-radius: 12px;
-            transition: transform 0.3s, opacity 0.3s;
+            transition: transform 0.35s ease, opacity 0.35s ease, filter 0.35s ease;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .slide-image.is-fading {
+            opacity: 0;
+            transform: scale(0.92);
+            filter: grayscale(35%);
         }
         .slide-image.center {
             width: 500px;
@@ -160,7 +165,7 @@
                 font-size: 0.8em;
                 line-height: 1.7;
                 margin: 0 0 24px 0;
-                text-align: justify;
+                text-align: center;
             }
             .step2-body-text {
                 color: rgb(124, 115, 115);
@@ -477,7 +482,7 @@
             Select from our range of 11 solid colours.
         </div>
     
-        <div class="slideshow-container">
+        <div class="slideshow-container" id="colour-slideshow-container">
             <button class="slide-arrow" id="slide-left" aria-label="Previous Colour">&#8592;</button>
             <div class="slide-track">
                 <img class="slide-image side" id="slide-prev" src="Website Design/Black.png" alt="Previous Colour">
@@ -600,44 +605,127 @@
         const prevImg = document.getElementById('slide-prev');
         const currImg = document.getElementById('slide-current');
         const nextImg = document.getElementById('slide-next');
+        // Ensure images aren't dragged during interaction
+        [prevImg, currImg, nextImg].forEach(img => img.setAttribute('draggable', 'false'));
         let autoSlideTimer = null;
+        let isSliding = false;
+        const SLIDE_INTERVAL = 3500;
+        const SLIDE_ANIM_MS = 320;
+
+        // Preload colour images to avoid flicker
+        (function preloadColours(){
+            colourImgs.forEach(o => { const im = new Image(); im.src = o.src; });
+        })();
 
         function updateSlides() {
-            const prevIdx = (slideIdx - 1 + colourImgs.length) % colourImgs.length;
-            const nextIdx = (slideIdx + 1) % colourImgs.length;
+            // snapshot indices to guarantee consistency during async
+            const s = slideIdx;
+            const prevIdx = (s - 1 + colourImgs.length) % colourImgs.length;
+            const nextIdx = (s + 1) % colourImgs.length;
             prevImg.src = colourImgs[prevIdx].src;
             prevImg.alt = 'Previous: ' + colourImgs[prevIdx].alt;
-            currImg.src = colourImgs[slideIdx].src;
-            currImg.alt = 'Current: ' + colourImgs[slideIdx].alt;
+            currImg.src = colourImgs[s].src;
+            currImg.alt = 'Current: ' + colourImgs[s].alt;
             nextImg.src = colourImgs[nextIdx].src;
             nextImg.alt = 'Next: ' + colourImgs[nextIdx].alt;
         }
-        function nextSlide() {
-            slideIdx = (slideIdx + 1) % colourImgs.length;
-            updateSlides();
+        function performSlide(direction) {
+            if (isSliding) return;
+            isSliding = true;
+            if (autoSlideTimer) { clearInterval(autoSlideTimer); autoSlideTimer = null; }
+            // Fade out slightly for smoothness
+            prevImg.classList.add('is-fading');
+            currImg.classList.add('is-fading');
+            nextImg.classList.add('is-fading');
+
+            // Update index synchronously
+            if (direction === 'next') {
+                slideIdx = (slideIdx + 1) % colourImgs.length;
+            } else {
+                slideIdx = (slideIdx - 1 + colourImgs.length) % colourImgs.length;
+            }
+
+            // After a short delay, swap images, then fade back in
+            setTimeout(() => {
+                updateSlides();
+                // allow the browser to paint before fade-in
+                requestAnimationFrame(() => {
+                    prevImg.classList.remove('is-fading');
+                    currImg.classList.remove('is-fading');
+                    nextImg.classList.remove('is-fading');
+                    setTimeout(() => {
+                        isSliding = false;
+                        startAutoSlide();
+                    }, 40);
+                });
+            }, SLIDE_ANIM_MS);
         }
-        function prevSlide() {
-            slideIdx = (slideIdx - 1 + colourImgs.length) % colourImgs.length;
-            updateSlides();
-        }
+        function nextSlide() { performSlide('next'); }
+        function prevSlide() { performSlide('prev'); }
         function startAutoSlide() {
             if (autoSlideTimer) clearInterval(autoSlideTimer);
-            autoSlideTimer = setInterval(nextSlide, 3000);
+            autoSlideTimer = setInterval(() => { if (!isSliding) nextSlide(); }, SLIDE_INTERVAL);
         }
 
         // Colour slideshow buttons
-        document.getElementById('slide-left').onclick = function() {
-            prevSlide();
-            startAutoSlide();
-        };
-        document.getElementById('slide-right').onclick = function() {
-            nextSlide();
-            startAutoSlide();
-        };
+        document.getElementById('slide-left').onclick = function() { prevSlide(); };
+        document.getElementById('slide-right').onclick = function() { nextSlide(); };
+
+        // Keyboard accessibility
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
 
         // Initialize colour slideshow
         updateSlides();
         startAutoSlide();
+
+        // Attach swipe gestures helper
+        function attachSwipe(container, onSwipeLeft, onSwipeRight) {
+            if (!container) return;
+            let startX = 0, startY = 0, lastX = 0, isTouching = false, horizontalIntent = false;
+            const THRESHOLD = 50; // px
+            const DRAG_INTENT = 16; // px before deciding horizontal intent
+
+            container.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) return;
+                const t = e.touches[0];
+                startX = lastX = t.clientX;
+                startY = t.clientY;
+                isTouching = true;
+                horizontalIntent = false;
+            }, { passive: true });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isTouching || e.touches.length !== 1) return;
+                const t = e.touches[0];
+                const dx = t.clientX - startX;
+                const dy = t.clientY - startY;
+                lastX = t.clientX;
+                if (!horizontalIntent && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > DRAG_INTENT) {
+                    horizontalIntent = true;
+                }
+                if (horizontalIntent) {
+                    // prevent page scroll only for horizontal swipes
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            container.addEventListener('touchend', () => {
+                if (!isTouching) return;
+                isTouching = false;
+                if (!horizontalIntent) return;
+                const deltaX = lastX - startX;
+                if (deltaX <= -THRESHOLD) {
+                    onSwipeLeft && onSwipeLeft();
+                } else if (deltaX >= THRESHOLD) {
+                    onSwipeRight && onSwipeRight();
+                }
+            });
+        }
+        // Enable swipe on colour slider
+        attachSwipe(document.getElementById('colour-slideshow-container'), nextSlide, prevSlide);
 
 
         // MOUTHGUARD LOGO OPTIONS SLIDESHOW
@@ -653,42 +741,69 @@
         const logoPrevImg = document.getElementById('logo-slide-prev');
         const logoCurrImg = document.getElementById('logo-slide-current');
         const logoNextImg = document.getElementById('logo-slide-next');
+        [logoPrevImg, logoCurrImg, logoNextImg].forEach(img => img.setAttribute('draggable', 'false'));
         let logoAutoSlideTimer = null;
+        let isLogoSliding = false;
+        const LOGO_SLIDE_INTERVAL = 3500;
+        const LOGO_ANIM_MS = 320;
+
+        // Preload logos
+        (function preloadLogos(){
+            logoImgs.forEach(o => { const im = new Image(); im.src = o.src; });
+        })();
 
         function updateLogoSlides() {
-            const prevIdx = (logoSlideIdx - 1 + logoImgs.length) % logoImgs.length;
-            const nextIdx = (logoSlideIdx + 1) % logoImgs.length;
+            const s = logoSlideIdx;
+            const prevIdx = (s - 1 + logoImgs.length) % logoImgs.length;
+            const nextIdx = (s + 1) % logoImgs.length;
             logoPrevImg.src = logoImgs[prevIdx].src;
             logoPrevImg.alt = 'Previous: ' + logoImgs[prevIdx].alt;
-            logoCurrImg.src = logoImgs[logoSlideIdx].src;
-            logoCurrImg.alt = 'Current: ' + logoImgs[logoSlideIdx].alt;
+            logoCurrImg.src = logoImgs[s].src;
+            logoCurrImg.alt = 'Current: ' + logoImgs[s].alt;
             logoNextImg.src = logoImgs[nextIdx].src;
             logoNextImg.alt = 'Next: ' + logoImgs[nextIdx].alt;
         }
-        function nextLogoSlide() {
-            logoSlideIdx = (logoSlideIdx + 1) % logoImgs.length;
-            updateLogoSlides();
+        function performLogoSlide(direction) {
+            if (isLogoSliding) return;
+            isLogoSliding = true;
+            if (logoAutoSlideTimer) { clearInterval(logoAutoSlideTimer); logoAutoSlideTimer = null; }
+            logoPrevImg.classList.add('is-fading');
+            logoCurrImg.classList.add('is-fading');
+            logoNextImg.classList.add('is-fading');
+
+            if (direction === 'next') {
+                logoSlideIdx = (logoSlideIdx + 1) % logoImgs.length;
+            } else {
+                logoSlideIdx = (logoSlideIdx - 1 + logoImgs.length) % logoImgs.length;
+            }
+
+            setTimeout(() => {
+                updateLogoSlides();
+                requestAnimationFrame(() => {
+                    logoPrevImg.classList.remove('is-fading');
+                    logoCurrImg.classList.remove('is-fading');
+                    logoNextImg.classList.remove('is-fading');
+                    setTimeout(() => {
+                        isLogoSliding = false;
+                        startLogoAutoSlide();
+                    }, 40);
+                });
+            }, LOGO_ANIM_MS);
         }
-        function prevLogoSlide() {
-            logoSlideIdx = (logoSlideIdx - 1 + logoImgs.length) % logoImgs.length;
-            updateLogoSlides();
-        }
+        function nextLogoSlide() { performLogoSlide('next'); }
+        function prevLogoSlide() { performLogoSlide('prev'); }
         function startLogoAutoSlide() {
             if (logoAutoSlideTimer) clearInterval(logoAutoSlideTimer);
-            logoAutoSlideTimer = setInterval(nextLogoSlide, 3000);
+            logoAutoSlideTimer = setInterval(() => { if (!isLogoSliding) nextLogoSlide(); }, LOGO_SLIDE_INTERVAL);
         }
 
-        document.getElementById('logo-slide-left').onclick = function() {
-            prevLogoSlide();
-            startLogoAutoSlide();
-        };
-        document.getElementById('logo-slide-right').onclick = function() {
-            nextLogoSlide();
-            startLogoAutoSlide();
-        };
+        document.getElementById('logo-slide-left').onclick = function() { prevLogoSlide(); };
+        document.getElementById('logo-slide-right').onclick = function() { nextLogoSlide(); };
 
         updateLogoSlides();
         startLogoAutoSlide();
+        // Enable swipe on logo slider
+        attachSwipe(document.getElementById('logo-slideshow-container'), nextLogoSlide, prevLogoSlide);
         </script>
         </div>
     </div>

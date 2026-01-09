@@ -1,6 +1,5 @@
 // GOOGLE APPS SCRIPT BACKEND LINK FOR GOOGLE SHEETS  (WEB APP URL)
-const scriptURL = "https://script.google.com/macros/s/AKfycbwv1dL9_IkeTe2e1nLqTbVlcwAxsEGzx2_sJOk_VuONi4kgxgA08tZQQil6MmqBMxuKiA/exec";
-
+const scriptURL = "https://script.google.com/macros/s/AKfycby70oC7LUAg9RcKFjHJYQcnKBKJ_CpJpxgSm8Vb1xEGFw1xsdDi82RiPg6mF5HvNJ4cTw/exec"
 // PROXY URL FOR FLASK BACKEND API FOR STORING AND GETTING ORDERS
 const proxyURL = "https://snugfit-website-group-5.onrender.com/api/orders";
 
@@ -20,8 +19,53 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // REQUIRE ORDER CONFIRMATION CHECKBOX BEFORE SUBMISSION
+    const confirmEl = document.getElementById("confirm_order");
+    if (!confirmEl || !confirmEl.checked) {
+      alert("Please confirm your order details to proceed.");
+      confirmEl?.focus();
+      return;
+    }
+
+    // HONOUR BUILT-IN REQUIRED/PATTERN CONSTRAINTS ACROSS THE FORM
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     // ENABLE ANY DISABLED FIELDS TO READ THEIR DEFAULT VALUES FOR SUBMISSION
     document.querySelectorAll("[disabled], fieldset[disabled]").forEach(el => el.disabled = false);
+
+    // IF "Custom Text Upload" SELECTED BUT NO IMAGE SAVED, GENERATE IT FROM CURRENT FIELDS
+    try {
+      const logoSelectEl = document.getElementById("logo_select");
+      const logoHidden = document.getElementById("logo_image");
+      if (logoSelectEl?.value === "Custom Text Upload" && logoHidden && !logoHidden.value) {
+        const textEl = document.getElementById("custom-text-input");
+        const colorEl = document.getElementById("custom-text-color");
+        const bgEl    = document.getElementById("custom-bg-color");
+        const fontEl  = document.getElementById("custom-text-font");
+        const text = (textEl?.value || "").trim();
+        if (text) {
+          const canvas = document.createElement('canvas');
+          canvas.width = 200; canvas.height = 75;
+          const ctx = canvas.getContext('2d');
+          // Background
+          ctx.fillStyle = (bgEl?.value || "#ffffff");
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          // Font sizing (match page logic for Goudy Stout)
+          let fontSize = 30;
+          const fontFamily = (fontEl?.value || "Poppins, Arial, sans-serif");
+          if (fontFamily.includes("Goudy Stout")) fontSize = 24;
+          ctx.font = `bold ${fontSize}px ${fontFamily}`;
+          ctx.fillStyle = (colorEl?.value || "#111111");
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+          logoHidden.value = canvas.toDataURL("image/png");
+        }
+      }
+    } catch {}
 
     // ENSURING LOGO_IMAGE IS A DATA URL FOR SUBMISSION
     const logoHidden = document.getElementById("logo_image");
@@ -72,26 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
     for (const [k, v] of fd.entries()) console.log(k, typeof v === "string" ? (v.slice(0,60) + (v.length>60 ? "…":"")) : v);
     console.groupEnd();
 
-    // REAL PRODUCTION SUBMISSION TO GOOGLE API FUNCTION
+    // REAL PRODUCTION SUBMISSION: send to Google first; fire-and-forget proxy
     async function submitBoth(fd){
-      // 1. SENDING TO GOOGLE APPS SCRIPT BACKEND
+      // 1) Send to Google Apps Script (await this; it's the source of the impression number)
       const gasResp = await fetch(scriptURL, { method: "POST", body: fd });
 
-      // EXTRACT IMPRESSION NUMBER FOR PROXY RESPONSE
       let impressionNumber = null;
       try {
-        const gasData = await gasResp.json();          
-        impressionNumber = gasData.impression || null;  
+        const gasData = await gasResp.json();
+        impressionNumber = gasData.impression || null;
         console.log("Impression from GAS:", impressionNumber);
         if (impressionNumber) localStorage.setItem("impressionNumber", impressionNumber);
       } catch (e){
         console.warn("Could not parse GAS response JSON:", e);
       }
 
-      // 2. CREATING PAYLOAD FOR PROXY API USING EXTRACTED IMPRESSION NUMBER
+      // 2) Build proxy payload
       const payload = {
-        id: impressionNumber,       
-        impression: impressionNumber,    
+        id: impressionNumber,
+        impression: impressionNumber,
         first_name: fd.get("first_name"),
         surname: fd.get("surname"),
         club_school: fd.get("club_school"),
@@ -100,28 +143,24 @@ document.addEventListener("DOMContentLoaded", () => {
         payment_option: fd.get("payment_option"),
         costing: fd.get("costing"),
         colour: fd.get("colour") || fd.get("colour_selection") || "",
+        // NOTE: large data URLs can slow down or exceed keepalive limits; include only if needed
         logo_image: fd.get("logo_image"),
         additional_notes: fd.get("additional_notes")
       };
 
-      let proxyId = null;
+      // 3) Fire-and-forget to proxy so UI can proceed immediately
       try {
-        const proxyResp = await fetch(proxyURL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (proxyResp.ok){
-            const data = await proxyResp.json();
-            proxyId = data.id;
-            console.log("Proxy stored id:", proxyId);
-        } else {
-            console.warn("Proxy API reject:", await proxyResp.text());
+        const jsonBlob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+        const sent = navigator.sendBeacon ? navigator.sendBeacon(proxyURL, jsonBlob) : false;
+        if (!sent) {
+          fetch(proxyURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true })
+            .catch(err => console.warn('Proxy keepalive error:', err));
         }
-      } catch(e){
-        console.warn("Proxy API error:", e);
+      } catch (e) {
+        console.warn('Proxy beacon error:', e);
       }
-      return { gasOk: gasResp.ok, proxyId, impressionNumber };
+
+      return { gasOk: gasResp.ok, proxyId: null, impressionNumber };
     }
 
     try {

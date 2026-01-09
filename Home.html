@@ -15,19 +15,17 @@
                     z-index: 20;
                     will-change: transform;
                 }
+                @media (max-width: 699px) {
+                    .scroll-down-arrow {
+                        display: none !important;
+                    }
+                }
                 @media (max-width: 700px) {
                     .main-content {
-                        margin-top: -60px !important;
+                        margin-top: -100px !important;
                     }
-                    .scroll-down-arrow {
-                        z-index: 5 !important;
-                        left: 50% !important;
-                        top: 60% !important;
-                        transform: translateX(-50%) scale(1.2) !important;
-                        width: 100px !important;
-                        height: 100px !important;
-                        bottom: 12px;
-                        animation: bounce 2s cubic-bezier(.68,-0.55,.27,1.55) infinite !important;
+                    .hero-section {
+                        height: 45vh !important;
                     }
                 }
                 </style>
@@ -84,9 +82,35 @@
         .nav-tab:hover::after { width: 100%; }
 
         /* RESPONSIVE MOBILE NAVBAR DESIGN */
-        @media (max-width: 900px) {
-            .navbar { gap: 16px; right: 20px; }
-            .nav-tab { font-size: 0.9em; padding: 6px 8px; }
+        @media (max-width: 1000px) {
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: 0;
+                flex-direction: column;
+                background: #fff;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+                width: 70vw;
+                max-width: 320px;
+                height: 100vh;
+                gap: 0;
+                align-items: flex-start;
+                padding: 60px 0 0 0;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+                z-index: 9999;
+            }
+            .navbar.open { transform: translateX(0); }
+
+            .nav-tab {
+                color: #111 !important;
+                padding: 18px 32px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #eee;
+                width: 100%;
+                text-align: left;
+            }
+            .menu-toggle { display: block; }
         }
         @media (max-width: 700px) {
             .main-content > div[style*="display: flex"] {
@@ -104,35 +128,6 @@
             .booking-text-col {
                 font-size: 0.8em;
             }
-            .navbar {
-                position: fixed;
-                top: 0;
-                right: 0;
-                flex-direction: column;
-                background: #fff;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-                width: 70vw;
-                max-width: 320px;
-                height: 100vh;
-                gap: 0;
-                align-items: flex-start;
-                padding: 60px 0 0 0;
-                transform: translateX(100%);
-                transition: transform 0.3s;
-                z-index: 9999;
-                
-            }
-            .navbar.open { transform: translateX(0); }
-
-            .nav-tab {
-                color: #111 !important;
-                padding: 18px 32px;
-                font-size: 1.1em;
-                border-bottom: 1px solid #eee;
-                width: 100%;
-                text-align: left;
-            }
-            .menu-toggle { display: block; }
 
             .booking-row {
                 display: flex;
@@ -342,13 +337,7 @@
                 height: auto;
                 display: block;
             }
-            @media (max-width: 700px) {
-                .navbar {
-                    right: 20px;
-                    gap: 16px;
-                }
-            }
-            @media (max-width: 700px) {
+            @media (max-width: 1000px) {
                 .navbar {
                     position: fixed;
                     top: 0;
@@ -379,6 +368,8 @@
                 .menu-toggle {
                     display: block;
                 }
+            }
+            @media (max-width: 700px) {
                 .main-content > div:not(.video-row),
                 .main-content > .main-section {
                     flex-direction: column !important;
@@ -387,7 +378,7 @@
                     max-width: 100vw !important;
                     font-size: 0.9em;
                 }
-                .OurMouthguards, .WhoAreWe {
+                .OurMouthguards, .WhoAreWe, .partners-title {
                     font-size: 0.9em;
                 }
                 .main-content img,
@@ -413,6 +404,87 @@
                 transform: none !important;
             }
         </style>
+        <style>
+            /* Partners banner and carousel */
+            .partners-title-container {
+                display: block;
+                clear: both;
+                max-width: 1200px;
+                margin: 0 auto 32px auto;
+                padding: 40px 40px 0 40px;
+                background: #fff;
+                border-radius: 0px;
+                box-sizing: border-box;
+            }
+            .partners-title-container > div {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-right: 40px;
+            }
+            .partners-banner {
+                width: 100%;
+                height: 140px;
+                background: #ffffff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                margin-bottom: 40px;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            .partners-title {
+                color: #1a237e;
+                margin-top: 0;
+            }
+            .partners-carousel {
+                flex: 1;
+                overflow: hidden;
+                position: relative;
+            }
+            .partners-track {
+                display: flex;
+                align-items: center;
+                gap: 28px;
+                will-change: transform;
+                animation: partners-scroll 30s linear infinite;
+            }
+            .partners-track img {
+                height: 120px;
+                width: auto;
+                object-fit: contain;
+                user-select: none;
+            }
+            @keyframes partners-scroll {
+                from { transform: translateX(0); }
+                to   { transform: translateX(-50%); }
+            }
+            @media (max-width: 1000px) {
+                .partners-title-container {
+                    padding: 40px 40px 0 40px;
+                    margin: 0 auto 16px auto;
+                }
+            }
+            @media (max-width: 700px) and (min-width: 501px) {
+                .partners-title-container { 
+                    padding: 12px 2vw 0 2vw;
+                    margin: -100px auto 8px auto;
+                }
+            }
+            @media (max-width: 500px) {
+                .partners-title-container { 
+                    padding: 12px 2vw 0 2vw;
+                    margin: -140px auto 8px auto;
+                }
+                .partners-banner { 
+                    height: 120px;
+                    margin-bottom: 40px;
+                }
+                .partners-track { gap: 16px; }
+                .partners-track img { height: 80px; }
+            }
+        </style>
     </head>
     <body>
     <div class="hero-section home-hero" id="home" style="margin-bottom: 0; padding-bottom: 0; position: relative;">
@@ -434,7 +506,7 @@
         <script>
         // HIDING MENU UPON RESIZE OR CLICK
         function closeMenuOnResize() {
-            if(window.innerWidth > 700) {
+            if(window.innerWidth > 1000) {
                 document.querySelector('.navbar').classList.remove('open');
             }
         }
@@ -448,6 +520,63 @@
         });
         </script>
 
+    <!-- Our Top Partners title and banner -->
+    <div class="partners-title-container">
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 40px;">
+            <h2 class="partners-title" style="color: #1a237e; margin-top: 40px;">Our Top Partners</h2>
+        </div>
+    </div>
+    <div class="partners-banner" aria-label="Top partners banner">
+        <div class="partners-carousel">
+            <div id="partners-track" class="partners-track"></div>
+        </div>
+    </div>
+
+    <script>
+    // Populate and randomize partner logos in the banner carousel
+    document.addEventListener('DOMContentLoaded', function() {
+        const logos = [
+            'Website Design/Clubs/Pirates.png',
+            'Website Design/Clubs/Gracie Barra.png',
+            'Website Design/Clubs/Diggers.png',
+            'Website Design/Clubs/Apex Gym.png',
+            "Website Design/Clubs/Durandt's Boxing.png",
+            'Website Design/Schools/Helpmekaar 1.png',
+            'Website Design/Schools/KES 1.png',
+            'Website Design/Schools/Michaelhouse 1.png',
+            'Website Design/Schools/SJC 1.png',
+            "Website Design/Schools/St Stithian\'s 1.png",
+            "Website Design/Schools/St David\'s 1.png",
+            "Website Design/Schools/Parktown Boy\'s 1.png"
+        ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        const track = document.getElementById('partners-track');
+        if (!track) return;
+
+        const order = shuffle(logos.slice());
+        const createImg = (src) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Partner logo';
+            img.decoding = 'async';
+            img.loading = 'lazy';
+            return img;
+        };
+
+        order.forEach(src => track.appendChild(createImg(src)));
+        // Duplicate for seamless scrolling loop
+        order.forEach(src => track.appendChild(createImg(src)));
+    });
+    </script>
+
     <div class="main-content">
             <div style="display: flex; align-items: flex-start; max-width: 1200px; margin: 0 auto 40px auto; padding: 60px 40px 40px 40px; background: #fff; border-radius: 0px; box-shadow: 0 0px 0px rgba(41,41,41,0.06);">
                 <!-- OUR MOUTHGUARDS -->
@@ -455,7 +584,7 @@
                     <div class = "OurMouthguards" style="margin-bottom: 32px;">
                         <h2 style="color: #1a237e; margin-top: 0;">Our Mouthguards</h2>
                         <p style="text-align: justify;">
-                            At Snugfit, we believe protection shouldn’t come at the cost of comfort. Our custom-made mouth guards are crafted from premium Ethyl Vinyl Acetate (EVA) — a high-quality, latex-free material known for its durability and safety. Each guard offers superior protection, a comfortable fit, and allows for easier breathing during sports. Whether you’re on the field, court, or ring, our mouth guards give you peace of mind at an unbeatable price.
+                            At Snugfit, we believe protection shouldn't come at the cost of comfort. Our custom-made mouth guards are crafted from premium Ethyl Vinyl Acetate (EVA) — a high-quality, latex-free material known for its durability and safety. Each guard offers superior protection, a comfortable fit, and allows for easier breathing during sports.<span style="color: rgb(192, 158, 6); font-weight: bold;"> Produced by skilled dental technicians and a family dentist with more than 30 years of experience in the industry</span>, our mouth guards combine expert craftsmanship with unbeatable quality. Whether you're on the field, court, or ring, our mouth guards give you peace of mind at an unbeatable price.
                         </p>
                     </div>
                     <!-- WHO ARE WE?-->
@@ -467,17 +596,20 @@
                     </div>
                 </div>
                 <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                <img class="example-image" src="Website Design/Mouth guard Board.png"
+                <img class="example-image" src="Website Design/Mouth guards 1.png"
                     alt="Snugfit Mouth Guard Example"
-                    style="width: 80%; max-width: 400px; height: auto; object-fit: contain; border-radius: 12px; display: block; margin-bottom: 32px;">
+                    style="width: 96%; max-width: 480px; height: auto; object-fit: contain; border-radius: 12px; display: block; margin-bottom: 32px;">
                 </div>
+            </div>
+            <!-- FIND OUT MORE HEADING -->
+            <div style="display: flex; align-items: flex-start; max-width: 1200px; margin: 0 auto 0 auto; padding: 0 40px;">
+                <h2 style="color: #1a237e; margin-top: 0; margin-bottom: 20px;">Find Out More:</h2>
             </div>
             <!-- SEPARATION SPACER -->
             <div class="gold-row" style="width: 100%; height: 150px; background: rgb(192, 158, 6, 0.753); margin: 0; padding: 0; display: flex; align-items: center; justify-content: center; overflow-x: auto;">
                 <div class="footer-tab-row">
                     <!-- Tab 1: SNUGFIT QUALITY -->
-                    <button class="footer-tab" type="button" style="display: flex; align-items: center; gap: 10px; background: none; border: none; padding: 10px; width: auto; cursor: pointer;" onclick="this.querySelector('input[type=file]').click()">
-                        <input type="file" accept="image/*" style="display:none;" onchange="showTabImage(this, 'tab-img-1')">
+                    <button class="footer-tab" type="button" style="display: flex; align-items: center; gap: 10px; background: none; border: none; padding: 10px; width: auto; cursor: pointer;" onclick="toggleSnugfitQuality()">
                         <img id="tab-img-1" src="Website Design/Quality.png" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; display: inline-block;">
                         <span>Snugfit Quality</span>
                     </button>
@@ -487,12 +619,72 @@
                         <span>Researched Solution</span>
                     </button>
                     <!-- Tab 3: MOUTHGUARD CARE -->
-                    <button class="footer-tab" type="button" style="display: flex; align-items: center; gap: 10px; background: none; border: none; padding: 10px; width: auto; cursor: pointer;" onclick="this.querySelector('input[type=file]').click()">
-                        <input type="file" accept="image/*" style="display:none;" onchange="showTabImage(this, 'tab-img-3')">
+                    <button class="footer-tab" type="button" style="display: flex; align-items: center; gap: 10px; background: none; border: none; padding: 10px; width: auto; cursor: pointer;" onclick="toggleMouthguardCare()">
                         <img id="tab-img-3" src="Website Design/MG Instructions.png" alt="" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; display: inline-block;">
                         <span>Mouthguard Care</span>
                     </button>
                 </div>
+            </div>
+
+            <!-- SNUGFIT QUALITY CONTAINER -->
+            <div id="snugfit-quality-container" style="display: none; max-width: 1200px; margin: 20px auto 40px auto; padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                <h2 style="color: #000; margin-top: 0; text-align: left;">Snugfit Quality:</h2>
+                <ul style="list-style: none; padding-left: 0; line-height: 1.8;">
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Quality" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span><span style="color: #1a237e; font-weight: bold;">Professionally Crafted Fit:</span> Dental professionals tailor your product to fit your exact dental model.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Quality" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span><span style="color: #1a237e; font-weight: bold;">Expert Material Selection:</span> Premium EVA and thermoplastics are skillfully layered by dental technicians for maximum protection.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Quality" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span><span style="color: #1a237e; font-weight: bold;">Clinical-level Quality Control:</span> Rigorous quality control at every stage to ensure durability, safety, and comfort.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Quality" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span><span style="color: #1a237e; font-weight: bold;">Performance Enhancing:</span> Designed for easy breathing and clear speech, promoting on-field communication and endurance.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Quality" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span><span style="color: #1a237e; font-weight: bold;">Trusted Professional Experience:</span> Delivered by highly trained staff with more than 30 years of experience in the industry.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- MOUTHGUARD CARE INSTRUCTIONS CONTAINER -->
+            <div id="mouthguard-care-container" style="display: none; max-width: 1200px; margin: 20px auto 40px auto; padding: 40px; background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+                <h2 style="color: #000; margin-top: 0; text-align: left;">Looking After Your Mouthguard:</h2>
+                <ul style="list-style: none; padding-left: 0; line-height: 1.8;">
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Do" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span>DO rinse with water after use.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Do" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span>DO brush with toothbrush & toothpaste if necessary.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Green Tick.png" alt="Do" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span>DO store the product in its protective case to protect it from being squashed or damaged.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Red Cross.png" alt="Don't" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span>DO NOT immerse/boil the product in hot water - It does not need to be moulded.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Red Cross.png" alt="Don't" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span>DO NOT soak or rinse it in any detergents.</span>
+                    </li>
+                    <li style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                        <img src="Website Design/Red Cross.png" alt="Don't" style="width: 24px; height: 24px; margin-right: 12px; margin-top: 2px; flex-shrink: 0;">
+                        <span>DO NOT put it in the washing machine / tumble dryer / microwave.</span>
+                    </li>
+                </ul>
+                <p style="margin-top: 20px; font-style: italic; color: #333;">
+                    <strong>Note:</strong> The mouthguard will retain its shape unless squashed or subjected to harsh chemicals or heat. For growing individuals, the mouthguard will eventually cease to fit comfortably, and at such point will require a new mouthguard.
+                </p>
             </div>
 
             <!-- SIDE-BY-SIDE VIDEO SETUP -->
@@ -561,9 +753,9 @@
             }
         });
         arrow.onclick = function() {
-            const mainContent = document.querySelector('.main-content');
-            if (mainContent) {
-                mainContent.scrollIntoView({ behavior: 'smooth' });
+            const partnersSection = document.querySelector('.partners-title-container');
+            if (partnersSection) {
+                partnersSection.scrollIntoView({ behavior: 'smooth' });
             }
         };
     }
@@ -578,6 +770,26 @@ function showTabImage(input, imgId) {
             img.style.display = "inline-block";
         };
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function toggleSnugfitQuality() {
+    const container = document.getElementById('snugfit-quality-container');
+    if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function toggleMouthguardCare() {
+    const container = document.getElementById('mouthguard-care-container');
+    if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'block';
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } else {
+        container.style.display = 'none';
     }
 }
         </script>
@@ -604,16 +816,23 @@ function showTabImage(input, imgId) {
 <style>
 .hero-section {
     position: relative;
-    width: 110vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+    width: 100%;
+    height: auto;
+    padding-bottom: 28%; /* Adjusted aspect ratio for banner image */
+    margin: 0 0 60px 0;
+    display: block;
+    clear: both;
+    overflow: hidden;
 }
 
 .home-hero {
-    background-image: url("Website Design/Snugfit YouTube Banner.png");
+    background-image: url("Website Design/Snugfit Landing Page 1.png");
     background-size: contain;
     width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-position: center top;
     background-repeat: no-repeat;
 }
@@ -716,14 +935,18 @@ function showTabImage(input, imgId) {
     outline: none;
 }
 .footer-tab:hover, .footer-tab:focus, .footer-tab:active {
-    border-color: #e9c10e;
-    box-shadow: 0 0 16px 4px #e9c10e, 0 4px 16px rgba(41,41,41,0.13);
+    border-color: #1a237e;
+    box-shadow: 0 0 16px 4px #1a237e, 0 4px 16px rgba(41,41,41,0.13);
 }
                 </style>
                 <style>
                 @media (max-width: 700px) {
                     .main-content {
-                        margin-top: -60px !important;
+                        margin-top: -100px !important;
+                    }
+                    .hero-section {
+                        height: 45vh !important;
+                        margin-bottom: 0px !important;
                     }
                     .gold-row {
                         width: 100vw !important;
