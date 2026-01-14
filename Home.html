@@ -200,6 +200,10 @@
                 .protect-img {
                     max-width: 140px;
                 }
+                .OurMouthguards div span,
+                .WhoAreWe div span {
+                    font-size: 0.8em;
+                }
             }
             .video-row {
                 display: flex;
@@ -303,6 +307,34 @@
                 .footer-tab span {
                     font-size: 0.7em;
                 }
+            }
+        </style>
+        <style>
+            /* Mouth Guard Image Carousel */
+            .mg-carousel-container {
+                position: relative;
+                width: 96%;
+                max-width: 480px;
+                height: auto;
+                display: block;
+                margin-bottom: 32px;
+            }
+            .mg-carousel-container img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                border-radius: 12px;
+                opacity: 0;
+                transition: opacity 1s ease-in-out;
+            }
+            .mg-carousel-container img.active {
+                opacity: 1;
+            }
+            .mg-carousel-container img:first-child {
+                position: relative;
             }
         </style>
         <style>
@@ -577,28 +609,135 @@
     });
     </script>
 
+    <script>
+    // Mouth Guard Carousel - Random fade between images every 2 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.getElementById('mgCarousel');
+        const images = carousel.querySelectorAll('img');
+        let currentIndex = 0;
+        let usedIndices = [];
+
+        function getRandomIndex() {
+            // If all images have been shown, reset the used indices
+            if (usedIndices.length === images.length) {
+                usedIndices = [];
+            }
+            
+            // Get available indices (not yet used)
+            const availableIndices = [];
+            for (let i = 0; i < images.length; i++) {
+                if (!usedIndices.includes(i) && i !== currentIndex) {
+                    availableIndices.push(i);
+                }
+            }
+            
+            // If no available indices (shouldn't happen), reset
+            if (availableIndices.length === 0) {
+                usedIndices = [currentIndex];
+                for (let i = 0; i < images.length; i++) {
+                    if (i !== currentIndex) {
+                        availableIndices.push(i);
+                    }
+                }
+            }
+            
+            // Pick random index from available
+            const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+            usedIndices.push(randomIndex);
+            return randomIndex;
+        }
+
+        function changeImage() {
+            // Remove active class from current image
+            images[currentIndex].classList.remove('active');
+            
+            // Get next random index
+            currentIndex = getRandomIndex();
+            
+            // Add active class to new image
+            images[currentIndex].classList.add('active');
+        }
+
+        // Change image every 2 seconds
+        setInterval(changeImage, 2000);
+    });
+    </script>
+
     <div class="main-content">
             <div style="display: flex; align-items: flex-start; max-width: 1200px; margin: 0 auto 40px auto; padding: 60px 40px 40px 40px; background: #fff; border-radius: 0px; box-shadow: 0 0px 0px rgba(41,41,41,0.06);">
                 <!-- OUR MOUTHGUARDS -->
                 <div style="flex: 1; display: flex; flex-direction: column; align-items: flex-start; margin-right: 40px;">
                     <div class = "OurMouthguards" style="margin-bottom: 32px;">
                         <h2 style="color: #1a237e; margin-top: 0;">Our Mouthguards</h2>
-                        <p style="text-align: justify;">
-                            At Snugfit, we believe protection shouldn't come at the cost of comfort. Our custom-made mouth guards are crafted from premium Ethyl Vinyl Acetate (EVA) — a high-quality, latex-free material known for its durability and safety. Each guard offers superior protection, a comfortable fit, and allows for easier breathing during sports.<span style="color: rgb(192, 158, 6); font-weight: bold;"> Produced by skilled dental technicians and a family dentist with more than 30 years of experience in the industry</span>, our mouth guards combine expert craftsmanship with unbeatable quality. Whether you're on the field, court, or ring, our mouth guards give you peace of mind at an unbeatable price.
-                        </p>
+                        <div style="text-align: justify;">
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Custom-made from premium Ethyl Vinyl Acetate (EVA) - latex-free, durable, and safe</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Superior protection with a comfortable fit</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Allows for easier breathing during sports</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span style="color: rgb(192, 158, 6); font-weight: bold;">Produced by skilled dental technicians and a family dentist with 30+ years of experience</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Unbeatable quality at an affordable price</span>
+                            </div>
+                        </div>
                     </div>
                     <!-- WHO ARE WE?-->
                     <div class = "WhoAreWe" style="margin-bottom: 24px;">
-                        <h2 style="color: #1a237e;">Who Are We?</h2>
-                        <p style="text-align: justify;">
-                            Snugfit Mouth Guards is your trusted partner in high-quality, customised sports mouth guards at affordable prices. We work closely with schools and clubs, arranging convenient on-site visits to take impressions. For those who prefer a private setting, we also offer impression appointments at our dental rooms. Our goal is to make the process simple, accessible, and tailored to your needs.
-                        </p>
+                        <h2 style="color: #1a237e; margin-top: 0;">Who Are We?</h2>
+                        <div style="text-align: justify;">
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Your trusted partner in high-quality, customised sports mouth guards</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Convenient on-site visits to schools and clubs for impressions</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Private impression appointments available at our dental rooms</span>
+                            </div>
+                            <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
+                                <img src="Website Design/Green Tick.png" alt="✓" style="width: 20px; height: 20px; margin-right: 12px; margin-top: 3px; flex-shrink: 0;">
+                                <span>Simple, accessible process tailored to your needs</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div style="flex: 1; display: flex; flex-direction: column; align-items: center;">
-                <img class="example-image" src="Website Design/Mouth guards 1.png"
-                    alt="Snugfit Mouth Guard Example"
-                    style="width: 96%; max-width: 480px; height: auto; object-fit: contain; border-radius: 12px; display: block; margin-bottom: 32px;">
+                    <div class="mg-carousel-container" id="mgCarousel">
+                        <img src="Website Design/All MG Colours/2.png" alt="Mouth Guard" class="active">
+                        <img src="Website Design/All MG Colours/3.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/4.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/5.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/6.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/7.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/8.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/9.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/10.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/11.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/12.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/13.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/14.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/15.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/16.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/17.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/18.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/19.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/20.png" alt="Mouth Guard">
+                        <img src="Website Design/All MG Colours/21.png" alt="Mouth Guard">
+                    </div>
                 </div>
             </div>
             <!-- FIND OUT MORE HEADING -->
@@ -698,7 +837,13 @@
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <div class="gold-row" style="width: 100vw; height: 150px; background: rgb(192, 158, 6, 0.753); margin-top: -20px; padding: 0; position: relative; left: 50%; transform: translateX(-50%); margin-top: 0;"></div>
+            <div class="gold-row" style="width: 100vw; height: 150px; background: rgb(192, 158, 6, 0.753); margin-top: -20px; padding: 0; position: relative; left: 50%; transform: translateX(-50%); margin-top: 0; display: flex; align-items: center; justify-content: center;">
+                <a href="Bookings.html" style="text-decoration: none;">
+                    <button style="background: #1a237e; color: white; font-size: 1.5em; font-weight: bold; padding: 16px 48px; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s;" onmouseover="this.style.background='#0d47a1'; this.style.transform='scale(1.05)'" onmouseout="this.style.background='#1a237e'; this.style.transform='scale(1)'">
+                        Book Now!
+                    </button>
+                </a>
+            </div>
             <div class="booking-row">
                 <div class="booking-img-col">
                     <img src="Website Design/Protect Your Smile.png"
@@ -774,22 +919,38 @@ function showTabImage(input, imgId) {
 }
 
 function toggleSnugfitQuality() {
-    const container = document.getElementById('snugfit-quality-container');
-    if (container.style.display === 'none' || container.style.display === '') {
-        container.style.display = 'block';
-        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const qualityContainer = document.getElementById('snugfit-quality-container');
+    const careContainer = document.getElementById('mouthguard-care-container');
+    
+    // Close mouthguard care if it's open
+    if (careContainer) {
+        careContainer.style.display = 'none';
+    }
+    
+    // Toggle snugfit quality
+    if (qualityContainer.style.display === 'none' || qualityContainer.style.display === '') {
+        qualityContainer.style.display = 'block';
+        qualityContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
-        container.style.display = 'none';
+        qualityContainer.style.display = 'none';
     }
 }
 
 function toggleMouthguardCare() {
-    const container = document.getElementById('mouthguard-care-container');
-    if (container.style.display === 'none' || container.style.display === '') {
-        container.style.display = 'block';
-        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const careContainer = document.getElementById('mouthguard-care-container');
+    const qualityContainer = document.getElementById('snugfit-quality-container');
+    
+    // Close snugfit quality if it's open
+    if (qualityContainer) {
+        qualityContainer.style.display = 'none';
+    }
+    
+    // Toggle mouthguard care
+    if (careContainer.style.display === 'none' || careContainer.style.display === '') {
+        careContainer.style.display = 'block';
+        careContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } else {
-        container.style.display = 'none';
+        careContainer.style.display = 'none';
     }
 }
         </script>

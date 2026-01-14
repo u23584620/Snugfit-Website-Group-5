@@ -239,6 +239,27 @@ order capturing and management process by integrating with a backend API or web 
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
+            /* RESPONSIVE BANKING DETAILS TABLE */
+            #eft-banking-details {
+                width: 95% !important;
+                font-size: 0.85em;
+            }
+            #eft-banking-details table {
+                font-size: 0.9em;
+            }
+            #eft-banking-details caption {
+                font-size: 1em !important;
+                padding: 8px 6px !important;
+            }
+            #eft-banking-details th,
+            #eft-banking-details td {
+                padding: 6px 8px !important;
+                font-size: 0.9em;
+            }
+            #eft-banking-details ul {
+                font-size: 0.85em;
+                padding-left: 16px;
+            }
         }
         /* FORCE PRODUCT SELECTION STYLING */
         .product-warning {
@@ -311,7 +332,7 @@ order capturing and management process by integrating with a backend API or web 
                 </span>
             </label>
             <div style="font-size:0.75em; color: black; margin-left:24px;">
-                Custom-fitted in whatever colour required – no name or logo, as this reduces pliability of the sports guard and may then interfere with orthodontic process. Please note: aggressive orthodontic processes WILL affect the fit of the mouth guard and may render it unsuitable (eg. new brackets / extending wires/ elastics). In such cases, a new mouth guard will be required at full cost.
+                Custom-fitted in whatever colour required - no name or logo, as this reduces pliability of the sports guard and may then interfere with orthodontic process. Please note: aggressive orthodontic processes WILL affect the fit of the mouth guard and may render it unsuitable (eg. new brackets / extending wires/ elastics). In such cases, a new mouth guard will be required at full cost.
             </div>
         </div>
         <div>
@@ -361,7 +382,7 @@ order capturing and management process by integrating with a backend API or web 
         <input id="first_name" name="first_name" type="text"  required>
         <label>Surname of Wearer</label>
         <input id="surname" name="surname" type="text"  required>
-        <label for="club_school">Club/School <span style="font-size:0.9em; color:#888;">(Type N/A if Not Applicable)</span></label>
+        <label for="club_school">Club/School <span style="font-size:0.9em; color:#888;">(Please select an option or type N/A if Not Applicable. Please Avoid abbreviations)</span></label>
         <input id="club_school" name="club_school" type="text" list="club_school_list" required>
         <datalist id="club_school_list">
             <option value="Not Applicable (N/A)"></option>
@@ -393,7 +414,7 @@ order capturing and management process by integrating with a backend API or web 
             <option value="Jan Cellier"></option>
             <option value="JEPPE"></option>
             <option value="Kearsney College"></option>
-            <option value="King Edward VII"></option>
+            <option value="King Edward VII (KES)"></option>
             <option value="Kingsmead College"></option>
             <option value="Kingswood College"></option>
             <option value="KEPS"></option>
@@ -761,7 +782,7 @@ order capturing and management process by integrating with a backend API or web 
             </div>
             <!-- ADD MORE LOGO OPTION GRIDS IF NECESSARY BUT UPDATE LOGO SELECTION OPTIONS -->
         </div>
-        <label for="additional_notes">Additional Notes (optional)</label>
+        <label for="additional_notes">Additional Notes - Optional (Background colour of logo, etc.)</label>
         <input type="text" name="additional_notes" id="additional_notes" placeholder="Enter any extra info or instructions here" style="width: 100%; margin-top: 6px; margin-bottom: 12px; padding: 10px; border-radius: 6px; border: 1px solid #bbb; background: #f6f7f9;">
     </div>
 
@@ -832,6 +853,11 @@ order capturing and management process by integrating with a backend API or web 
     </div>
     <!-- SUBMISSION BUTTON -->
     <button type="submit" class="submit-button">Submit form</button>
+
+    <p style="margin-top:12px; font-size:0.95em; color:#111;">
+        In the event of any issues experienced on the online form, <a href="PDFs/Booking%20form%20Snugfit%202026.pdf" download="Booking form Snugfit 2026.pdf">download this booking form</a> and email it to <a href="mailto:orders.snugfitmouthguards@gmail.com">orders.snugfitmouthguards@gmail.com</a>.
+    </p>
+
     <!-- FORM PROCESSING/LOADING OVERLAY -->
     <div id="loading-overlay" class="loading-overlay hidden" role="status" aria-live="polite" aria-label="Submitting form">
         <div class="loading-box">
@@ -861,10 +887,233 @@ const customUploadContainer = document.getElementById('custom-upload-container')
 const customLogoUpload = document.getElementById('custom-logo-upload');
 const customUploadPreview = document.getElementById('custom-upload-preview');
 const chosenLogoSquare = document.getElementById('chosen-logo-square');
+const clubSchoolInput = document.getElementById('club_school');
+
+// Store all original color and logo options
+const allColorOptions = Array.from(colourSelect.options).map(opt => ({
+    value: opt.value,
+    text: opt.text
+}));
+
+const allLogoOptions = Array.from(logoSelect.options).map(opt => ({
+    value: opt.value,
+    text: opt.textContent
+}));
+
+// Function to check if Michaelhouse scenario applies
+function isMichaelhouseScenario() {
+    const costingValue = document.querySelector('input[name="costing"]:checked');
+    const clubSchool = clubSchoolInput.value.trim();
+    
+    if (!costingValue) return false;
+    
+    const validProducts = ['cost800', 'cost850', 'cost980']; // Standard, Ortho (T), Ortho (T&B)
+    return validProducts.includes(costingValue.id) && clubSchool === 'Michaelhouse';
+}
+
+// Function to check if Trinity House scenario applies
+function isTrinityHouseScenario() {
+    const costingValue = document.querySelector('input[name="costing"]:checked');
+    const clubSchool = clubSchoolInput.value.trim();
+    
+    if (!costingValue) return false;
+    
+    const validProducts = ['cost800', 'cost850', 'cost980']; // Standard, Ortho (T), Ortho (T&B)
+    return validProducts.includes(costingValue.id) && clubSchool === 'Trinity House';
+}
+
+// Function to check if King Edward VII (KES) scenario applies
+function isKESScenario() {
+    const costingValue = document.querySelector('input[name="costing"]:checked');
+    const clubSchool = clubSchoolInput.value.trim();
+    
+    if (!costingValue) return false;
+    
+    const validProducts = ['cost800', 'cost850', 'cost980']; // Standard, Ortho (T), Ortho (T&B)
+    return validProducts.includes(costingValue.id) && clubSchool === 'King Edward VII (KES)';
+}
+
+// Function to get school-specific logo identifier
+function getSchoolLogoIdentifier(schoolName) {
+    const logoMapping = {
+        'Michaelhouse': 'School 11',
+        'Trinity House': 'School 26',
+        'King Edward VII (KES)': 'School 9'
+    };
+    return logoMapping[schoolName];
+}
+
+// Function to filter colors and logos for specific schools
+function applyMichaelhouseRestrictions() {
+    if (isMichaelhouseScenario()) {
+        // Filter colors to only Clear, Red, White
+        const allowedColors = [
+            { value: 'Clear', text: 'Clear' },
+            { value: 'Red', text: 'Red (1st xv only)' },
+            { value: 'White', text: 'White' }
+        ];
+        
+        // Clear current options
+        colourSelect.innerHTML = '';
+        
+        // Add only allowed colors
+        allowedColors.forEach(color => {
+            const option = document.createElement('option');
+            option.value = color.value;
+            option.textContent = color.text;
+            colourSelect.appendChild(option);
+        });
+        
+        // Set default to Clear if current selection is not allowed
+        if (!['Clear', 'Red', 'White'].includes(colourSelect.value)) {
+            colourSelect.value = 'Clear';
+        }
+        
+        // Filter logos to only "No logo" and "School Logo"
+        const allowedLogos = [
+            { value: 'No logo', text: 'No Logo' },
+            { value: 'School Logo', text: 'Schools' }
+        ];
+        
+        const currentLogoValue = logoSelect.value;
+        logoSelect.innerHTML = '';
+        
+        allowedLogos.forEach(logo => {
+            const option = document.createElement('option');
+            option.value = logo.value;
+            option.textContent = logo.text;
+            logoSelect.appendChild(option);
+        });
+        
+        // Set to "No logo" if current selection is not allowed
+        if (!['No logo', 'School Logo'].includes(currentLogoValue)) {
+            logoSelect.value = 'No logo';
+        } else {
+            logoSelect.value = currentLogoValue;
+        }
+        
+    } else if (isTrinityHouseScenario()) {
+        // Filter colors to only Blue for Trinity House
+        const allowedColors = [
+            { value: 'Blue', text: 'Blue' }
+        ];
+        
+        // Clear current options
+        colourSelect.innerHTML = '';
+        
+        // Add only allowed colors
+        allowedColors.forEach(color => {
+            const option = document.createElement('option');
+            option.value = color.value;
+            option.textContent = color.text;
+            colourSelect.appendChild(option);
+        });
+        
+        // Set to Blue
+        colourSelect.value = 'Blue';
+        
+        // Filter logos to only "No logo" and "School Logo"
+        const allowedLogos = [
+            { value: 'No logo', text: 'No Logo' },
+            { value: 'School Logo', text: 'Schools' }
+        ];
+        
+        const currentLogoValue = logoSelect.value;
+        logoSelect.innerHTML = '';
+        
+        allowedLogos.forEach(logo => {
+            const option = document.createElement('option');
+            option.value = logo.value;
+            option.textContent = logo.text;
+            logoSelect.appendChild(option);
+        });
+        
+        // Set to "No logo" if current selection is not allowed
+        if (!['No logo', 'School Logo'].includes(currentLogoValue)) {
+            logoSelect.value = 'No logo';
+        } else {
+            logoSelect.value = currentLogoValue;
+        }
+        
+    } else if (isKESScenario()) {
+        // Filter colors to only Clear, Red, White for King Edward VII (KES)
+        const allowedColors = [
+            { value: 'Clear', text: 'Clear' },
+            { value: 'Red', text: 'Red (1st XV only)' },
+            { value: 'White', text: 'White' }
+        ];
+        
+        // Clear current options
+        colourSelect.innerHTML = '';
+        
+        // Add only allowed colors
+        allowedColors.forEach(color => {
+            const option = document.createElement('option');
+            option.value = color.value;
+            option.textContent = color.text;
+            colourSelect.appendChild(option);
+        });
+        
+        // Set default to Clear if current selection is not allowed
+        if (!['Clear', 'Red', 'White'].includes(colourSelect.value)) {
+            colourSelect.value = 'Clear';
+        }
+        
+        // Filter logos to only "No logo" and "School Logo"
+        const allowedLogos = [
+            { value: 'No logo', text: 'No Logo' },
+            { value: 'School Logo', text: 'Schools' }
+        ];
+        
+        const currentLogoValue = logoSelect.value;
+        logoSelect.innerHTML = '';
+        
+        allowedLogos.forEach(logo => {
+            const option = document.createElement('option');
+            option.value = logo.value;
+            option.textContent = logo.text;
+            logoSelect.appendChild(option);
+        });
+        
+        // Set to "No logo" if current selection is not allowed
+        if (!['No logo', 'School Logo'].includes(currentLogoValue)) {
+            logoSelect.value = 'No logo';
+        } else {
+            logoSelect.value = currentLogoValue;
+        }
+        
+    } else {
+        // Restore all color options
+        colourSelect.innerHTML = '';
+        allColorOptions.forEach(color => {
+            const option = document.createElement('option');
+            option.value = color.value;
+            option.textContent = color.text;
+            colourSelect.appendChild(option);
+        });
+        
+        // Restore all logo options
+        const currentLogoValue = logoSelect.value;
+        logoSelect.innerHTML = '';
+        allLogoOptions.forEach(logo => {
+            const option = document.createElement('option');
+            option.value = logo.value;
+            option.textContent = logo.text;
+            logoSelect.appendChild(option);
+        });
+        // Restore previous selection if it still exists
+        if (allLogoOptions.some(opt => opt.value === currentLogoValue)) {
+            logoSelect.value = currentLogoValue;
+        }
+    }
+}
 
 function updateFormAndCost() {
     let cost = 0;
     const costingValue = document.querySelector('input[name="costing"]:checked');
+
+    // Apply Michaelhouse restrictions if applicable
+    applyMichaelhouseRestrictions();
 
     // IF NO 2026 PRODUCT TYPE CHOSEN, KEEP FORM FIELDS LOCKED (ensures product chosen first to allow form fields to respond to chosen product).
     if (!costingValue){
@@ -970,6 +1219,82 @@ costingRadios.forEach(radio => {
 });
 colourSelect.addEventListener('change', updateFormAndCost);
 
+// Add listener for club/school changes
+clubSchoolInput.addEventListener('change', updateFormAndCost);
+clubSchoolInput.addEventListener('input', updateFormAndCost);
+
+// Enhanced autocomplete for club/school field - dynamically filter datalist options
+const clubSchoolDatalist = document.getElementById('club_school_list');
+const allSchoolOptions = Array.from(clubSchoolDatalist.options).map(opt => opt.value);
+
+function updateSchoolDatalist() {
+    const searchTerm = clubSchoolInput.value.toLowerCase().trim();
+    
+    // Clear existing options
+    clubSchoolDatalist.innerHTML = '';
+    
+    let matches;
+    
+    // If search term is empty or very short, show all options
+    if (searchTerm.length === 0) {
+        matches = allSchoolOptions;
+    } else {
+        // Filter matching options
+        matches = allSchoolOptions.filter(school => {
+            const schoolLower = school.toLowerCase();
+            // Match if search term appears anywhere in the school name or at the start of any word
+            return schoolLower.includes(searchTerm) || 
+                   schoolLower.split(' ').some(word => word.startsWith(searchTerm));
+        });
+        
+        // If no matches found, show all options to keep dropdown visible
+        if (matches.length === 0) {
+            matches = allSchoolOptions;
+        } else {
+            // Sort matches: exact matches first, then starts-with, then contains
+            matches.sort((a, b) => {
+                const aLower = a.toLowerCase();
+                const bLower = b.toLowerCase();
+                
+                // Exact match
+                if (aLower === searchTerm) return -1;
+                if (bLower === searchTerm) return 1;
+                
+                // Starts with search term
+                if (aLower.startsWith(searchTerm) && !bLower.startsWith(searchTerm)) return -1;
+                if (bLower.startsWith(searchTerm) && !aLower.startsWith(searchTerm)) return 1;
+                
+                // Any word starts with search term
+                const aWordStart = aLower.split(' ').some(word => word.startsWith(searchTerm));
+                const bWordStart = bLower.split(' ').some(word => word.startsWith(searchTerm));
+                if (aWordStart && !bWordStart) return -1;
+                if (bWordStart && !aWordStart) return 1;
+                
+                // Alphabetical
+                return a.localeCompare(b);
+            });
+        }
+    }
+    
+    // Add filtered and sorted options back to datalist
+    matches.forEach(school => {
+        const option = document.createElement('option');
+        option.value = school;
+        clubSchoolDatalist.appendChild(option);
+    });
+}
+
+// Update datalist on input
+clubSchoolInput.addEventListener('input', updateSchoolDatalist);
+
+// Show all options when field is focused
+clubSchoolInput.addEventListener('focus', function() {
+    updateSchoolDatalist();
+});
+
+// Ensure datalist is populated on page load
+window.addEventListener('DOMContentLoaded', updateSchoolDatalist);
+
 // ADDING LISTENER FOR LOGO IMAGE CLICKS TO SET HIDDEN INPUT AND HIGHLIGHT SELECTED IMAGE
 document.querySelectorAll('.logo-option-img').forEach(img => {
     img.addEventListener('click', function() {
@@ -1016,6 +1341,63 @@ function showLogoGrid(selected) {
     // SHOW RELEVANT SELECTED GRID AS GRID
     if (logoGrids[selected]) {
         logoGrids[selected].style.display = 'grid';
+        
+        // Apply school-specific logo filtering if applicable
+        if (isMichaelhouseScenario() && selected === "School Logo") {
+            const schoolGrid = logoGrids["School Logo"];
+            const allLogos = schoolGrid.querySelectorAll('.logo-option-img');
+            
+            allLogos.forEach(logo => {
+                // Only show Michaelhouse logo and hide others
+                if (logo.alt === "School 11" || logo.src.includes("Michaelhouse")) {
+                    logo.style.display = 'block';
+                } else {
+                    logo.style.display = 'none';
+                }
+            });
+        } else if (isTrinityHouseScenario() && selected === "School Logo") {
+            const schoolGrid = logoGrids["School Logo"];
+            const allLogos = schoolGrid.querySelectorAll('.logo-option-img');
+            
+            allLogos.forEach(logo => {
+                // Only show Trinity House logo and hide others
+                if (logo.alt === "School 26" || logo.src.includes("Trinity House")) {
+                    logo.style.display = 'block';
+                } else {
+                    logo.style.display = 'none';
+                }
+            });
+        } else if (isKESScenario() && selected === "School Logo") {
+            const schoolGrid = logoGrids["School Logo"];
+            const allLogos = schoolGrid.querySelectorAll('.logo-option-img');
+            
+            allLogos.forEach(logo => {
+                // Only show KES logo (School 9) and hide others
+                if (logo.alt === "School 9" || logo.src.includes("KES 1.png")) {
+                    logo.style.display = 'block';
+                } else {
+                    logo.style.display = 'none';
+                }
+            });
+        } else {
+            // Reset all logos to be visible
+            if (logoGrids[selected]) {
+                const allLogos = logoGrids[selected].querySelectorAll('.logo-option-img');
+                allLogos.forEach(logo => {
+                    logo.style.display = 'block';
+                });
+            }
+        }
+    } else {
+        // Reset all logos to be visible if no specific grid selected
+        Object.values(logoGrids).forEach(grid => {
+            if (grid) {
+                const allLogos = grid.querySelectorAll('.logo-option-img');
+                allLogos.forEach(logo => {
+                    logo.style.display = 'block';
+                });
+            }
+        });
     }
     // CLEAR IMAGE SELECTION WHEN CHANGING OPTIONS
     logoImageInput.value = '';
