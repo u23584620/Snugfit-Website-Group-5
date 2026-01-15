@@ -11,6 +11,8 @@ order capturing and management process by integrating with a backend API or web 
     <title>Bookings | Snugfit Mouth Guards</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Poppins:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ewert&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         html, body {
@@ -518,6 +520,8 @@ order capturing and management process by integrating with a backend API or web 
             <option value="No logo">No Logo</option>
             <option value="Animals">Animals</option>
             <option value="Butterflies & Flowers">Butterflies & Flowers</option>
+            <option value="Custom Upload">Custom Image Upload</option>
+            <option value="Custom Text Upload">Custom Text Upload</option>
             <option value="Emojis">Emojis</option>
             <option value="Famous Movies & Games">Famous Movies & Games</option>
             <option value="Rugby/Hockey/Fighting">Rugby, Hockey & Fighting</option>
@@ -525,8 +529,6 @@ order capturing and management process by integrating with a backend API or web 
             <option value="Skulls & Fangs">Skulls & Fangs</option>
             <option value="Sports Team / Club Logo">Sports Teams, Clubs & Gyms</option>
             <option value="Symbols">Symbols</option>
-            <option value="Custom Upload">Custom Image Upload</option>
-            <option value="Custom Text Upload">Custom Text Upload</option>
         </select>
 
         <!-- CHOSEN LOGO DISPLAY SQUARE -->
@@ -548,28 +550,43 @@ order capturing and management process by integrating with a backend API or web 
         <!-- CUSTOM TEXT IMAGE UPLOAD CONTAINER -->
         <div id="custom-text-upload-container" style="display:none; margin: 18px 0; padding: 12px; background-color: #f6f7f9; border: 2px solid #1a237e;">
             <label for="custom-text-input" style="font-size:0.95em;">Enter your text:</label>
-            <input type="text" id="custom-text-input" maxlength="20" style="width: 60%; margin-bottom: 8px;">
+            <input type="text" id="custom-text-input" maxlength="10" style="width: 60%; margin-bottom: 8px;">
             <br>
             <label for="custom-text-font" style="font-size:0.95em;">Font Style:</label>
             <select id="custom-text-font" style="margin-bottom:8px;">
-                <option value="Poppins, Arial, sans-serif">Poppins</option>
-                <option value="Arcena, sans-serif">Arcena</option>
-                <option value="Bodoni MT Black, sans-serif">Bodoni MT Black</option>
-                <option value="Comic Sans MS, Comic Sans, cursive">Comic Sans</option>
-                <option value="Cooper Black, Monaco, monospace">Cooper Black</option>
-                <option value="Courier New, Courier, monospace">Courier New</option>
-                <option value="Georgia, serif">Georgia</option>
-                <option value="Goudy Stout, sans-serif">Goudy Stout</option>
-                <option value="Impact, Charcoal, sans-serif">Impact</option>
-                <option value="Times New Roman, Times, serif">Times New Roman</option>
-                <option value="Verdana, sans-serif">Verdana</option>
+                <option value="Ewert, cursive">Bubbly</option>
+                <option value="Comic Sans MS, Comic Sans, cursive">Casual</option>
+                <option value="Impact, Charcoal, sans-serif">Compact Bold</option>
+                <option value="Copperplate, Papyrus, fantasy">Copperplate</option>
+                <option value="cursive">Cursive</option>
+                <option value="Pacifico, cursive">Handwritten</option>
+                <option value="Cooper Black, Monaco, monospace">Simple</option>
+                <option value="Verdana, sans-serif">Simple Bold</option>
+                <option value="Georgia, serif">Sophisticated</option>
                 <!-- ADD MORE FONTS AS NEEDED FOR CUSTOM TEXT FORMATTING -->
             </select>
-            <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 8px;">
-                <label for="custom-text-color" style="font-size:0.95em;">Text Colour:</label>
-                <input type="color" id="custom-text-color" value="#111111">
-                <label for="custom-bg-color" style="font-size:0.95em;">Background Colour:</label>
-                <input type="color" id="custom-bg-color" value="#ffffff">
+            <label for="custom-bg-color" style="font-size:0.95em;">Background Colour:</label>
+            <select id="custom-bg-color" style="margin-bottom:8px;">
+                <option value="#000000">Black</option>
+                <option value="#000080">Blue</option>
+                <option value="#B8860B">Gold</option>
+                <option value="#43a047">Green</option>
+                <option value="#F87431">Orange</option>
+                <option value="#C21E56">Pink</option>
+                <option value="#4F1F53">Purple</option>
+                <option value="#FF0000">Red</option>
+                <option value="#757575">Silver</option>
+                <option value="#FFFFFF" selected>White</option>
+                <option value="#FFBF00">Yellow</option>
+            </select>
+            <div style="margin-bottom: 8px;">
+                <label style="font-size:0.95em; display:block; margin-bottom:4px;">Colour Each Character:</label>
+                <div id="character-color-selector" style="display: flex; flex-wrap: wrap; gap: 4px; min-height: 30px; margin-bottom: 8px;"></div>
+                <div style="display: flex; gap: 12px; align-items: center;">
+                    <label for="custom-text-color" style="font-size:0.85em;">Selected Character Colour:</label>
+                    <input type="color" id="custom-text-color" value="#111111">
+                    <button type="button" id="apply-color-to-all" style="background-color:#4a5568; color: #ffffff; font-size:0.85em; padding:4px 8px;">Apply to All</button>
+                </div>
             </div>
             <button type="button" id="custom-text-confirm" style="background-color:#1a237e; color: #ffffff;">Confirm</button>
             <div id="custom-text-preview" style="margin-top:12px;"></div>
@@ -1084,6 +1101,7 @@ function applyMichaelhouseRestrictions() {
         
     } else {
         // Restore all color options
+        const currentColorValue = colourSelect.value;
         colourSelect.innerHTML = '';
         allColorOptions.forEach(color => {
             const option = document.createElement('option');
@@ -1091,6 +1109,10 @@ function applyMichaelhouseRestrictions() {
             option.textContent = color.text;
             colourSelect.appendChild(option);
         });
+        // Restore previous color selection if it still exists
+        if (allColorOptions.some(opt => opt.value === currentColorValue)) {
+            colourSelect.value = currentColorValue;
+        }
         
         // Restore all logo options
         const currentLogoValue = logoSelect.value;
@@ -1129,16 +1151,19 @@ function updateFormAndCost() {
         case "cost800":
             cost = 800;
             logoSelect.disabled = false;
+            colourSelect.disabled = false;
             break;
         case "cost850":
             cost = 850;
             logoSelect.value = "N/A";
             logoSelect.disabled = true;
+            colourSelect.disabled = false;
             break;
         case "cost980":
             cost = 980;
             logoSelect.value = "N/A";
             logoSelect.disabled = true;
+            colourSelect.disabled = false;
             break;
         case "cost980bite":
             cost = 980;
@@ -1490,6 +1515,87 @@ const customBgColor = document.getElementById('custom-bg-color');
 const customTextConfirm = document.getElementById('custom-text-confirm');
 const customTextPreview = document.getElementById('custom-text-preview');
 const customTextFont = document.getElementById('custom-text-font');
+const characterColorSelector = document.getElementById('character-color-selector');
+const applyColorToAllBtn = document.getElementById('apply-color-to-all');
+
+// Store color for each character (index-based)
+let characterColors = {};
+let selectedCharIndex = null;
+
+// Generate character selector buttons
+function generateCharacterButtons() {
+    const text = customTextInput.value;
+    characterColorSelector.innerHTML = '';
+    
+    if (!text) {
+        characterColors = {};
+        selectedCharIndex = null;
+        return;
+    }
+    
+    // Initialize colors for new characters
+    const newColors = {};
+    for (let i = 0; i < text.length; i++) {
+        newColors[i] = characterColors[i] || '#111111';
+    }
+    characterColors = newColors;
+    
+    // Create button for each character
+    for (let i = 0; i < text.length; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = text[i] === ' ' ? '\u2423' : text[i];
+        btn.style.cssText = `
+            padding: 6px 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #fff;
+            color: ${characterColors[i]};
+        `;
+        btn.setAttribute('data-char-index', i);
+        
+        btn.addEventListener('click', function() {
+            selectedCharIndex = i;
+            customTextColor.value = characterColors[i];
+            
+            // Highlight selected button
+            document.querySelectorAll('#character-color-selector button').forEach(b => {
+                b.style.borderColor = '#ccc';
+                b.style.borderWidth = '2px';
+            });
+            btn.style.borderColor = '#1a237e';
+            btn.style.borderWidth = '3px';
+        });
+        
+        characterColorSelector.appendChild(btn);
+    }
+}
+
+// Apply color to all characters
+applyColorToAllBtn.addEventListener('click', function() {
+    const color = customTextColor.value;
+    const text = customTextInput.value;
+    for (let i = 0; i < text.length; i++) {
+        characterColors[i] = color;
+    }
+    generateCharacterButtons();
+    updateTextPreview();
+});
+
+// Update selected character color when color picker changes
+customTextColor.addEventListener('input', function() {
+    if (selectedCharIndex !== null && characterColors[selectedCharIndex] !== undefined) {
+        characterColors[selectedCharIndex] = customTextColor.value;
+        const btn = document.querySelector(`button[data-char-index="${selectedCharIndex}"]`);
+        if (btn) {
+            btn.style.color = customTextColor.value;
+        }
+        updateTextPreview();
+    }
+});
 
 
 // Show/hide custom text upload
@@ -1503,6 +1609,7 @@ function handleLogoSelectChange(selected) {
         customUploadContainer.style.display = "none";
         customLogoUpload.required = false;
         customTextUploadContainer.style.display = "block";
+        generateCharacterButtons(); // Generate character color buttons
         updateTextPreview(); // SHOW LIVE PREVIEW OF CUSTOM TEXT IMAGE DESIGN TO FACILITATE CUSTOMISATION
     } else {
         customUploadContainer.style.display = "none";
@@ -1530,16 +1637,29 @@ customTextConfirm.addEventListener('click', function() {
     // FILL BACKGROUND
     ctx.fillStyle = customBgColor.value;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    // INSERT CENTERED TEXT
+    // INSERT CENTERED TEXT WITH MULTI-COLOR SUPPORT
     let fontSize = 30;
     if (customTextFont.value.includes("Goudy Stout")) {
         fontSize = 24; // SLIGHTLY SMALLER FONT SIZE FOR THIS SPECIFIC FONT TO FIT BETTER
     }
     ctx.font = "bold " + fontSize + "px " + customTextFont.value;
-    ctx.fillStyle = customTextColor.value;
-    ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+    
+    // Measure total text width to center it
+    let totalWidth = 0;
+    for (let i = 0; i < text.length; i++) {
+        totalWidth += ctx.measureText(text[i]).width;
+    }
+    
+    // Draw each character with its own color
+    let currentX = (canvas.width - totalWidth) / 2;
+    const centerY = canvas.height / 2;
+    
+    for (let i = 0; i < text.length; i++) {
+        ctx.fillStyle = characterColors[i] || '#111111';
+        ctx.fillText(text[i], currentX, centerY);
+        currentX += ctx.measureText(text[i]).width;
+    }
        // SHOW PREVIEW OF RENDERED IMAGE
     customTextPreview.innerHTML = '';
     const img = document.createElement('img');
@@ -1557,7 +1677,6 @@ customTextConfirm.addEventListener('click', function() {
 });
 function updateTextPreview() {
     const text = customTextInput.value;
-    const textColor = customTextColor.value;
     const bgColor = customBgColor.value;
     const fontFamily = customTextFont.value;
     customTextPreview.innerHTML = '';
@@ -1568,13 +1687,23 @@ function updateTextPreview() {
     customTextPreview.style.justifyContent = "center";
     customTextPreview.style.backgroundColor = bgColor;
     customTextPreview.style.fontFamily = fontFamily;
-    customTextPreview.style.color = textColor;
     customTextPreview.style.fontSize = "24px";
     customTextPreview.style.fontWeight = "bold";
     customTextPreview.style.borderRadius = "4px";
     customTextPreview.style.marginTop = "8px";
     customTextPreview.style.padding = "20px";
-    customTextPreview.textContent = text;
+    
+    // Create multi-colored text preview
+    if (text) {
+        const textContainer = document.createElement('span');
+        for (let i = 0; i < text.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.textContent = text[i];
+            charSpan.style.color = characterColors[i] || '#111111';
+            textContainer.appendChild(charSpan);
+        }
+        customTextPreview.appendChild(textContainer);
+    }
 }
 
 // Helper to update the chosen logo square
@@ -1627,8 +1756,10 @@ customTextConfirm.addEventListener('click', () => {
 // LISTENER TO UPDATE CHOSEN LOGO SQUARE ON PAGE LOAD
 window.addEventListener('DOMContentLoaded', updateChosenLogoSquare);
 
-customTextInput.addEventListener('input', updateTextPreview);
-customTextColor.addEventListener('input', updateTextPreview);
+customTextInput.addEventListener('input', function() {
+    generateCharacterButtons();
+    updateTextPreview();
+});
 customBgColor.addEventListener('input', updateTextPreview);
 customTextFont.addEventListener('change', updateTextPreview);
 
