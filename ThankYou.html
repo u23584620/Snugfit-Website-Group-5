@@ -25,6 +25,9 @@
 .back-link{ display:inline-block; margin-top:18px; background:#1a237e; color:#fff; text-decoration:none; padding:10px 18px; border-radius:6px; font-weight:600; font-family:Poppins, Arial, sans-serif; }
 .back-link:hover{ background:#142064; }
 .impression-highlight { color:#1a237e; font-weight:700; }
+.social-icons { display:flex; flex-direction:row; align-items:center; gap:10px; margin-top:10px; }
+.social-icons img { width:50px; height:50px; vertical-align:middle; transition:width 0.2s, height 0.2s; }
+@media (max-width:700px){ .social-icons img { width:28px; height:28px; } }
 </style>
 </head>
 <body>
@@ -54,6 +57,10 @@
   </section>
 </main>
 
+<div style="text-align: right; margin-top: -410px;">
+  <img src="Website Design/Male Snugfit Model.png" alt="Male Snugfit Model" style="width: 40%; max-width: 600px; display: block; margin-left: auto; margin-right: 0; margin-bottom: 0;">
+</div>
+
 <script>
 const navToggle = document.getElementById('navToggle');
 const mainNav = document.getElementById('mainNav');
@@ -74,5 +81,24 @@ navToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
   }
 })();
 </script>
+
+<footer>
+  <p style="font-size:clamp(0.8em,2vw,1.1em); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">&copy; Snugfit Mouth Guards 2026</p>
+  <div class="social-icons">
+    <a href="mailto:info@snugfitmouthguards.co.za" aria-label="Email">
+      <img src="Website Design/Email Icon.png" alt="Email">
+    </a>
+    <a href="https://facebook.com/snugfitmouthguards/" target="_blank" aria-label="Facebook">
+      <img src="Website Design/Facebook Icon.png" alt="Facebook">
+    </a>
+    <a href="https://instagram.com/snugfitmouthguards/?hl=en" target="_blank" aria-label="Instagram">
+      <img src="Website Design/Insta Icon.png" alt="Instagram">
+    </a>
+    <a href="https://www.youtube.com/@snugfitmouthguards" target="_blank" aria-label="YouTube">
+      <img src="Website Design/YouTube Icon.png" alt="YouTube">
+    </a>
+  </div>
+</footer>
+
 </body>
 </html>
