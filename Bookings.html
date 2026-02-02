@@ -303,8 +303,8 @@ order capturing and management process by integrating with a backend API or web 
             <a href="Home.html" class="nav-tab">Home</a>
             <a href="Schools&Clubs.html" class="nav-tab">School & Clubs</a>
             <a href="personalise.html" class="nav-tab">Personalise</a>
-            <a href="Reviews.html" class="nav-tab">Reviews</a>
             <a href="Bookings.html" class="nav-tab active">Bookings</a>
+            <a href="Reviews.html" class="nav-tab">Reviews</a>
             <a href="ContactUs.html" class="nav-tab">Contact Us</a>
         </nav>
     </div>
@@ -360,7 +360,7 @@ order capturing and management process by integrating with a backend API or web 
             <input type="radio" name="costing" id="costretainer" value="Retainer">
             <label for="costretainer" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
-                    R1600: Dental Retainers for post orthodontic treatment. 
+                    R1750: Dental Retainers for post orthodontic treatment. 
                 </span>
             </label>
         </div>
@@ -368,7 +368,7 @@ order capturing and management process by integrating with a backend API or web 
             <input type="radio" name="costing" id="costbleach" value="Bleaching">
             <label for="costbleach" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
-                    R1600: Bleaching Trays for home dental whitening (Excludes syringes).
+                    R1750: Bleaching Trays for home dental whitening (Excludes syringes).
                 </span>
             </label>
         </div>
@@ -473,7 +473,7 @@ order capturing and management process by integrating with a backend API or web 
         <div id="phoneError" style="display:none; font-size:0.75em; color:#c00; margin:-6px 0 12px 2px;">
             Enter SA number: 0XXXXXXXXX or +27XXXXXXXXX (9 digits after prefix).
         </div>
-        <label>Contact Email <span style="font-size:0.9em; color:#888;">(Of parent if minor.)</span></label>
+        <label>Contact Email <span style="font-size:0.9em; color:#888;">(Of individual responsible for payment - parent if minor.)</span></label>
         <input id="contact_email" name="contact_email" type="email"  required>
     </div>
 
@@ -524,6 +524,7 @@ order capturing and management process by integrating with a backend API or web 
             <option value="Custom Text Upload">Custom Text Upload</option>
             <option value="Emojis">Emojis</option>
             <option value="Famous Movies & Games">Famous Movies & Games</option>
+            <option value="Feeling Sleepy">Feeling Sleepy</option>
             <option value="Rugby/Hockey/Fighting">Rugby, Hockey & Fighting</option>
             <option value="School Logo">Schools</option>
             <option value="Skulls & Fangs">Skulls & Fangs</option>
@@ -541,7 +542,7 @@ order capturing and management process by integrating with a backend API or web 
 
         <!-- CUSTOM IMAGE/LOGO UPLOAD CONTAINER -->
         <div id="custom-upload-container" style="display:none; margin: 18px 0;">
-            <label for="custom-logo-upload" style="font-size:0.95em;">Upload your logo/image:</label>
+            <label for="custom-logo-upload" style="font-size:0.95em;">Upload your logo/image (.png or .jpg format only):</label>
             <input type="file" id="custom-logo-upload" name="custom_logo_upload" accept="image/*">
             <!-- UPLOADED IMAGE PREVIEW WILL SHOW HERE -->
             <div id="custom-upload-preview" style="margin-top:12px;"></div>
@@ -599,7 +600,7 @@ order capturing and management process by integrating with a backend API or web 
         <input type="hidden" name="logo_image" id="logo_image">
 
         <!-- LOGO IMAGE GRIDS LINKING TO LOGO SELECTION DROPDOWN OPTIONS -->
-        <div id="logo-image-grids" style="margin: 18px 0;">
+        <div id="logo-image-grids" style="margin-top: 18px; margin-bottom: 60px;">
             <!-- SCHOOL LOGO GRID -->
             <div class="logo-grid" id="school-logo-grid">
                 <img src="Website Design/Schools/Dainfern 1.png" alt="School 1" class="logo-option-img" data-value="School1.png" tabindex="0" style="cursor:pointer;">
@@ -631,6 +632,9 @@ order capturing and management process by integrating with a backend API or web 
                 <img src="Website Design/Schools/Redhill 1.png" alt="School 27" class="logo-option-img" data-value="School27.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Schools/WHPS 1.png" alt="School 28" class="logo-option-img" data-value="School28.png" tabindex="0" style="cursor:pointer;">
                 <!-- ADD MORE SCHOOL LOGO IMAGES AS NEEDED -->
+                <div style="grid-column: 1 / -1; text-align: center; margin-top: 16px; color: #1a237e; font-size: 0.95em; font-weight: 600;">
+                    Can't find your school logo? Upload your own by choosing "Custom Image Upload"!
+                </div>
             </div>
             <!-- CLUB LOGO GRID -->
             <div class="logo-grid" id="club-logo-grid">
@@ -655,6 +659,9 @@ order capturing and management process by integrating with a backend API or web 
                 <img src="Website Design/Clubs/Valke.png" alt="Club 19" class="logo-option-img" data-value="Club19.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Clubs/Wanderers.png" alt="Club 20" class="logo-option-img" data-value="Club20.png" tabindex="0" style="cursor:pointer;">
                 <!-- ADD MORE CLUB LOGO IMAGES AS NEEDED -->
+                <div style="grid-column: 1 / -1; text-align: center; margin-top: 15px; color: #FFBF00; font-size: 0.95em; font-weight: 600;">
+                    Can't find your club logo? Upload your own by choosing "Custom Image Upload"!
+                </div>
             </div>
             <!-- SPORTS LOGO GRID -->
             <div class="logo-grid" id="Rugby/Hockey/Fighting-logo-grid">
@@ -798,6 +805,39 @@ order capturing and management process by integrating with a backend API or web 
                 <img src="Website Design/Symbols/Unity.png" alt="Symbol 15" class="logo-option-img" data-value="Unity.png" tabindex="0" style="cursor:pointer;">
                 <img src="Website Design/Symbols/Yin Yang.png" alt="Symbol 16" class="logo-option-img" data-value="Yin Yang.png" tabindex="0" style="cursor:pointer;">
             </div>
+            <!-- FEELING SLEEPY LOGO GRID -->
+            <div class="logo-grid" id="feeling-sleepy-logo-grid">
+                <img src="Website Design/Feeling Sleepy/Goodnight (Amber).png" alt="Feeling Sleepy 1" class="logo-option-img" data-value="Goodnight (Amber).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Hubby.png" alt="Feeling Sleepy 2" class="logo-option-img" data-value="Hubby.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Wifey.png" alt="Feeling Sleepy 27" class="logo-option-img" data-value="Wifey.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Nap-alohic.jpg" alt="Feeling Sleepy 30" class="logo-option-img" data-value="Nap-alohic.jpg" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Lazy Chic (Amber).png" alt="Feeling Sleepy 3" class="logo-option-img" data-value="Lazy Chic (Amber).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Lazy Chic (Blue).png" alt="Feeling Sleepy 4" class="logo-option-img" data-value="Lazy Chic (Blue).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Lazy Chic (Pink).png" alt="Feeling Sleepy 5" class="logo-option-img" data-value="Lazy Chic (Pink).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Moody (Black).png" alt="Feeling Sleepy 6" class="logo-option-img" data-value="Moody (Black).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Moody (Pink).png" alt="Feeling Sleepy 7" class="logo-option-img" data-value="Moody (Pink).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Moon (Blue).png" alt="Feeling Sleepy 8" class="logo-option-img" data-value="Moon (Blue).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Moon (Pink).png" alt="Feeling Sleepy 9" class="logo-option-img" data-value="Moon (Pink).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Night Owl.png" alt="Feeling Sleepy 10" class="logo-option-img" data-value="Night Owl.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Prince.png" alt="Feeling Sleepy 11" class="logo-option-img" data-value="Prince.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Princess.png" alt="Feeling Sleepy 12" class="logo-option-img" data-value="Princess.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleep King (Blue).png" alt="Feeling Sleepy 15" class="logo-option-img" data-value="Sleep King (Blue).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleep King (Plain).png" alt="Feeling Sleepy 16" class="logo-option-img" data-value="Sleep King (Plain).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleep Queen (Pink).png" alt="Feeling Sleepy 18" class="logo-option-img" data-value="Sleep Queen (Pink).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleep Queen (Plain).png" alt="Feeling Sleepy 19" class="logo-option-img" data-value="Sleep Queen (Plain).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleep Mask.png" alt="Feeling Sleepy 17" class="logo-option-img" data-value="Sleep Mask.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Rainbow (Amber).png" alt="Feeling Sleepy 13" class="logo-option-img" data-value="Rainbow (Amber).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Rainbow (Pink).png" alt="Feeling Sleepy 14" class="logo-option-img" data-value="Rainbow (Pink).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleepy Chicken (Amber).png" alt="Feeling Sleepy 20" class="logo-option-img" data-value="Sleepy Chicken (Amber).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleepy Chicken (Blue).png" alt="Feeling Sleepy 21" class="logo-option-img" data-value="Sleepy Chicken (Blue).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sleepy Chicken (Pink).png" alt="Feeling Sleepy 22" class="logo-option-img" data-value="Sleepy Chicken (Pink).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Slumber (Blue).png" alt="Feeling Sleepy 23" class="logo-option-img" data-value="Slumber (Blue).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Slumber.png" alt="Feeling Sleepy 24" class="logo-option-img" data-value="Slumber.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sweet Dreams 1.png" alt="Feeling Sleepy 25" class="logo-option-img" data-value="Sweet Dreams 1.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/Sweet Dreams 2.png" alt="Feeling Sleepy 26" class="logo-option-img" data-value="Sweet Dreams 2.png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/zZz (Blue).png" alt="Feeling Sleepy 28" class="logo-option-img" data-value="zZz (Blue).png" tabindex="0" style="cursor:pointer;">
+                <img src="Website Design/Feeling Sleepy/zZz (Pink).png" alt="Feeling Sleepy 29" class="logo-option-img" data-value="zZz (Pink).png" tabindex="0" style="cursor:pointer;">
+            </div>
             <!-- ADD MORE LOGO OPTION GRIDS IF NECESSARY BUT UPDATE LOGO SELECTION OPTIONS -->
         </div>
         <label for="additional_notes">Additional Notes - Optional (Background colour of logo, etc.)</label>
@@ -859,6 +899,8 @@ order capturing and management process by integrating with a backend API or web 
     <div id="final-cost-block" style="margin: 32px auto 0 auto; width: 80%; background: #f6f7f9; border: 2px solid #1a237e; border-radius: 8px; padding: 18px; font-size: 1.1em; font-weight: bold; color: #1a237e; text-align: center;">
         Final Cost: R0
     </div>
+    <!-- HIDDEN INPUT TO STORE FINAL COST AS A NUMBER FOR BACKEND -->
+    <input type="hidden" name="final_cost" id="final_cost" value="0">
     <!-- REQUIRED ORDER CONFIRMATION CHECKBOX -->
     <div id="order-confirmation" style="margin: 16px auto 0 auto; width: 80%;">
         <label for="confirm_order" style="display:flex; align-items:flex-start; gap:10px; color:#111; font-weight:500;">
@@ -901,6 +943,7 @@ const costingRadios = document.querySelectorAll('input[name="costing"]');
 const logoSelect = document.getElementById('logo_select');
 const colourSelect = document.getElementById('colour_select');
 const finalCostBlock = document.getElementById('final-cost-block');
+const finalCostInput = document.getElementById('final_cost');
 const customUploadContainer = document.getElementById('custom-upload-container');
 const customLogoUpload = document.getElementById('custom-logo-upload');
 const customUploadPreview = document.getElementById('custom-upload-preview');
@@ -1142,6 +1185,7 @@ function updateFormAndCost() {
     if (!costingValue){
         setDependentFieldsEnabled(false);
         finalCostBlock.textContent = "Final Cost: R0";
+        finalCostInput.value = 0;
         return;
     } else {
         // OTHERWISE ENABLE DEPENDENT FIELDS
@@ -1153,6 +1197,22 @@ function updateFormAndCost() {
             cost = 800;
             logoSelect.disabled = false;
             colourSelect.disabled = false;
+            // Filter logos to exclude "Feeling Sleepy" for MG Standard
+            const mgStandardAllowedLogos = allLogoOptions.filter(logo => logo.value !== 'Feeling Sleepy');
+            const currentMGLogoValue = logoSelect.value;
+            logoSelect.innerHTML = '';
+            mgStandardAllowedLogos.forEach(logo => {
+                const option = document.createElement('option');
+                option.value = logo.value;
+                option.textContent = logo.text;
+                logoSelect.appendChild(option);
+            });
+            // Reset to "No logo" if current selection is "Feeling Sleepy"
+            if (currentMGLogoValue === 'Feeling Sleepy') {
+                logoSelect.value = 'No logo';
+            } else if (mgStandardAllowedLogos.some(opt => opt.value === currentMGLogoValue)) {
+                logoSelect.value = currentMGLogoValue;
+            }
             break;
         case "cost850":
             cost = 850;
@@ -1168,10 +1228,29 @@ function updateFormAndCost() {
             break;
         case "cost980bite":
             cost = 980;
-            logoSelect.value = "N/A";
-            logoSelect.disabled = true;
+            logoSelect.disabled = false;
             colourSelect.value = "Clear";
             colourSelect.disabled = true;
+            // Filter logos to only show specific options for Rubberised
+            const rubberisedAllowedLogos = [
+                { value: 'No logo', text: 'No Logo' },
+                { value: 'Custom Text Upload', text: 'Custom Text Upload (+ R50)' },
+                { value: 'Feeling Sleepy', text: 'Feeling Sleepy (+ R50)' }
+            ];
+            const currentRubberisedLogoValue = logoSelect.value;
+            logoSelect.innerHTML = '';
+            rubberisedAllowedLogos.forEach(logo => {
+                const option = document.createElement('option');
+                option.value = logo.value;
+                option.textContent = logo.text;
+                logoSelect.appendChild(option);
+            });
+            // Set to "No logo" if current selection is not allowed
+            if (!['No logo', 'Custom Text Upload', 'Feeling Sleepy'].includes(currentRubberisedLogoValue)) {
+                logoSelect.value = 'No logo';
+            } else {
+                logoSelect.value = currentRubberisedLogoValue;
+            }
             break;
         case "costretainer":
         case "costbleach":
@@ -1192,21 +1271,32 @@ function updateFormAndCost() {
         cost += 180;
     }
 
+    // IF RUBBERISED AND CUSTOM TEXT UPLOAD OR FEELING SLEEPY CHOSEN, ADD R50 TO FINAL COST
+    if (
+        costingValue && costingValue.id === "cost980bite" &&
+        ["Custom Text Upload", "Feeling Sleepy"].includes(logoSelect.value)
+    ) {
+        cost += 50;
+    }
+
     // FINAL COST BLOCK UPDATE
     if (costingValue && ["costretainer", "costbleach"].includes(costingValue.id)) {
-        costText = "Final Cost: R1600";
+        costText = "Final Cost: R1750";
+        cost = 1750;
     } else if (cost > 0) {
         costText = "Final Cost: R" + cost;
     } else {
         costText = "Final Cost: R0";
+        cost = 0;
     }
 
     finalCostBlock.textContent = costText;
+    finalCostInput.value = cost;
 
-    // REMOVE DEFAULT OPTION: "Not Applicable (N/A)" FOR LOGO FIELD WHEN R800 MG STANDARD CHOSEN (only MG Standard can have a logo, nothing else)
+    // REMOVE DEFAULT OPTION: "Not Applicable (N/A)" FOR LOGO FIELD WHEN R800 MG STANDARD OR RUBBERISED CHOSEN
     const logoDropdown = logoSelect;
     const naOption = Array.from(logoDropdown.options).find(opt => opt.value === "N/A");
-    if (costingValue && costingValue.id === "cost800") {
+    if (costingValue && (costingValue.id === "cost800" || costingValue.id === "cost980bite")) {
         if (naOption) {
             logoDropdown.removeChild(naOption);
         }
@@ -1223,8 +1313,8 @@ function updateFormAndCost() {
         logoSelect.disabled = true;
     }
 
-    // HIDE LOGO GRID, CUSTOM UPLOAD, AND CUSTOM TEXT UPLOAD FOR NON MG STANDARD MOUTHGUARD OPTIONS
-    if (costingValue && costingValue.id !== "cost800") {
+    // HIDE LOGO GRID, CUSTOM UPLOAD, AND CUSTOM TEXT UPLOAD FOR NON MG STANDARD AND NON RUBBERISED MOUTHGUARD OPTIONS
+    if (costingValue && costingValue.id !== "cost800" && costingValue.id !== "cost980bite") {
         // Reset chosen logo preview to "No Logo"
         logoImageInput.value = "";
         chosenLogoSquare.textContent = "No Logo";
@@ -1244,6 +1334,7 @@ costingRadios.forEach(radio => {
     radio.addEventListener('change', updateFormAndCost);
 });
 colourSelect.addEventListener('change', updateFormAndCost);
+logoSelect.addEventListener('change', updateFormAndCost);
 
 // Add listener for club/school changes
 clubSchoolInput.addEventListener('change', updateFormAndCost);
@@ -1356,6 +1447,7 @@ const logoGrids = {
     "Butterflies & Flowers": document.getElementById('butterflies/flowers-logo-grid'),
     "Emojis": document.getElementById('emoji-logo-grid'),
     "Famous Movies & Games": document.getElementById('famous-logo-grid'),
+    "Feeling Sleepy": document.getElementById('feeling-sleepy-logo-grid'),
     "Skulls & Fangs": document.getElementById('Skulls/Fangs-logo-grid'),
     "Symbols": document.getElementById('symbols-logo-grid'),
     // ADD MORE MAPPINGS TO LOGO OPTIONS IF NEEDED

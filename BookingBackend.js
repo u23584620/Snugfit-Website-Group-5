@@ -1,5 +1,5 @@
 // GOOGLE APPS SCRIPT BACKEND LINK FOR GOOGLE SHEETS  (WEB APP URL)
-const scriptURL = "https://script.google.com/macros/s/AKfycby70oC7LUAg9RcKFjHJYQcnKBKJ_CpJpxgSm8Vb1xEGFw1xsdDi82RiPg6mF5HvNJ4cTw/exec"
+const scriptURL = "https://script.google.com/macros/s/AKfycbzLjrk2n1qTPpurt3tHZW9C6hwgLKQUJN6fsPQN6I7R4em8DeNUZAvpONiUjtYQhyyvaw/exec"
 // PROXY URL FOR FLASK BACKEND API FOR STORING AND GETTING ORDERS
 const proxyURL = "https://snugfit-website-group-5.onrender.com/api/orders";
 
@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fd.append("colour", colour);
     fd.append("additional_notes", readValue("additional_notes", ["#additional_notes"]));
     fd.append("logo_image",       logoHidden?.value || "");
+    fd.append("final_cost",       readValue("final_cost", ["#final_cost"]));
     
     const logoSelectVal = readValue("logo_select", ["#logo_select"]);
     if (logoSelectVal) fd.append("logo_select", logoSelectVal);
@@ -145,7 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
         colour: fd.get("colour") || fd.get("colour_selection") || "",
         // NOTE: large data URLs can slow down or exceed keepalive limits; include only if needed
         logo_image: fd.get("logo_image"),
-        additional_notes: fd.get("additional_notes")
+        additional_notes: fd.get("additional_notes"),
+        final_cost: parseInt(fd.get("final_cost")) || 0
       };
 
       // 3) Fire-and-forget to proxy so UI can proceed immediately
@@ -170,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // SEND AS FORMDATA TO BACKEND API/WEB APP
       const result = await submitBoth(fd);
 
-      // STORING FORM RESPONSE DATA NEED FOR THANK YOU OAGE IN LOCALSTORAGE
+      // STORING FORM RESPONSE DATA NEED FOR THANK YOU PAGE IN LOCALSTORAGE
       localStorage.setItem("first_name", fd.get("first_name") || "");
       localStorage.setItem("contact_email", fd.get("contact_email") || "");
       if(result.impressionNumber) localStorage.setItem("impressionNumber", result.impressionNumber);
