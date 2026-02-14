@@ -315,6 +315,9 @@ order capturing and management process by integrating with a backend API or web 
     <h2>Select One of Our Products</h2>
     <fieldset>
         <legend>2026 Pricing</legend>
+        
+        <!-- MOUTHGUARDS SECTION -->
+        <h3 style="color:#1a237e; font-size:1.1em; margin-top:12px; margin-bottom:8px; font-weight:bold;">Mouthguards</h3>
         <div>
             <input type="radio" name="costing" id="cost800" value="MG Standard" required>
             <label for="cost800" style="display:inline;">
@@ -348,19 +351,41 @@ order capturing and management process by integrating with a backend API or web 
                 Custom-fitted: separate guards (top in colour of your choice, bottom clear) with no name and logo due to thickness of double guard and possible interference with orthodontic process.
             </div>
         </div>
+
+        <!-- BITEPLATES SECTION -->
+        <h3 style="color:#1a237e; font-size:1.1em; margin-top:20px; margin-bottom:8px; font-weight:bold;">Biteplates</h3>
         <div>
             <input type="radio" name="costing" id="cost980bite" value="Rubberised">
             <label for="cost980bite" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
-                    R980: Rubberised Biteplate - Protects teeth from clenching (NOT FOR SPORT).
+                    R980: Rubberised Biteplate <span style="color:#000; font-weight:bold;"> - Protects teeth from clenching (NOT FOR SPORT).</span>
                 </span>
             </label>
         </div>
         <div>
-            <input type="radio" name="costing" id="costretainer" value="Retainer">
+            <input type="radio" name="costing" id="costacrylicbite" value="Acrylic Biteplate">
+            <label for="costacrylicbite" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R4500: Acrylic Biteplate <span style="color:#000; font-weight:bold;">- Protects teeth from clenching (NOT FOR SPORT).</span>
+                </span>
+            </label>
+        </div>
+
+        <!-- ORTHODONTIC & WHITENING SECTION -->
+        <h3 style="color:#1a237e; font-size:1.1em; margin-top:20px; margin-bottom:8px; font-weight:bold;">Orthodontic & Whitening</h3>
+        <div>
+            <input type="radio" name="costing" id="costretainer" value="Retainer (T/B)">
             <label for="costretainer" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
-                    R1750: Dental Retainers for post orthodontic treatment. 
+                    R1750: Dental Retainer (top OR bottom) <span style="color:#000; font-weight:bold;">for post orthodontic treatment.</span>
+                </span>
+            </label>
+        </div>
+        <div>
+            <input type="radio" name="costing" id="costretainerboth" value="Retainer (T&B)">
+            <label for="costretainerboth" style="display:inline;">
+                <span style="color:#1a237e; font-weight:bold;">
+                    R3500: Dental Retainer (top AND bottom) <span style="color:#000; font-weight:bold;">for post orthodontic treatment.</span>
                 </span>
             </label>
         </div>
@@ -368,7 +393,7 @@ order capturing and management process by integrating with a backend API or web 
             <input type="radio" name="costing" id="costbleach" value="Bleaching">
             <label for="costbleach" style="display:inline;">
                 <span style="color:#1a237e; font-weight:bold;">
-                    R1750: Bleaching Trays for home dental whitening (Excludes syringes).
+                    R1750: Bleaching Tray for home dental whitening <span style="color:#000; font-weight:bold;">(per tray, excluding syringes)</span>.
                 </span>
             </label>
         </div>
@@ -487,6 +512,7 @@ order capturing and management process by integrating with a backend API or web 
             <option value="Blue">Blue</option>
             <option value="Gold (+ R180)">Gold (+ R180)</option>
             <option value="Green">Green</option>
+            <option value="Maroon (+ R180)">Maroon (+ R180)</option>
             <option value="Orange">Orange</option>
             <option value="Pink">Pink</option>
             <option value="Purple">Purple</option>
@@ -494,6 +520,8 @@ order capturing and management process by integrating with a backend API or web 
             <option value="Silver (+ R180)">Silver (+ R180)</option>
             <option value="White">White</option>
             <option value="Yellow">Yellow</option>
+            <option value="Transparent Blue (+ R180)">Transparent Blue (+ R180)</option>
+            <option value="Transparent Green (+ R180)">Transparent Green (+ R180)</option>
             <option value="Black-Red Dual (+ R180)">Black-Red Dual (+ R180)</option>
             <option value="Black-White Dual (+ R180)">Black-White Dual (+ R180)</option>
             <option value="Black-Yellow Dual (+ R180)">Black-Yellow Dual (+ R180)</option>
@@ -1193,6 +1221,22 @@ function updateFormAndCost() {
     }
     // ADJUST (LIMIT) FORM FIELDS BASED ON PRODUCT SELECTION & CUSTOMISATION OPTIONS
     switch (costingValue.id) {
+        case 'costacrylicbite':
+            // R4500 Acrylic Biteplate: Clear only, no logo
+            colourSelect.disabled = true;
+            colourSelect.value = 'Clear';
+            logoSelect.disabled = true;
+            logoSelect.value = 'N/A';
+            cost = 4500;
+            break;
+        case 'costretainerboth':
+            // R3500 Retainer (top AND bottom): Clear only, no logo
+            colourSelect.disabled = true;
+            colourSelect.value = 'Clear';
+            logoSelect.disabled = true;
+            logoSelect.value = 'N/A';
+            cost = 3500;
+            break;
         case "cost800":
             cost = 800;
             logoSelect.disabled = false;
@@ -1266,7 +1310,7 @@ function updateFormAndCost() {
     // IF SPECIAL COLOUR SHEET CHOSEN, ADD R180 TO FINAL COST BLOCK FOR SPECIAL COLOURS IF ALLOWED
     if (
         (costingValue && ["cost800", "cost850", "cost980"].includes(costingValue.id)) &&
-        ["Gold (+ R180)", "Silver (+ R180)","Black-Red Dual (+ R180)", "Black-Yellow Dual (+ R180)", "Black-White Dual (+ R180)", "Blue-Green Dual (+ R180)", "Blue-Yellow Dual (+ R180)", "Blue-Red Dual (+ R180)", "Blue-White Dual (+ R180)", "Red-Yellow Dual (+ R180)", "Red-White Dual (+ R180)", "Red-White-Blue (+ R180)", "Galaxy Blue (+ R180)", "Galaxy Green (+ R180)", "Galaxy Purple (+ R180)", "Galaxy Pink (+ R180)"].includes(colourSelect.value)
+        ["Gold (+ R180)", "Silver (+ R180)", "Maroon (+ R180)", "Transparent Blue (+ R180)", "Transparent Green (+ R180)", "Black-Red Dual (+ R180)", "Black-Yellow Dual (+ R180)", "Black-White Dual (+ R180)", "Blue-Green Dual (+ R180)", "Blue-Yellow Dual (+ R180)", "Blue-Red Dual (+ R180)", "Blue-White Dual (+ R180)", "Red-Yellow Dual (+ R180)", "Red-White Dual (+ R180)", "Red-White-Blue (+ R180)", "Galaxy Blue (+ R180)", "Galaxy Green (+ R180)", "Galaxy Purple (+ R180)", "Galaxy Pink (+ R180)"].includes(colourSelect.value)
     ) {
         cost += 180;
     }
@@ -1283,6 +1327,12 @@ function updateFormAndCost() {
     if (costingValue && ["costretainer", "costbleach"].includes(costingValue.id)) {
         costText = "Final Cost: R1750";
         cost = 1750;
+    } else if (costingValue && costingValue.id === "costretainerboth") {
+        costText = "Final Cost: R3500";
+        cost = 3500;
+    } else if (costingValue && costingValue.id === "costacrylicbite") {
+        costText = "Final Cost: R4500";
+        cost = 4500;
     } else if (cost > 0) {
         costText = "Final Cost: R" + cost;
     } else {

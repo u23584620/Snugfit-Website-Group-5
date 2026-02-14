@@ -1,5 +1,5 @@
 // GOOGLE APPS SCRIPT BACKEND LINK FOR GOOGLE SHEETS  (WEB APP URL)
-const scriptURL = "https://script.google.com/macros/s/AKfycbzLjrk2n1qTPpurt3tHZW9C6hwgLKQUJN6fsPQN6I7R4em8DeNUZAvpONiUjtYQhyyvaw/exec"
+const scriptURL = "https://script.google.com/macros/s/AKfycbyQwy3ySrGPyAB2LMZAUrlh_YCtvNCRKwQPNWE2go2oZLmS9OO7_TbvXjCC8Y0h5mIy/exec"
 // PROXY URL FOR FLASK BACKEND API FOR STORING AND GETTING ORDERS
 const proxyURL = "https://snugfit-website-group-5.onrender.com/api/orders";
 
@@ -33,8 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // CAPTURE final_cost BEFORE enabling disabled fields to prevent recalculation
+    const finalCostBeforeManipulation = parseInt(document.getElementById("final_cost")?.value) || 0;
+    console.log("DEBUG: Captured final_cost before form manipulation:", finalCostBeforeManipulation);
+
+    // REMOVE name attribute from final_cost hidden field to prevent auto-inclusion in FormData
+    const finalCostHiddenField = document.getElementById("final_cost");
+    if (finalCostHiddenField) {
+      finalCostHiddenField.removeAttribute("name");
+      console.log("DEBUG: Removed name attribute from final_cost field to prevent duplicate");
+    }
+
     // ENABLE ANY DISABLED FIELDS TO READ THEIR DEFAULT VALUES FOR SUBMISSION
-    document.querySelectorAll("[disabled], fieldset[disabled]").forEach(el => el.disabled = false);
+    // BUT EXCLUDE final_cost to prevent recalculation issues
+    document.querySelectorAll("[disabled], fieldset[disabled]").forEach(el => {
+      if (el.id !== "final_cost" && el.name !== "final_cost") {
+        el.disabled = false;
+      }
+    });
 
     // IF "Custom Text Upload" SELECTED BUT NO IMAGE SAVED, GENERATE IT FROM CURRENT FIELDS
     try {
@@ -100,14 +116,31 @@ document.addEventListener("DOMContentLoaded", () => {
     fd.append("contact_number",   readValue("contact_number", ["#contact_number"]));
     fd.append("contact_email",    readValue("contact_email", ["#contact_email"]));
     fd.append("payment_option",   readValue("payment_option"));
-    fd.append("costing",          readValue("costing"));
+    
+    // Handle Rubberised costing with logo and calculate final cost
+    let costingValue = readValue("costing");
+    const selectedProduct = document.querySelector('input[name="costing"]:checked');
+    const logoSelectValue = readValue("logo_select", ["#logo_select"]);
+    // Use the captured value from before form manipulation
+    let finalCost = finalCostBeforeManipulation;
+    
+    if (selectedProduct && selectedProduct.id === "cost980bite" && logoSelectValue && logoSelectValue !== "No logo") {
+      costingValue = "Rubberised (Logo)";
+      // Ensure final cost is 1030 for Rubberised with logo (980 + 50)
+      finalCost = 1030;
+      console.log("DEBUG: Setting Rubberised (Logo) final_cost to 1030");
+    }
+    console.log("DEBUG: final_cost before append:", finalCost, typeof finalCost);
+    fd.append("costing", costingValue);
+    
     // Supports either name="colour" or name="colour_selection" or id="colour_select" to avoid id mismatches
     let colour = readValue("colour", ["#colour_select"]);
     if (!colour) colour = readValue("colour_selection");
     fd.append("colour", colour);
     fd.append("additional_notes", readValue("additional_notes", ["#additional_notes"]));
     fd.append("logo_image",       logoHidden?.value || "");
-    fd.append("final_cost",       readValue("final_cost", ["#final_cost"]));
+    fd.append("final_cost",       finalCost.toString());
+    console.log("DEBUG: final_cost appended to FormData:", fd.get("final_cost"), typeof fd.get("final_cost"));
     
     const logoSelectVal = readValue("logo_select", ["#logo_select"]);
     if (logoSelectVal) fd.append("logo_select", logoSelectVal);
